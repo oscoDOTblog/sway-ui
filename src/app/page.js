@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ProjectSlide from './components/ProjectSlide';
+import NewsletterSignup from './components/NewsletterSignup';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import { projects } from './data/projects';
@@ -14,6 +15,11 @@ export default function Home() {
     setCurrentProjectIndex(index);
   };
 
+  const currentProject = projects[currentProjectIndex];
+  
+  // Check if the current project is the News project (id: 4)
+  const isNewsProject = currentProject.id === 4;
+
   return (
     <div className={styles.container}>
       <Sidebar 
@@ -23,7 +29,11 @@ export default function Home() {
       />
       <div className={styles.contentArea}>
         <main className={styles.main}>
-          <ProjectSlide project={projects[currentProjectIndex]} />
+          {isNewsProject ? (
+            <NewsletterSignup project={currentProject} />
+          ) : (
+            <ProjectSlide project={currentProject} />
+          )}
         </main>
         <Footer />
       </div>
