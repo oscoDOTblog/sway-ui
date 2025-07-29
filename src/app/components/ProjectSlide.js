@@ -2,6 +2,48 @@ import Image from 'next/image';
 import styles from './ProjectSlide.module.css';
 
 export default function ProjectSlide({ project }) {
+  const handleButtonClick = () => {
+    if (project.comingSoon) {
+      // For coming soon projects, you could show a modal or notification
+      alert(`${project.title} is coming soon!`);
+    } else if (project.url) {
+      // For live projects, navigate to the URL
+      window.open(project.url, '_blank');
+    }
+  };
+
+  const buttonStyle = {
+    background: project.gradient,
+    color: '#fff',
+    border: 'none',
+    padding: '1rem 3rem',
+    borderRadius: '50px',
+    fontSize: '1.25rem',
+    fontWeight: '700',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    boxShadow: project.comingSoon 
+      ? '0 10px 30px rgba(0, 0, 0, 0.2)' 
+      : '0 10px 30px rgba(0, 255, 136, 0.3)',
+    opacity: project.comingSoon ? 0.8 : 1
+  };
+
+  const categoryStyle = {
+    background: project.gradient,
+    color: '#fff',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    fontSize: '0.875rem',
+    fontWeight: '600',
+    display: 'inline-block',
+    marginBottom: '1rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
+  };
+
   return (
     <div className={styles.slideContainer}>
       {/* Background Image */}
@@ -19,7 +61,7 @@ export default function ProjectSlide({ project }) {
       {/* Content */}
       <div className={styles.content}>
         <div className={styles.header}>
-          <div className={styles.category}>{project.category}</div>
+          <div style={categoryStyle}>{project.category}</div>
           <div className={styles.title}>{project.title}</div>
         </div>
         
@@ -31,8 +73,25 @@ export default function ProjectSlide({ project }) {
           <div className={styles.iconContainer}>
             <span className={styles.icon}>{project.icon}</span>
           </div>
-          <button className={styles.goButton}>
-            GO
+          <button 
+            style={buttonStyle}
+            onClick={handleButtonClick}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.opacity = '1';
+              e.target.style.boxShadow = project.comingSoon 
+                ? '0 15px 40px rgba(0, 0, 0, 0.3)' 
+                : '0 15px 40px rgba(0, 255, 136, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.opacity = project.comingSoon ? '0.8' : '1';
+              e.target.style.boxShadow = project.comingSoon 
+                ? '0 10px 30px rgba(0, 0, 0, 0.2)' 
+                : '0 10px 30px rgba(0, 255, 136, 0.3)';
+            }}
+          >
+            {project.comingSoon ? 'COMING SOON' : 'GO'}
           </button>
         </div>
       </div>

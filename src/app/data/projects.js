@@ -1,82 +1,112 @@
 export const projects = [
   {
     id: 1,
-    title: "Virtual Netizen",
-    description: "A cutting-edge AI-powered social media platform that creates virtual personas and digital identities. Features advanced avatar customization, AI-driven content generation, and seamless cross-platform integration.",
-    icon: "🌐",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "AI & Social Media"
+    title: "F4",
+    description: "Duolingo for Dance - Practice, Learn, and Get Instant Feedback Daily",
+    icon: "💃",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Dance Learning",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
   },
   {
     id: 2,
-    title: "Quantum Dance Studio",
-    description: "Revolutionary dance learning platform using motion capture and AI analysis. Real-time feedback, personalized choreography, and virtual dance battles with global competitors.",
-    icon: "💃",
+    title: "XR",
+    description: "Freestyle Sessions in Virtual Reality",
+    icon: "🥽",
     backgroundImage: "/ux/dance-central-gameplay.jpg",
-    category: "Fitness & Entertainment"
+    category: "Virtual Reality",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
   },
   {
     id: 3,
-    title: "Neural Art Gallery",
-    description: "AI-generated art marketplace where users can commission, trade, and showcase unique digital artworks. Features blockchain authentication and collaborative creation tools.",
-    icon: "🎨",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Art & Technology"
+    title: "Tunes",
+    description: "Curated playlists for all kinds of dance styles",
+    icon: "🎵",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Music & Dance",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
   },
   {
     id: 4,
-    title: "EcoSmart City",
-    description: "Sustainable urban planning platform that optimizes city infrastructure using IoT sensors and machine learning. Real-time environmental monitoring and predictive analytics.",
-    icon: "🏙️",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Smart Cities"
+    title: "News",
+    description: "Wanna sign up?",
+    icon: "📰",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "News & Updates",
+    comingSoon: false,
+    url: "https://news.danceplatform.com",
+    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
   },
   {
     id: 5,
-    title: "CryptoVerse Trading",
-    description: "Advanced cryptocurrency trading platform with AI-powered market analysis, automated trading bots, and comprehensive portfolio management tools.",
-    icon: "📈",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Finance & Trading"
+    title: "Shapes",
+    description: "Footwork practice in augmented reality",
+    icon: "👟",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Augmented Reality",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
   },
   {
     id: 6,
-    title: "DreamScape VR",
-    description: "Immersive virtual reality experience platform for therapy, meditation, and creative exploration. Customizable environments and biofeedback integration.",
-    icon: "🌌",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "VR & Wellness"
+    title: "Seshes",
+    description: "Luma for Dance - Checkout events, workshops, and studios in your area",
+    icon: "🎪",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Events & Workshops",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
   },
   {
     id: 7,
-    title: "BioTech Lab",
-    description: "Collaborative platform for biotechnology research and development. Features lab management tools, data visualization, and secure sharing protocols.",
-    icon: "🧬",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Biotechnology"
+    title: "Roots",
+    description: "How do I start dancing? Where did my style come from? And more",
+    icon: "🌱",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Dance History",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
   },
   {
     id: 8,
-    title: "Smart Home Hub",
-    description: "Centralized smart home automation system with voice control, energy optimization, and security monitoring. Compatible with all major IoT devices.",
-    icon: "🏠",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "IoT & Automation"
+    title: "Crews",
+    description: "Directory for dancers and teams across the world",
+    icon: "👥",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Community",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
   },
   {
     id: 9,
-    title: "EduTech Academy",
-    description: "Personalized learning platform using adaptive AI to create custom curricula. Interactive simulations, progress tracking, and collaborative study groups.",
-    icon: "📚",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Education"
+    title: "Drip",
+    description: "Get the latest fits with our partners",
+    icon: "👕",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Fashion & Style",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
   },
   {
     id: 10,
-    title: "GameVerse Arena",
-    description: "Cross-platform gaming ecosystem with cloud gaming, tournament systems, and social features. Supports multiple game genres and streaming integration.",
-    icon: "🎮",
-    backgroundImage: "/ux/p5x-gacha.jpeg",
-    category: "Gaming & Entertainment"
+    title: "Choreo",
+    description: "Break a video down into moves and play for the highest score!",
+    icon: "🎯",
+    backgroundImage: "/ux/dance-central-gameplay.jpg",
+    category: "Gaming & Dance",
+    comingSoon: true,
+    url: null,
+    gradient: "linear-gradient(135deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)"
   }
 ]; 
