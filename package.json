@@ -1,7 +1,31 @@
 {
-  "name": "sway-ui",
+  "name": "swayDOTquest",
   "version": "0.1.0",
   "private": true,
+  "description": "Your one-stop shop for becoming a better dancer. Comprehensive dance improvement platform with tools, tutorials, and resources to elevate your dance skills and confidence.",
+  "keywords": [
+    "dance",
+    "dance-improvement",
+    "dance-tutorials",
+    "dance-skills",
+    "dance-training",
+    "dance-practice",
+    "dance-education",
+    "dance-community",
+    "dance-resources",
+    "better-dancer",
+    "dance-platform"
+  ],
+  "author": "swayDOTquest Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swayquest/swayDOTquest.git"
+  },
+  "homepage": "https://swayquest.vercel.app",
+  "bugs": {
+    "url": "https://github.com/swayquest/swayDOTquest/issues"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -24,5 +48,9 @@
     "eslint-config-next": "15.4.4",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

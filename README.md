@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# swayDOTquest - Your One-Stop Shop for Becoming a Better Dancer
 
-## Getting Started
+swayDOTquest is your comprehensive platform for dance improvement. From beginner basics to advanced techniques, discover tools, tutorials, and resources to elevate your dance skills and confidence. Whether you're just starting your dance journey or looking to perfect your moves, we provide everything you need to become a better dancer.
 
-First, run the development server:
+![swayDOTquest Preview](public/bg/graffiti.jpg)
 
+## 🚀 Features
+
+- **Comprehensive Dance Resources**: From beginner tutorials to advanced techniques
+- **Interactive Learning Tools**: Practice routines and skill assessments
+- **Community Support**: Connect with fellow dancers and share progress
+- **Personalized Training**: Track your progress and set dance goals
+- **Mobile Responsive**: Practice anywhere, anytime with our mobile-optimized platform
+- **Performance Tracking**: Monitor your improvement with detailed analytics
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15.4.4
+- **UI Library**: React 19.1.0
+- **Styling**: CSS Modules (no Tailwind)
+- **Icons**: React Icons
+- **Deployment**: Vercel-ready
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js 18.0.0 or higher
+- npm 8.0.0 or higher
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/swayquest/swayDOTquest.git
+cd swayDOTquest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+## 🎨 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+swayDOTquest/
+├── public/
+│   ├── bg/
+│   │   └── graffiti.jpg          # Preview image
+│   └── projects/                 # Project images
+├── src/
+│   └── app/
+│       ├── components/           # Reusable components
+│       ├── config/              # Configuration files
+│       ├── data/                # Project data
+│       └── utils/               # Utility functions
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Deploy on Vercel
+## 📱 Mobile Responsive
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The platform is fully responsive and optimized for all device sizes, allowing you to practice and learn dance moves anywhere, anytime.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📞 Contact
+
+For questions or support, please open an issue on GitHub.
+
+---
+
+Built with ❤️ by the swayDOTquest Team
