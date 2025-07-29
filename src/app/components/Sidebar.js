@@ -5,7 +5,7 @@ export default function Sidebar({ projects, currentIndex, onProjectChange }) {
     <div className={styles.sidebar}>
       <div className={styles.header}>
         <h2 className={styles.title}>swayDOTquest</h2>
-        <div className={styles.subtitle}>What We're Cooking</div>
+        <div className={styles.subtitle}>What We&apos;re Cooking</div>
       </div>
       
       <div className={styles.projectList}>
