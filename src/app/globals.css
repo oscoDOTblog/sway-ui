@@ -32,4 +32,5 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
