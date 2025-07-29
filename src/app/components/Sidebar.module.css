@@ -159,42 +159,57 @@
   .sidebar {
     width: 100%;
     height: auto;
-    max-height: 40vh;
+    max-height: 30vh;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .header {
-    padding: 1rem;
-  }
-  
-  .title {
-    font-size: 1.25rem;
-  }
-  
-  .projectList {
-    padding: 0.5rem 0;
-  }
-  
-  .projectItem {
     padding: 0.75rem 1rem;
   }
   
+  .title {
+    font-size: 1.125rem;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .projectList {
+    padding: 0.25rem 0;
+    max-height: 18vh;
+    overflow-y: auto;
+  }
+  
+  .projectItem {
+    padding: 0.5rem 1rem;
+  }
+  
   .projectIcon {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     margin-right: 0.75rem;
   }
   
   .icon {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   
   .projectTitle {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
   }
   
   .projectCategory {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+  }
+  
+  .footer {
+    padding: 0.5rem 1rem;
+  }
+  
+  .counter {
+    font-size: 0.75rem;
   }
 } 
