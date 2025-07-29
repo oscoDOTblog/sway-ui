@@ -4,8 +4,8 @@ export default function Sidebar({ projects, currentIndex, onProjectChange }) {
   return (
     <div className={styles.sidebar}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Projects</h2>
-        <div className={styles.subtitle}>Portfolio Showcase</div>
+        <h2 className={styles.title}>swayDOTquest</h2>
+        <div className={styles.subtitle}>What We're Cooking</div>
       </div>
       
       <div className={styles.projectList}>

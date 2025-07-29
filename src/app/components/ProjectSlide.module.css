@@ -73,7 +73,8 @@
   line-height: 1.6;
   max-width: 600px;
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  color: white;
 }
 
 .actions {

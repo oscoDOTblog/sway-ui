@@ -27,6 +27,19 @@ export default function ProjectSlide({ project }) {
     )`;
   };
 
+  // Extract colors from the gradient for the description background
+  const getDescriptionBackground = (gradient) => {
+    // Extract the first color from the gradient
+    const colorMatch = gradient.match(/#[a-fA-F0-9]{6}/);
+    const primaryColor = colorMatch ? colorMatch[0] : '#667eea';
+    
+    // Create a subtle background using the project's primary color
+    return {
+      background: `linear-gradient(135deg, ${primaryColor}20 0%, ${primaryColor}10 100%)`,
+      border: `1px solid ${primaryColor}30`
+    };
+  };
+
   const buttonStyle = {
     background: project.gradient,
     color: '#fff',
@@ -85,7 +98,15 @@ export default function ProjectSlide({ project }) {
           <div className={styles.title}>{project.title}</div>
         </div>
         
-        <div className={styles.description}>
+        <div 
+          className={styles.description}
+          style={{
+            ...getDescriptionBackground(project.gradient),
+            padding: '1rem 1.5rem',
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
           {project.description}
         </div>
         
