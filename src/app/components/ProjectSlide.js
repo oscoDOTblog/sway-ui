@@ -12,6 +12,21 @@ export default function ProjectSlide({ project }) {
     }
   };
 
+  // Extract colors from the gradient for the overlay
+  const getOverlayGradient = (gradient) => {
+    // Extract the first color from the gradient
+    const colorMatch = gradient.match(/#[a-fA-F0-9]{6}/);
+    const primaryColor = colorMatch ? colorMatch[0] : '#667eea';
+    
+    // Create a semi-transparent overlay using the project's primary color
+    return `linear-gradient(
+      135deg,
+      ${primaryColor}80 0%,
+      ${primaryColor}40 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    )`;
+  };
+
   const buttonStyle = {
     background: project.gradient,
     color: '#fff',
@@ -55,7 +70,12 @@ export default function ProjectSlide({ project }) {
           style={{ objectFit: 'cover' }}
           priority
         />
-        <div className={styles.overlay} />
+        <div 
+          className={styles.overlay} 
+          style={{
+            background: getOverlayGradient(project.gradient)
+          }}
+        />
       </div>
       
       {/* Content */}
