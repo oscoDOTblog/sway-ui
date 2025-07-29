@@ -5,7 +5,7 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
 }
 
 .backgroundImage {
@@ -50,7 +50,7 @@
 }
 
 .category {
-  background: linear-gradient(45deg, #00ff88, #00ccff);
+  background: var(--accent-gradient);
   color: #000;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -65,7 +65,7 @@
 .title {
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(45deg, #ffffff, #00ff88);
+  background: var(--text-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -107,7 +107,7 @@
 }
 
 .goButton {
-  background: linear-gradient(45deg, #00ff88, #00ccff);
+  background: var(--accent-gradient);
   color: #000;
   border: none;
   padding: 1rem 3rem;
