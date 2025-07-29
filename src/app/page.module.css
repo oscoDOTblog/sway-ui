@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.contentArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--primary-gradient);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .contentArea {
+    min-height: 70vh;
+  }
+  
+  .main {
+    padding: 1rem;
+  }
+} 

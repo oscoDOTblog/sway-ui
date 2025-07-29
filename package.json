@@ -1,0 +1,58 @@
+{
+  "name": "swayDOTquest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Your one-stop shop for becoming a better dancer. Comprehensive dance improvement platform with tools, tutorials, and resources to elevate your dance skills and confidence.",
+  "keywords": [
+    "dance",
+    "dance-improvement",
+    "dance-tutorials",
+    "dance-skills",
+    "dance-training",
+    "dance-practice",
+    "dance-education",
+    "dance-community",
+    "dance-resources",
+    "better-dancer",
+    "dance-platform"
+  ],
+  "author": "swayDOTquest Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swayquest/swayDOTquest.git"
+  },
+  "homepage": "https://swayquest.vercel.app",
+  "bugs": {
+    "url": "https://github.com/swayquest/swayDOTquest/issues"
+  },
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
+    "axios": "^1.11.0",
+    "next": "15.4.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
