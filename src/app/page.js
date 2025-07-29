@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ProjectSlide from './components/ProjectSlide';
 import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import { projects } from './data/projects';
 import styles from './page.module.css';
 
@@ -20,9 +21,12 @@ export default function Home() {
         currentIndex={currentProjectIndex}
         onProjectChange={handleProjectChange}
       />
-      <main className={styles.main}>
-        <ProjectSlide project={projects[currentProjectIndex]} />
-      </main>
+      <div className={styles.contentArea}>
+        <main className={styles.main}>
+          <ProjectSlide project={projects[currentProjectIndex]} />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 } 

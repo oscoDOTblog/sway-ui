@@ -1,8 +1,7 @@
 .slideContainer {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  height: 600px;
+  height: 100%;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -39,9 +38,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 3rem;
   color: white;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
@@ -85,7 +86,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-top: auto;
+  margin-top: 2rem;
 }
 
 .iconContainer {
@@ -169,12 +170,13 @@
 
 @media (max-width: 768px) {
   .slideContainer {
-    height: 500px;
+    height: 100%;
     margin: 1rem;
   }
   
   .content {
     padding: 2rem;
+    justify-content: center;
   }
   
   .title {
@@ -188,6 +190,7 @@
   .actions {
     flex-direction: column;
     gap: 1rem;
+    margin-top: 2rem;
   }
   
   .iconContainer {
