@@ -38,8 +38,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>SWAY Portfolio</h1>
-          <p className={styles.heroSubtitle}>Dance Technology & Innovation</p>
+          <h1 className={styles.heroTitle}>swayDOTquest</h1>
+          <p className={styles.heroSubtitle}>Your One-Stop Shop for Becoming a Better Dancer</p>
         </div>
       </section>
 
