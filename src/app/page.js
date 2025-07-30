@@ -7,8 +7,6 @@ import styles from './page.module.css';
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
 
   const handleProjectClick = (project) => {
     setSelectedProject(project);
@@ -18,15 +16,6 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
-  };
-
-  const handleVideoLoad = () => {
-    setVideoLoaded(true);
-  };
-
-  const handleVideoError = () => {
-    setVideoError(true);
-    setVideoLoaded(true); // Show fallback immediately
   };
 
   return (
@@ -56,27 +45,12 @@ export default function Home() {
             muted
             loop
             playsInline
-            preload="metadata"
-            onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
-            style={{ opacity: videoLoaded ? 1 : 0 }}
+            preload="auto"
           >
-            <source src="/vids/nat-fly-girls.webm" type="video/webm" />
+            <source src="/vids/nat-fly-girls-fixed.webm" type="video/webm" />
             {/* Fallback message if video fails */}
             Your browser does not support the video tag.
           </video>
-          
-          {/* Fallback gradient overlay if video fails */}
-          {videoError && (
-            <div className={styles.fallbackBackground}></div>
-          )}
-          
-          {/* Loading overlay */}
-          {!videoLoaded && (
-            <div className={styles.loadingOverlay}>
-              <div className={styles.loadingSpinner}></div>
-            </div>
-          )}
         </div>
 
         {/* Hero Content */}
@@ -89,7 +63,7 @@ export default function Home() {
       {/* Projects Grid */}
       <section className={styles.projectsSection}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Featured Projects</h2>
+          <h2 className={styles.sectionTitle}>The Lab</h2>
         </div>
         
         <div className={styles.projectsGrid}>

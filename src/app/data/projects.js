@@ -21,19 +21,9 @@ export const projects = [
     url: "https://xr.sway.quest",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
   },
+
   {
-    id: 4,
-    title: "News",
-    description: "Wanna sign up?",
-    icon: "📰",
-    backgroundImage: "/projects/news-v1.png",
-    category: "News & Updates",
-    comingSoon: false,
-    url: "https://news.danceplatform.com",
-    gradient: "linear-gradient(135deg, #8bc34a 0%, #4caf50 100%)"
-  },
-  {
-    id: 6,
+    id: 3,
     title: "Seshes",
     description: "Checkout events, workshops, and studios in your area",
     icon: "🎪",
@@ -44,7 +34,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #000000 0%, #808080 100%)"
   },
   {
-    id: 3,
+    id: 4,
     title: "Tunes",
     description: "Curated playlists for all kinds of dance styles",
     icon: "🎵",
@@ -55,7 +45,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
   },
   {
-    id: 8,
+    id: 5,
     title: "Crews",
     description: "Directory for dancers and teams across the world",
     icon: "👥",
@@ -66,7 +56,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
   },
   {
-    id: 5,
+    id: 6,
     title: "Shapes",
     description: "Cut Shapes and Practice Footwork in Augmented Reality",
     icon: "👟",
@@ -88,7 +78,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
   },
   {
-    id: 9,
+    id: 8,
     title: "Drip",
     description: "Get the latest fits with our partners",
     icon: "👕",
@@ -99,7 +89,7 @@ export const projects = [
     gradient: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
   },
   {
-    id: 10,
+    id: 9,
     title: "Choreo",
     description: "Break a dance video down into moves and play for the highest score!",
     icon: "🎯",
