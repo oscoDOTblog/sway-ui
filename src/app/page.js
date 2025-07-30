@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { projects } from './data/projects';
 import AnimatedForm from './components/AnimatedForm';
 import Footer from './components/Footer';
@@ -29,10 +30,10 @@ export default function Home() {
             <span className={styles.logoText}>SWAY</span>
           </div>
           <nav className={styles.nav}>
-            <a href="#" className={styles.navLink}>Home</a>
-            <a href="#" className={styles.navLink}>Projects</a>
-            <a href="#" className={styles.navLink}>About</a>
-            <a href="#" className={styles.navLink}>Contact</a>
+            <Link href="/" className={styles.navLink}>Home</Link>
+            <Link href="#" className={styles.navLink}>Projects</Link>
+            <Link href="#" className={styles.navLink}>About</Link>
+            <Link href="/contact" className={styles.navLink}>Contact</Link>
           </nav>
         </div>
       </header>

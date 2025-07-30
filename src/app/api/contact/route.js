@@ -1,14 +1,20 @@
 import { NextResponse } from 'next/server';
+import axios from 'axios';
+
+// Telegram configuration
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_API = TELEGRAM_BOT_TOKEN ? `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}` : null;
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { email } = body;
+    const { name, email, message } = body;
 
     // Basic validation
-    if (!email) {
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { error: 'Email is required' },
+        { error: 'Name, email, and message are required' },
         { status: 400 }
       );
     }
@@ -22,13 +28,33 @@ export async function POST(request) {
       );
     }
 
-    // Here you would typically:
-    // 1. Save to database (Supabase)
-    // 2. Send email notification
-    // 3. Log the submission
-    
-    // For now, we'll simulate a successful submission
-    console.log('Newsletter subscription:', { email });
+    // Send Telegram notification
+    let telegramSuccess = false;
+    if (TELEGRAM_API && TELEGRAM_CHAT_ID) {
+      try {
+        console.log('Sending contact form to Telegram...');
+        
+        const telegramMessage = `📧 New Contact Form Submission!\n\n👤 Name: ${name}\n📧 Email: ${email}\n💬 Message: ${message}\n\nSource: sway-ui contact form`;
+        
+        const telegramResponse = await axios.post(`${TELEGRAM_API}/sendMessage`, {
+          chat_id: TELEGRAM_CHAT_ID,
+          text: telegramMessage,
+          parse_mode: 'HTML'
+        });
+        
+        console.log('Telegram response:', telegramResponse.data);
+        telegramSuccess = true;
+        console.log('✅ Contact form sent to Telegram successfully');
+      } catch (telegramError) {
+        console.error('❌ Telegram error:', telegramError.response?.data || telegramError.message);
+        // Don't fail the request if Telegram fails
+      }
+    } else {
+      console.log('⚠️ Telegram not configured - skipping notification');
+    }
+
+    // Log the submission
+    console.log('Contact form submission:', { name, email, message, telegramSent: telegramSuccess });
 
     // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -36,7 +62,8 @@ export async function POST(request) {
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Successfully subscribed! We\'ll keep you updated on new projects.' 
+        message: 'Message sent successfully! We\'ll get back to you soon.',
+        telegramSent: telegramSuccess
       },
       { status: 200 }
     );

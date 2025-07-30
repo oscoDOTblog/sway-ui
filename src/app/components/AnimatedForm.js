@@ -119,7 +119,7 @@ export default function AnimatedForm() {
         {isSubmitted && (
           <div className={styles.successMessage}>
             <div className={styles.successIcon}>✓</div>
-            <p>Successfully subscribed! We'll keep you updated on new projects.</p>
+            <p>Successfully subscribed! We&apos;ll keep you updated on new projects.</p>
           </div>
         )}
       </div>
