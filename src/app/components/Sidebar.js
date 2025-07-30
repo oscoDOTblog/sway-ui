@@ -32,7 +32,7 @@ export default function Sidebar({ projects, currentIndex, onProjectChange }) {
         
         {/* Scroll indicator for mobile */}
         <div className={styles.scrollIndicator}>
-          <div className={styles.scrollArrow}>↓</div>
+          <div className={styles.scrollArrow}>↑</div>
           <div className={styles.scrollText}>Scroll for more</div>
         </div>
       </div>
