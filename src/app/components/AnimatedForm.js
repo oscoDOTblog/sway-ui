@@ -69,8 +69,8 @@ export default function AnimatedForm() {
     <section className={styles.formSection}>
       <div className={styles.formContainer}>
         <div className={styles.formHeader}>
-          <h2 className={styles.formTitle}>Stay Updated</h2>
-          <p className={styles.formSubtitle}>Get notified about new dance projects and updates!</p>
+          <h2 className={styles.formTitle}>Stay in the Loop</h2>
+          <p className={styles.formSubtitle}>Keep updated on new dance projects and updates!</p>
         </div>
         
         <form className={styles.form} onSubmit={handleSubmit}>
