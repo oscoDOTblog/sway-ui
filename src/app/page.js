@@ -55,7 +55,7 @@ export default function Home() {
           {/* Sidebar Scroll Indicator */}
           {showSidebarIndicator && (
             <div className={styles.sidebarIndicator}>
-              <div className={styles.indicatorArrow}>←</div>
+              <div className={styles.indicatorArrow}>↑</div>
               <div className={styles.indicatorText}>Click and scroll to explore projects</div>
             </div>
           )}

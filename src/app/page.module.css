@@ -46,7 +46,7 @@
 .indicatorArrow {
   font-size: 1.25rem;
   color: rgba(255, 255, 255, 0.9);
-  animation: pointLeft 2s ease-in-out infinite;
+  animation: pointUp 2s ease-in-out infinite;
 }
 
 .indicatorText {
@@ -67,12 +67,12 @@
   }
 }
 
-@keyframes pointLeft {
+@keyframes pointUp {
   0%, 100% {
-    transform: translateX(0);
+    transform: translateY(0);
   }
   50% {
-    transform: translateX(-5px);
+    transform: translateY(-5px);
   }
 }
 

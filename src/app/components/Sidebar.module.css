@@ -171,7 +171,7 @@
 .scrollArrow {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  animation: bounceUp 2s ease-in-out infinite;
+  animation: bounceDown 2s ease-in-out infinite;
 }
 
 .scrollText {
@@ -189,12 +189,12 @@
   }
 }
 
-@keyframes bounceUp {
+@keyframes bounceDown {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(3px);
   }
 }
 
