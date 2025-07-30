@@ -14,10 +14,17 @@ try {
   console.error('Failed to initialize Supabase client:', error);
 }
 
-// Telegram configuration
+// Telegram configuration with better debugging
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const TELEGRAM_API = TELEGRAM_BOT_TOKEN ? `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}` : null;
+
+// Debug Telegram configuration
+console.log('Telegram Configuration Debug:');
+console.log('- TELEGRAM_BOT_TOKEN exists:', !!TELEGRAM_BOT_TOKEN);
+console.log('- TELEGRAM_CHAT_ID exists:', !!TELEGRAM_CHAT_ID);
+console.log('- TELEGRAM_CHAT_ID value:', TELEGRAM_CHAT_ID);
+console.log('- TELEGRAM_API exists:', !!TELEGRAM_API);
 
 export async function POST(request) {
   try {
@@ -73,21 +80,43 @@ export async function POST(request) {
       );
     }
 
-    // Send Telegram notification
+    // Send Telegram notification with improved debugging
+    let telegramSuccess = false;
     if (TELEGRAM_API && TELEGRAM_CHAT_ID) {
       try {
-        await axios.post(`${TELEGRAM_API}/sendMessage`, {
+        console.log('Attempting to send Telegram notification...');
+        console.log('- API URL:', TELEGRAM_API);
+        console.log('- Chat ID:', TELEGRAM_CHAT_ID);
+        
+        const telegramResponse = await axios.post(`${TELEGRAM_API}/sendMessage`, {
           chat_id: TELEGRAM_CHAT_ID,
           text: `🎉 New newsletter signup!\nEmail: ${email}\nSource: sway-ui`
         });
+        
+        console.log('Telegram response:', telegramResponse.data);
+        telegramSuccess = true;
+        console.log('✅ Telegram notification sent successfully');
       } catch (telegramError) {
-        console.error('Telegram error:', telegramError);
+        console.error('❌ Telegram error:', telegramError.response?.data || telegramError.message);
+        console.error('Telegram error details:', {
+          status: telegramError.response?.status,
+          statusText: telegramError.response?.statusText,
+          data: telegramError.response?.data
+        });
         // Don't fail the request if Telegram fails
       }
+    } else {
+      console.log('⚠️ Telegram not configured - skipping notification');
+      console.log('- TELEGRAM_API:', TELEGRAM_API);
+      console.log('- TELEGRAM_CHAT_ID:', TELEGRAM_CHAT_ID);
     }
 
     return new Response(
-      JSON.stringify({ success: true, message: 'Successfully subscribed!' }),
+      JSON.stringify({ 
+        success: true, 
+        message: 'Successfully subscribed!',
+        telegramSent: telegramSuccess
+      }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
