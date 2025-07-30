@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { email } = body;
 
     // Basic validation
-    if (!name || !email || !message) {
+    if (!email) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
@@ -28,7 +28,7 @@ export async function POST(request) {
     // 3. Log the submission
     
     // For now, we'll simulate a successful submission
-    console.log('Contact form submission:', { name, email, message });
+    console.log('Newsletter subscription:', { email });
 
     // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -36,7 +36,7 @@ export async function POST(request) {
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Message sent successfully! We\'ll get back to you soon.' 
+        message: 'Successfully subscribed! We\'ll keep you updated on new projects.' 
       },
       { status: 200 }
     );

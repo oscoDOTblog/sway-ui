@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { projects } from './data/projects';
+import AnimatedForm from './components/AnimatedForm';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -96,6 +97,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Animated Contact Form */}
+      <AnimatedForm />
 
       {/* Modal */}
       {isModalOpen && selectedProject && (

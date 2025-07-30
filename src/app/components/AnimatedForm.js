@@ -5,9 +5,7 @@ import styles from './AnimatedForm.module.css';
 
 export default function AnimatedForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    email: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -40,7 +38,7 @@ export default function AnimatedForm() {
       if (response.ok) {
         setIsSubmitted(true);
         setError('');
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ email: '' });
         
         // Reset form after showing success
         setTimeout(() => {
@@ -71,31 +69,11 @@ export default function AnimatedForm() {
     <section className={styles.formSection}>
       <div className={styles.formContainer}>
         <div className={styles.formHeader}>
-          <h2 className={styles.formTitle}>Get in Touch</h2>
-          <p className={styles.formSubtitle}>Ready to level up your dance game? Let's connect!</p>
+          <h2 className={styles.formTitle}>Stay Updated</h2>
+          <p className={styles.formSubtitle}>Get notified about new dance projects and updates!</p>
         </div>
         
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.inputGroup}>
-            <div className={styles.inputWrapper}>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                onFocus={() => handleFocus('name')}
-                onBlur={handleBlur}
-                className={`${styles.input} ${focusedField === 'name' ? styles.focused : ''}`}
-                placeholder=" "
-                required
-              />
-              <label className={`${styles.label} ${formData.name || focusedField === 'name' ? styles.active : ''}`}>
-                Your Name
-              </label>
-              <div className={styles.inputLine}></div>
-            </div>
-          </div>
-
           <div className={styles.inputGroup}>
             <div className={styles.inputWrapper}>
               <input
@@ -116,26 +94,6 @@ export default function AnimatedForm() {
             </div>
           </div>
 
-          <div className={styles.inputGroup}>
-            <div className={styles.inputWrapper}>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                onFocus={() => handleFocus('message')}
-                onBlur={handleBlur}
-                className={`${styles.textarea} ${focusedField === 'message' ? styles.focused : ''}`}
-                placeholder=" "
-                rows="4"
-                required
-              />
-              <label className={`${styles.label} ${formData.message || focusedField === 'message' ? styles.active : ''}`}>
-                Your Message
-              </label>
-              <div className={styles.inputLine}></div>
-            </div>
-          </div>
-
           <button 
             type="submit" 
             className={`${styles.submitButton} ${isSubmitting ? styles.submitting : ''}`}
@@ -146,7 +104,7 @@ export default function AnimatedForm() {
                 <div className={styles.spinnerInner}></div>
               </div>
             ) : (
-              'Send Message'
+              'Subscribe'
             )}
           </button>
         </form>
@@ -161,7 +119,7 @@ export default function AnimatedForm() {
         {isSubmitted && (
           <div className={styles.successMessage}>
             <div className={styles.successIcon}>✓</div>
-            <p>Message sent successfully! We'll get back to you soon.</p>
+            <p>Successfully subscribed! We'll keep you updated on new projects.</p>
           </div>
         )}
       </div>
