@@ -1,7 +1,7 @@
 export const teamMembers = [
   {
     id: 1,
-    name: "Djaka",
+    name: "osco",
     role: "LEADER",
     level: 61,
     hp: 449,
@@ -30,7 +30,7 @@ export const teamMembers = [
       proficiency: { level: 5, rank: "Transcendent", maxed: true }
     },
     description: "The charismatic leader of the team, known for strategic thinking and unwavering determination. Specializes in close combat and tactical planning.",
-    image: "/projects/osco.png" // Using existing image as placeholder
+    image: "/team/osco.jpg" // Using existing image as placeholder
   },
   {
     id: 2,
