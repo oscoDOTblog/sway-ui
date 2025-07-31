@@ -43,6 +43,15 @@
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .navLink:hover {
@@ -53,22 +62,6 @@
 .dropdownContainer {
   position: relative;
   display: inline-block;
-}
-
-.dropdownContainer button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  padding: 0;
-  margin: 0;
-  transition: color 0.3s ease;
-}
-
-.dropdownContainer button:hover {
-  color: #ff1493;
 }
 
 .dropdown {

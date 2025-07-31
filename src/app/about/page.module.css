@@ -1,0 +1,11 @@
+.aboutContainer {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  padding-top: 80px; /* Account for fixed header */
+}
+
+.aboutContent {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+} 
