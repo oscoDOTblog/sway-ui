@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { projects } from './data/projects';
 import AnimatedForm from './components/AnimatedForm';
-import Footer from './components/Footer';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -129,9 +128,6 @@ export default function Home() {
 
       {/* Animated Contact Form */}
       <AnimatedForm />
-
-      {/* Footer */}
-      <Footer />
 
       {/* Modal */}
       {isModalOpen && selectedProject && (
