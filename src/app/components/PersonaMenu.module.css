@@ -184,6 +184,10 @@
 .characterImage {
   position: relative;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
 }
 
 .characterImage img {
@@ -408,7 +412,8 @@
 
   .characterContent {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
   }
 
   .statsContent {
@@ -430,7 +435,9 @@
   }
 
   .characterImage img {
-    max-width: 300px;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
   }
 
   .totalExp {

@@ -108,8 +108,8 @@ const PersonaMenu = () => {
             height={300}
             className={styles.characterImage}
           />
-          <div className={styles.leaderLabel}>LEADER</div>
-        </div>
+          <div className={styles.leaderLabel}>{selectedCharacter.role}</div>
+          </div>
 
         <div className={styles.characterStats}>
           <div className={styles.levelBlock}>
