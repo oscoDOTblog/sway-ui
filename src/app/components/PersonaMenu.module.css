@@ -171,51 +171,7 @@
   font-weight: bold;
 }
 
-/* Command Section */
-.commandSection {
-  margin-top: 2rem;
-  text-align: center;
-}
 
-.commandText {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-}
-
-.promptText {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-}
-
-.commandButtons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.commandButton {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.5rem 1rem;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-}
-
-.commandButton:hover {
-  background: rgba(255, 20, 147, 0.2);
-  border-color: #ff1493;
-}
 
 /* Character Details Page */
 .characterContent {

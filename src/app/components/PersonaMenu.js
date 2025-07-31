@@ -28,6 +28,18 @@ const PersonaMenu = () => {
     }
   };
 
+  const handlePrevCharacter = () => {
+    const newIndex = selectedCharacterIndex > 0 ? selectedCharacterIndex - 1 : teamMembers.length - 1;
+    setSelectedCharacter(teamMembers[newIndex]);
+    setSelectedCharacterIndex(newIndex);
+  };
+
+  const handleNextCharacter = () => {
+    const newIndex = selectedCharacterIndex < teamMembers.length - 1 ? selectedCharacterIndex + 1 : 0;
+    setSelectedCharacter(teamMembers[newIndex]);
+    setSelectedCharacterIndex(newIndex);
+  };
+
   const renderTeamList = () => (
     <div className={styles.pageContainer}>
       <div className={styles.header}>
@@ -66,24 +78,7 @@ const PersonaMenu = () => {
         ))}
       </div>
 
-      <div className={styles.commandSection}>
-        <div className={styles.commandText}>COMMAND</div>
-        <div className={styles.promptText}>Whose stats do you want to view?</div>
-        <div className={styles.commandButtons}>
-          <div className={styles.commandButton}>
-            <span className={styles.buttonIcon}>□</span>
-            <span>Party</span>
-          </div>
-          <div className={styles.commandButton}>
-            <span className={styles.buttonIcon}>○</span>
-            <span>Back</span>
-          </div>
-          <div className={styles.commandButton}>
-            <span className={styles.buttonIcon}>×</span>
-            <span>Stats</span>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 
@@ -91,18 +86,17 @@ const PersonaMenu = () => {
     <div className={styles.pageContainer}>
       <div className={styles.header}>
         <div className={styles.navButtons}>
-          <div className={styles.navButton}>
-            <span className={styles.buttonIcon}>L1</span>
+          <div className={styles.navButton} onClick={handlePrevCharacter}>
+            <span className={styles.buttonIcon}>◀</span>
+            <span className={styles.buttonText}>Prev</span>
           </div>
           <div className={styles.characterNameBanner}>{selectedCharacter.name}</div>
-          <div className={styles.navButton}>
-            <span className={styles.buttonIcon}>R1</span>
+          <div className={styles.navButton} onClick={handleNextCharacter}>
+            <span className={styles.buttonIcon}>▶</span>
+            <span className={styles.buttonText}>Next</span>
           </div>
         </div>
-        <div className={styles.screenTitle}>
-          <span>Social Stats</span>
-          <span className={styles.controllerIcon}>🎮</span>
-        </div>
+
       </div>
 
       <div className={styles.characterContent}>
@@ -167,12 +161,14 @@ const PersonaMenu = () => {
     <div className={styles.pageContainer}>
       <div className={styles.header}>
         <div className={styles.navButtons}>
-          <div className={styles.navButton}>
-            <span className={styles.buttonIcon}>L1</span>
+          <div className={styles.navButton} onClick={handlePrevCharacter}>
+            <span className={styles.buttonIcon}>◀</span>
+            <span className={styles.buttonText}>Prev</span>
           </div>
           <div className={styles.characterNameBanner}>{selectedCharacter.name}</div>
-          <div className={styles.navButton}>
-            <span className={styles.buttonIcon}>R1</span>
+          <div className={styles.navButton} onClick={handleNextCharacter}>
+            <span className={styles.buttonIcon}>▶</span>
+            <span className={styles.buttonText}>Next</span>
           </div>
         </div>
         <div className={styles.screenTitle}>
