@@ -20,6 +20,28 @@ export default function Home() {
     setSelectedProject(null);
   };
 
+  // Touch feedback handlers for mobile
+  const handleTouchStart = (e) => {
+    e.currentTarget.style.transform = 'scale(0.98)';
+    e.currentTarget.style.transition = 'transform 0.1s ease';
+  };
+
+  const handleTouchEnd = (e) => {
+    e.currentTarget.style.transform = '';
+    e.currentTarget.style.transition = '';
+  };
+
+  // Touch feedback for GO button
+  const handleGoButtonTouchStart = (e) => {
+    e.currentTarget.style.transform = 'scale(0.95)';
+    e.currentTarget.style.transition = 'transform 0.1s ease';
+  };
+
+  const handleGoButtonTouchEnd = (e) => {
+    e.currentTarget.style.transform = '';
+    e.currentTarget.style.transition = '';
+  };
+
   return (
     <div className={styles.container}>
 
@@ -60,6 +82,8 @@ export default function Home() {
               key={project.id} 
               className={styles.projectCard}
               onClick={() => handleProjectClick(project)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               <div className={styles.projectImage}>
                 <img 
@@ -72,9 +96,27 @@ export default function Home() {
                     <h3 className={styles.projectTitle}>{project.title}</h3>
                     <p className={styles.projectDescription}>{project.description}</p>
                     <div className={styles.projectMeta}>
-                      <span className={styles.projectCategory}>{project.category}</span>
+                      <span 
+                        className={styles.projectCategory}
+                        style={{ background: project.gradient }}
+                      >
+                        {project.category}
+                      </span>
                       {project.comingSoon && (
                         <span className={styles.comingSoon}>Coming Soon</span>
+                      )}
+                      {!project.comingSoon && project.url && (
+                        <a 
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.goButton}
+                          onClick={(e) => e.stopPropagation()}
+                          onTouchStart={handleGoButtonTouchStart}
+                          onTouchEnd={handleGoButtonTouchEnd}
+                        >
+                          GO
+                        </a>
                       )}
                     </div>
                   </div>
