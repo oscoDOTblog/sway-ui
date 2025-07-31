@@ -10,7 +10,7 @@
 }
 
 .pageContainer {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px); /* Account for header padding */
   padding: 1rem;
   position: relative;
   background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
@@ -436,6 +436,7 @@
 @media (min-width: 768px) {
   .pageContainer {
     padding: 2rem;
+    min-height: calc(100vh - 80px); /* Account for header padding */
   }
 
   .header {
