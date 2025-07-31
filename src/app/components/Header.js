@@ -39,7 +39,7 @@ export default function Header() {
       <div className={styles.headerContent}>
         <div className={styles.logo}>
           <Link href="/" className={styles.logoLink}>
-            <span className={styles.logoText}>SWAY</span>
+            <span className={styles.logoText}>swayDOTquest</span>
           </Link>
         </div>
         <nav className={styles.nav}>

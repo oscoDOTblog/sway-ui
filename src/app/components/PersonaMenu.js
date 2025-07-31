@@ -44,7 +44,7 @@ const PersonaMenu = () => {
     <div className={styles.pageContainer}>
       <div className={styles.header}>
         <div className={styles.titleBanner}>
-          <span className={styles.titleText}>The Phantoms</span>
+          <span className={styles.titleText}>Team Stay Afloat</span>
         </div>
         <div className={styles.navButtons}>
           <div className={styles.navButton}>
