@@ -3,6 +3,5 @@ do not use tailwind css
 when creating css, use nextjs css modules and make sure it's mobile-responsive
 do not implement features that will leak any sensitive app information or credentials 
 make the code as modular and scalable as possible, create re-usable functions and components where approriate and in anticipation of future changes
-make sure any new changes do not break "npm run build"
 for authentication, i am using supabase
 for databases, i am using supabase
