@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { teamMembers } from '../data/team';
 import styles from './PersonaMenu.module.css';
@@ -27,58 +27,6 @@ const PersonaMenu = () => {
       setCurrentPage(1);
     }
   };
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (currentPage === 1) {
-        switch (event.key) {
-          case 'ArrowUp':
-            event.preventDefault();
-            setSelectedCharacterIndex(prev => 
-              prev > 0 ? prev - 1 : teamMembers.length - 1
-            );
-            break;
-          case 'ArrowDown':
-            event.preventDefault();
-            setSelectedCharacterIndex(prev => 
-              prev < teamMembers.length - 1 ? prev + 1 : 0
-            );
-            break;
-          case 'Enter':
-            event.preventDefault();
-            handleCharacterSelect(teamMembers[selectedCharacterIndex], selectedCharacterIndex);
-            break;
-          case 'Escape':
-            event.preventDefault();
-            setCurrentPage(1);
-            break;
-        }
-      } else if (currentPage === 2) {
-        switch (event.key) {
-          case 's':
-          case 'S':
-            event.preventDefault();
-            handleStatsView();
-            break;
-          case 'Escape':
-            event.preventDefault();
-            handleBack();
-            break;
-        }
-      } else if (currentPage === 3) {
-        switch (event.key) {
-          case 'Escape':
-            event.preventDefault();
-            handleBack();
-            break;
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentPage, selectedCharacterIndex, handleCharacterSelect, handleStatsView, handleBack]);
 
   const renderTeamList = () => (
     <div className={styles.pageContainer}>
@@ -257,13 +205,24 @@ const PersonaMenu = () => {
         </div>
 
         <div className={styles.socialStats}>
-          <div className={styles.statsStar}>
+          <div className={styles.statsList}>
             {Object.entries(selectedCharacter.socialStats).map(([stat, data]) => (
-              <div key={stat} className={`${styles.statItem} ${styles[`stat${stat.charAt(0).toUpperCase() + stat.slice(1)}`]}`}>
-                <div className={styles.statLabel}>
-                  {stat.charAt(0).toUpperCase() + stat.slice(1)} {data.maxed ? 'MAX' : data.level}
+              <div key={stat} className={styles.statItem}>
+                <div className={styles.statHeader}>
+                  <div className={styles.statLabel}>
+                    {stat.charAt(0).toUpperCase() + stat.slice(1)} {data.maxed ? 'MAX' : data.level}
+                  </div>
+                  <div className={styles.statRank}>{data.rank}</div>
                 </div>
-                <div className={styles.statRank}>{data.rank}</div>
+                <div className={styles.progressBar}>
+                  <div 
+                    className={styles.progressFill} 
+                    style={{ 
+                      width: `${(data.level / 5) * 100}%`,
+                      backgroundColor: data.maxed ? '#ff1493' : '#ff69b4'
+                    }}
+                  ></div>
+                </div>
               </div>
             ))}
           </div>
@@ -285,14 +244,7 @@ const PersonaMenu = () => {
       {currentPage === 2 && renderCharacterDetails()}
       {currentPage === 3 && renderStatsMenu()}
       
-      {/* Instructions overlay */}
-      <div className={styles.instructions}>
-        <div className={styles.instructionText}>
-          {currentPage === 1 && "Use ↑↓ arrows to navigate, Enter to select, Esc to go back"}
-          {currentPage === 2 && "Press 'S' for Stats, Esc to go back"}
-          {currentPage === 3 && "Press Esc to go back"}
-        </div>
-      </div>
+
     </div>
   );
 };
