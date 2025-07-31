@@ -321,6 +321,35 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
+.socialMediaLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.socialLink {
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  transform: translateX(5px);
+}
+
+.socialLinkText {
+  color: #ff1493;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 0.2rem 0;
+}
+
+.socialLinkText:hover {
+  color: #ff69b4;
+  text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+}
+
 .description {
   grid-column: 1 / -1;
   background: rgba(255, 255, 255, 0.05);

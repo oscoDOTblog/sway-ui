@@ -22,6 +22,12 @@ export const teamMembers = [
       maxAmmo: 16,
       defense: 192
     },
+    socialMedia: [
+      { platform: "Instagram", handle: "@osco_leader", url: "https://instagram.com/osco_leader" },
+      { platform: "Twitter", handle: "@osco_strategy", url: "https://twitter.com/osco_strategy" },
+      { platform: "YouTube", handle: "@osco_tactics", url: "https://youtube.com/@osco_tactics" },
+      { platform: "Discord", handle: "osco_crew", url: "https://discord.gg/osco_crew" }
+    ],
     socialStats: {
       knowledge: { level: 5, rank: "Erudite", maxed: true },
       charm: { level: 5, rank: "Debonair", maxed: true },
@@ -30,7 +36,7 @@ export const teamMembers = [
       proficiency: { level: 5, rank: "Transcendent", maxed: true }
     },
     description: "The charismatic leader of the team, known for strategic thinking and unwavering determination. Specializes in close combat and tactical planning.",
-    image: "/team/osco.jpg" // Using existing image as placeholder
+    image: "/team/osco-wide.jpg" // Using existing image as placeholder
   },
   {
     id: 2,
@@ -55,6 +61,11 @@ export const teamMembers = [
       maxAmmo: 12,
       defense: 185
     },
+    socialMedia: [
+      { platform: "Instagram", handle: "@ryuji_powerhouse", url: "https://instagram.com/ryuji_powerhouse" },
+      { platform: "TikTok", handle: "@ryuji_skate", url: "https://tiktok.com/@ryuji_skate" },
+      { platform: "YouTube", handle: "@ryuji_skateboarding", url: "https://youtube.com/@ryuji_skateboarding" }
+    ],
     socialStats: {
       knowledge: { level: 3, rank: "Scholar", maxed: false },
       charm: { level: 2, rank: "Charming", maxed: false },
@@ -88,6 +99,11 @@ export const teamMembers = [
       maxAmmo: 8,
       defense: 145
     },
+    socialMedia: [
+      { platform: "Twitter", handle: "@morgana_cat", url: "https://twitter.com/morgana_cat" },
+      { platform: "Bluesky", handle: "morgana.metaverse", url: "https://bsky.app/profile/morgana.metaverse" },
+      { platform: "Mastodon", handle: "@morgana_nav", url: "https://mastodon.social/@morgana_nav" }
+    ],
     socialStats: {
       knowledge: { level: 4, rank: "Wise", maxed: false },
       charm: { level: 3, rank: "Charming", maxed: false },
@@ -121,6 +137,12 @@ export const teamMembers = [
       maxAmmo: 10,
       defense: 160
     },
+    socialMedia: [
+      { platform: "Instagram", handle: "@ann_takamaki", url: "https://instagram.com/ann_takamaki" },
+      { platform: "TikTok", handle: "@ann_fashion", url: "https://tiktok.com/@ann_fashion" },
+      { platform: "YouTube", handle: "@ann_modeling", url: "https://youtube.com/@ann_modeling" },
+      { platform: "Threads", handle: "@ann_takamaki", url: "https://threads.net/@ann_takamaki" }
+    ],
     socialStats: {
       knowledge: { level: 3, rank: "Scholar", maxed: false },
       charm: { level: 5, rank: "Debonair", maxed: true },
@@ -154,6 +176,11 @@ export const teamMembers = [
       maxAmmo: 14,
       defense: 195
     },
+    socialMedia: [
+      { platform: "Instagram", handle: "@yusuke_art", url: "https://instagram.com/yusuke_art" },
+      { platform: "Twitter", handle: "@yusuke_paintings", url: "https://twitter.com/yusuke_paintings" },
+      { platform: "Bluesky", handle: "yusuke.art", url: "https://bsky.app/profile/yusuke.art" }
+    ],
     socialStats: {
       knowledge: { level: 4, rank: "Wise", maxed: false },
       charm: { level: 2, rank: "Charming", maxed: false },
@@ -187,6 +214,11 @@ export const teamMembers = [
       maxAmmo: 12,
       defense: 180
     },
+    socialMedia: [
+      { platform: "Twitter", handle: "@makoto_queen", url: "https://twitter.com/makoto_queen" },
+      { platform: "Mastodon", handle: "@makoto_strategy", url: "https://mastodon.social/@makoto_strategy" },
+      { platform: "Discord", handle: "makoto_study", url: "https://discord.gg/makoto_study" }
+    ],
     socialStats: {
       knowledge: { level: 5, rank: "Erudite", maxed: true },
       charm: { level: 3, rank: "Charming", maxed: false },
@@ -220,6 +252,11 @@ export const teamMembers = [
       maxAmmo: 16,
       defense: 170
     },
+    socialMedia: [
+      { platform: "Instagram", handle: "@haru_gardening", url: "https://instagram.com/haru_gardening" },
+      { platform: "YouTube", handle: "@haru_tea", url: "https://youtube.com/@haru_tea" },
+      { platform: "Threads", handle: "@haru_okumura", url: "https://threads.net/@haru_okumura" }
+    ],
     socialStats: {
       knowledge: { level: 4, rank: "Wise", maxed: false },
       charm: { level: 4, rank: "Charming", maxed: false },
@@ -253,6 +290,12 @@ export const teamMembers = [
       maxAmmo: 6,
       defense: 125
     },
+    socialMedia: [
+      { platform: "Twitter", handle: "@futaba_hacker", url: "https://twitter.com/futaba_hacker" },
+      { platform: "Discord", handle: "futaba_tech", url: "https://discord.gg/futaba_tech" },
+      { platform: "Mastodon", handle: "@futaba_code", url: "https://mastodon.social/@futaba_code" },
+      { platform: "Bluesky", handle: "futaba.nav", url: "https://bsky.app/profile/futaba.nav" }
+    ],
     socialStats: {
       knowledge: { level: 5, rank: "Erudite", maxed: true },
       charm: { level: 2, rank: "Charming", maxed: false },

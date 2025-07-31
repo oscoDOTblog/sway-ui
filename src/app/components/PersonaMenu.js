@@ -136,11 +136,19 @@ const PersonaMenu = () => {
               <span className={styles.personaLevel}>Lv {selectedCharacter.persona.level}</span>
               <span className={styles.personaName}>{selectedCharacter.persona.name}</span>
             </div>
-            <div className={styles.combatStats}>
-              <div>Melee Atk • {selectedCharacter.stats.meleeAtk}</div>
-              <div>Ranged Atk • {selectedCharacter.stats.rangedAtk} × {selectedCharacter.stats.maxAmmo}</div>
-              <div>Ammo {selectedCharacter.stats.ammo}/{selectedCharacter.stats.maxAmmo}</div>
-              <div>Defense • {selectedCharacter.stats.defense}</div>
+            <div className={styles.socialMediaLinks}>
+              {selectedCharacter.socialMedia.map((social, index) => (
+                <div key={index} className={styles.socialLink}>
+                  <a 
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.socialLinkText}
+                  >
+                    {social.platform} • {social.handle}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -203,10 +211,19 @@ const PersonaMenu = () => {
               <span className={styles.personaLevel}>Lv {selectedCharacter.persona.level}</span>
               <span className={styles.personaName}>{selectedCharacter.persona.name}</span>
             </div>
-            <div className={styles.combatStats}>
-              <div>Melee Atk • {selectedCharacter.stats.meleeAtk}</div>
-              <div>Ranged Atk • {selectedCharacter.stats.rangedAtk}</div>
-              <div>Defense • {selectedCharacter.stats.defense}</div>
+            <div className={styles.socialMediaLinks}>
+              {selectedCharacter.socialMedia.map((social, index) => (
+                <div key={index} className={styles.socialLink}>
+                  <a 
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.socialLinkText}
+                  >
+                    {social.platform} • {social.handle}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>
