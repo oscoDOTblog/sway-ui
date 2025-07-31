@@ -57,7 +57,7 @@ export default function Footer() {
         })}
       </div>
       <div className={styles.copyright}>
-        © 2024 Sway Portfolio. All rights reserved.
+        © 2025 swayDOTquest. All rights reserved.
       </div>
     </footer>
   );
