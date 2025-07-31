@@ -29,7 +29,7 @@
 .logoText {
   font-size: 2rem;
   font-weight: bold;
-  color: #e50914;
+  color: #ff1493;
   text-decoration: none;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .navLink:hover {
-  color: #e50914;
+  color: #ff1493;
 }
 
 /* Dropdown Styles */
@@ -68,7 +68,7 @@
 }
 
 .dropdownContainer button:hover {
-  color: #e50914;
+  color: #ff1493;
 }
 
 .dropdown {
@@ -111,8 +111,8 @@
 }
 
 .dropdownItem:hover {
-  background: rgba(229, 9, 20, 0.2);
-  color: #e50914;
+  background: rgba(255, 20, 147, 0.2);
+  color: #ff1493;
 }
 
 .dropdownIcon {
@@ -142,7 +142,7 @@
 
 .dropdownComingSoon {
   font-size: 0.7rem;
-  color: #e50914;
+  color: #ff1493;
   font-weight: 600;
   margin-top: 2px;
 }

@@ -49,7 +49,7 @@ html {
 /* Focus styles for accessibility */
 button:focus,
 a:focus {
-  outline: 2px solid #e50914;
+  outline: 2px solid #ff1493;
   outline-offset: 2px;
 }
 

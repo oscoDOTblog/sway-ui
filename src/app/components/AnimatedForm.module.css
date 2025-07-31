@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(229, 9, 20, 0.1) 50%, transparent 70%);
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 20, 147, 0.1) 50%, transparent 70%);
   animation: shimmer 3s ease-in-out infinite;
   pointer-events: none;
 }
@@ -43,7 +43,7 @@
   font-weight: bold;
   color: #fff;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #fff, #e50914);
+  background: linear-gradient(45deg, #fff, #ff1493);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -106,7 +106,7 @@
 .label.active {
   top: -0.5rem;
   font-size: 0.85rem;
-  color: #e50914;
+  color: #ff1493;
   transform: translateY(-100%);
 }
 
@@ -124,14 +124,14 @@
 .textarea:focus ~ .inputLine,
 .input.focused ~ .inputLine,
 .textarea.focused ~ .inputLine {
-  background: #e50914;
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+  background: #ff1493;
+  box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
 }
 
 .submitButton {
   width: 100%;
   padding: 1rem 2rem;
-  background: linear-gradient(45deg, #e50914, #f40612);
+  background: linear-gradient(45deg, #ff1493, #ff69b4);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -161,7 +161,7 @@
 
 .submitButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
 }
 
 .submitButton:active {

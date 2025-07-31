@@ -64,7 +64,7 @@
   width: 50px;
   height: 50px;
   border: 3px solid rgba(255,255,255,0.3);
-  border-top: 3px solid #e50914;
+  border-top: 3px solid #ff1493;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -88,11 +88,11 @@
   font-size: 4rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #fff, #e50914);
+  background: linear-gradient(45deg, #fff, #ff1493);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
+  text-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
 }
 
 .heroSubtitle {
@@ -216,7 +216,7 @@
 }
 
 .goButton {
-  background: #e50914;
+  background: #ff1493;
   color: #fff;
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
@@ -228,9 +228,9 @@
 }
 
 .goButton:hover {
-  background: #f40612;
+  background: #ff69b4;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3);
 }
 
 .goButton:active {
@@ -512,7 +512,7 @@
   
   .goButton:active {
     transform: scale(0.95);
-    background: #f40612;
+    background: #ff69b4;
   }
 }
 
