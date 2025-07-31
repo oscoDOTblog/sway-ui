@@ -65,13 +65,24 @@ const PersonaMenu = () => {
             className={`${styles.characterItem} ${index === selectedCharacterIndex ? styles.selected : ''}`}
             onClick={() => handleCharacterSelect(character, index)}
           >
-            <div className={styles.roleLabel}>{character.role}</div>
-            <div className={styles.characterInfo}>
-              <div className={styles.characterName}>{character.name}</div>
-              <div className={styles.characterStats}>
-                <span className={styles.level}>LV {character.level}</span>
-                <span className={styles.hp}>HP {character.hp}</span>
-                <span className={styles.sp}>SP {character.sp}</span>
+            <div className={styles.characterCard}>
+              <Image 
+                src={character.image} 
+                alt={character.name}
+                width={300}
+                height={200}
+                className={styles.characterCardImage}
+              />
+              <div className={styles.characterCardOverlay}>
+                <div className={styles.roleLabel}>{character.role}</div>
+                <div className={styles.characterInfo}>
+                  <div className={styles.characterName}>{character.name}</div>
+                  <div className={styles.characterStats}>
+                    <span className={styles.level}>LV {character.level}</span>
+                    <span className={styles.hp}>HP {character.hp}</span>
+                    <span className={styles.sp}>SP {character.sp}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
