@@ -107,7 +107,16 @@ const PersonaMenu = () => {
             <span className={styles.buttonText}>Next</span>
           </div>
         </div>
-
+        <div className={styles.actionButtons}>
+          <div className={styles.navButton} onClick={handleStatsView}>
+            <span className={styles.buttonIcon}>○</span>
+            <span>Stats</span>
+          </div>
+          <div className={styles.navButton} onClick={handleBack}>
+            <span className={styles.buttonIcon}>○</span>
+            <span>Back</span>
+          </div>
+        </div>
       </div>
 
       <div className={styles.characterContent}>
@@ -157,22 +166,6 @@ const PersonaMenu = () => {
           <p>{selectedCharacter.description}</p>
         </div>
       </div>
-
-      <div className={styles.totalExp}>
-        <span>TOTAL EXP</span>
-        <span className={styles.expValue}>{selectedCharacter.exp.toLocaleString()}</span>
-      </div>
-
-      <div className={styles.navigationButtons}>
-        <div className={styles.navButton} onClick={handleStatsView}>
-          <span className={styles.buttonIcon}>○</span>
-          <span>Stats</span>
-        </div>
-        <div className={styles.navButton} onClick={handleBack}>
-          <span className={styles.buttonIcon}>○</span>
-          <span>Back</span>
-        </div>
-      </div>
     </div>
   );
 
@@ -190,9 +183,15 @@ const PersonaMenu = () => {
             <span className={styles.buttonText}>Next</span>
           </div>
         </div>
-        <div className={styles.screenTitle}>
-          <span>Stats</span>
-          <span className={styles.controllerIcon}>🎮</span>
+        <div className={styles.actionButtons}>
+          <div className={`${styles.navButton} ${styles.statsButton}`}>
+            <span className={styles.buttonIcon}>🎮</span>
+            <span>Stats</span>
+          </div>
+          <div className={styles.navButton} onClick={handleBack}>
+            <span className={styles.buttonIcon}>○</span>
+            <span>Back</span>
+          </div>
         </div>
       </div>
 
@@ -250,13 +249,6 @@ const PersonaMenu = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      <div className={styles.navigationButtons}>
-        <div className={styles.navButton} onClick={handleBack}>
-          <span className={styles.buttonIcon}>○</span>
-          <span>Back</span>
         </div>
       </div>
     </div>

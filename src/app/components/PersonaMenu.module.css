@@ -19,7 +19,9 @@
 /* Header Styles */
 .header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
   position: relative;
@@ -42,13 +44,20 @@
 
 .navButtons {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .navButton {
   background: linear-gradient(45deg, #ff1493, #ff69b4);
   color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border: 2px solid #fff;
   transform: skew(-5deg);
   cursor: pointer;
@@ -56,7 +65,8 @@
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
+  font-size: 0.8rem;
 }
 
 .navButton:hover {
@@ -350,6 +360,18 @@
   text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
 }
 
+.statsButton {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #000 !important;
+}
+
+.statsButton:hover {
+  background: #f0f0f0 !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
 .description {
   grid-column: 1 / -1;
   background: rgba(255, 255, 255, 0.05);
@@ -452,6 +474,46 @@
   transition: width 0.3s ease;
 }
 
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .navButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    gap: 0.2rem;
+  }
+  
+  .buttonText {
+    font-size: 0.7rem;
+  }
+  
+  .characterNameBanner {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .header {
+    gap: 0.5rem;
+  }
+}
+
+/* Medium Screen Optimizations */
+@media (min-width: 481px) and (max-width: 767px) {
+  .navButton {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    gap: 0.25rem;
+  }
+  
+  .buttonText {
+    font-size: 0.75rem;
+  }
+  
+  .characterNameBanner {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
 /* Desktop Enhancements */
 @media (min-width: 768px) {
   .pageContainer {
@@ -463,6 +525,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
   }
 
   .characterList {
