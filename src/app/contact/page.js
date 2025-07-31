@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function Contact() {
@@ -69,21 +68,6 @@ export default function Contact() {
 
   return (
     <div className={styles.container}>
-      {/* Netflix-style Header */}
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logo}>
-            <Link href="/" className={styles.logoText}>SWAY</Link>
-          </div>
-          <nav className={styles.nav}>
-            <Link href="/" className={styles.navLink}>Home</Link>
-            <Link href="/" className={styles.navLink}>Projects</Link>
-            <Link href="/" className={styles.navLink}>About</Link>
-            <Link href="/contact" className={`${styles.navLink} ${styles.active}`}>Contact</Link>
-          </nav>
-        </div>
-      </header>
-
       {/* Contact Form Section */}
       <section className={styles.contactSection}>
         <div className={styles.formContainer}>

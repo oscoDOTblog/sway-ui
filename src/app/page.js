@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { projects } from './data/projects';
 import AnimatedForm from './components/AnimatedForm';
 import Footer from './components/Footer';
@@ -23,20 +22,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {/* Netflix-style Header */}
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logo}>
-            <span className={styles.logoText}>SWAY</span>
-          </div>
-          <nav className={styles.nav}>
-            <Link href="/" className={styles.navLink}>Home</Link>
-            <Link href="#" className={styles.navLink}>Projects</Link>
-            <Link href="#" className={styles.navLink}>About</Link>
-            <Link href="/contact" className={styles.navLink}>Contact</Link>
-          </nav>
-        </div>
-      </header>
 
       {/* Hero Section with Video Background */}
       <section className={styles.hero}>

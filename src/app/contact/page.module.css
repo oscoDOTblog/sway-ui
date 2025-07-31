@@ -5,82 +5,6 @@
   color: #fff;
 }
 
-/* Header Styles */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(229, 9, 20, 0.3);
-  transition: all 0.3s ease;
-}
-
-.headerContent {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem 4%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logoText {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #e50914;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.logoText:hover {
-  color: #f40612;
-  transform: scale(1.05);
-}
-
-.nav {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.navLink {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-  padding: 0.5rem 0;
-}
-
-.navLink:hover,
-.navLink.active {
-  color: #e50914;
-}
-
-.navLink::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #e50914;
-  transition: width 0.3s ease;
-}
-
-.navLink:hover::after,
-.navLink.active::after {
-  width: 100%;
-}
-
 /* Contact Section Styles */
 .contactSection {
   padding: 8rem 4% 4rem;
@@ -386,14 +310,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .headerContent {
-    padding: 1rem 2%;
-  }
-  
-  .nav {
-    gap: 1rem;
-  }
-  
   .contactSection {
     padding: 6rem 2% 2rem;
   }
@@ -417,19 +333,6 @@
 }
 
 @media (max-width: 480px) {
-  .headerContent {
-    padding: 0.75rem 1rem;
-  }
-  
-  .logoText {
-    font-size: 1.5rem;
-  }
-  
-  .nav {
-    gap: 0.75rem;
-    font-size: 0.9rem;
-  }
-  
   .contactSection {
     padding: 5rem 1rem 1rem;
   }
