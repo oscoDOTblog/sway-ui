@@ -21,7 +21,17 @@ export const projects = [
     url: "https://xr.sway.quest",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
   },
-
+  {
+    id: 9,
+    title: "Moves",
+    description: "Break a dance video down into moves and play for the highest score!",
+    icon: "🎯",
+    backgroundImage: "/projects/moves-v2.png",
+    category: "Dance Choreography Breakdown",
+    comingSoon: false,
+    url: "https://moves.sway.quest",
+    gradient: "linear-gradient(135deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)"
+  },
   {
     id: 3,
     title: "Seshes",
@@ -88,15 +98,4 @@ export const projects = [
     url: null,
     gradient: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
   },
-  {
-    id: 9,
-    title: "Choreo",
-    description: "Break a dance video down into moves and play for the highest score!",
-    icon: "🎯",
-    backgroundImage: "/projects/dance-central-4.jpg",
-    category: "Dance Central Clone???",
-    comingSoon: true,
-    url: null,
-    gradient: "linear-gradient(135deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)"
-  }
 ]; 
