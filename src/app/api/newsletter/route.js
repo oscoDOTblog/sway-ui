@@ -9,12 +9,12 @@ const TELEGRAM_API = TELEGRAM_BOT_TOKEN ? `https://api.telegram.org/bot${TELEGRA
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { email } = body;
 
-    // Basic validation for contact form
-    if (!name || !email || !message) {
+    // Basic validation
+    if (!email) {
       return NextResponse.json(
-        { error: 'Name, email, and message are required' },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
@@ -32,9 +32,9 @@ export async function POST(request) {
     let telegramSuccess = false;
     if (TELEGRAM_API && TELEGRAM_CHAT_ID) {
       try {
-        console.log('Sending contact form to Telegram...');
+        console.log('Sending newsletter subscription to Telegram...');
         
-        const telegramMessage = `📧 New Contact Form Submission!\n\n👤 Name: ${name}\n📧 Email: ${email}\n💬 Message: ${message}\n\nSource: sway-ui contact form`;
+        const telegramMessage = `📧 New Newsletter Subscription!\n\n📧 Email: ${email}\n\nSource: sway-ui newsletter form`;
         
         const telegramResponse = await axios.post(`${TELEGRAM_API}/sendMessage`, {
           chat_id: TELEGRAM_CHAT_ID,
@@ -44,7 +44,7 @@ export async function POST(request) {
         
         console.log('Telegram response:', telegramResponse.data);
         telegramSuccess = true;
-        console.log('✅ Contact form sent to Telegram successfully');
+        console.log('✅ Newsletter subscription sent to Telegram successfully');
       } catch (telegramError) {
         console.error('❌ Telegram error:', telegramError.response?.data || telegramError.message);
         // Don't fail the request if Telegram fails
@@ -53,8 +53,8 @@ export async function POST(request) {
       console.log('⚠️ Telegram not configured - skipping notification');
     }
 
-    // Log the submission
-    console.log('Contact form submission:', { name, email, message, telegramSent: telegramSuccess });
+    // Log the subscription
+    console.log('Newsletter subscription:', { email, telegramSent: telegramSuccess });
 
     // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -62,14 +62,14 @@ export async function POST(request) {
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Message sent successfully! We\'ll get back to you soon.',
+        message: 'Successfully subscribed! We\'ll keep you updated on new projects.',
         telegramSent: telegramSuccess
       },
       { status: 200 }
     );
 
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('Newsletter subscription error:', error);
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }

@@ -25,7 +25,7 @@ export default function AnimatedForm() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
