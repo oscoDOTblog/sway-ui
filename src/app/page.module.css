@@ -154,7 +154,7 @@
 /* Mission Section */
 .missionSection {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: #000;
 }
 
 .missionCard {
@@ -414,7 +414,7 @@
 /* Current App Section */
 .currentAppSection {
   padding: 4rem 0;
-  background: #000;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 .appContent {
@@ -432,7 +432,11 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #fff;
+  background: linear-gradient(45deg, #ff1493, #ff69b4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 20, 147, 0.3);
 }
 
 .appDescription {
@@ -509,7 +513,7 @@
 /* Newsletter Section */
 .newsletterSection {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: #000;
 }
 
 .newsletterContent {
@@ -537,6 +541,7 @@
   padding: 4rem 4%;
   max-width: 1400px;
   margin: 0 auto;
+  background: #000;
 }
 
 .sectionHeader {
@@ -551,7 +556,11 @@
   text-align: center;
 }
 
-.featuresSection .sectionTitle {
+.featuresSection .sectionTitle,
+.howItWorksSection .sectionTitle,
+.currentAppSection .sectionTitle,
+.projectsSection .sectionTitle,
+.newsletterSection .newsletterTitle {
   background: linear-gradient(45deg, #ff1493, #ff69b4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -891,6 +900,21 @@
     text-align: center;
   }
 
+  .communityContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .communityInfo {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .mediaFeatures {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
   .appTitle {
     font-size: 2rem;
   }
@@ -934,6 +958,11 @@
   }
 
   .appMockup {
+    width: 250px;
+    height: 350px;
+  }
+
+  .communityMockup {
     width: 250px;
     height: 350px;
   }
@@ -1097,7 +1126,184 @@
     font-size: 1.8rem;
   }
 
+  .communityTitle {
+    font-size: 1.6rem;
+  }
+
   .newsletterTitle {
     font-size: 1.8rem;
   }
+} 
+
+.progressPreview {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.featureHeroCard:hover .progressPreview {
+  border-color: rgba(255, 20, 147, 0.3);
+  box-shadow: 0 10px 20px rgba(255, 20, 147, 0.1);
+}
+
+.progressStats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #ff1493;
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff1493;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.communityPreview {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.featureHeroCard:hover .communityPreview {
+  border-color: rgba(255, 20, 147, 0.3);
+  box-shadow: 0 10px 20px rgba(255, 20, 147, 0.1);
+}
+
+/* Community Section */
+.communitySection {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.communityContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.communityInfo {
+  padding-right: 2rem;
+}
+
+.communityTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
+  background: linear-gradient(45deg, #fff, #ff1493);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.communityDescription {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.mediaFeatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mediaFeature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mediaFeature:hover {
+  background: rgba(255, 20, 147, 0.1);
+  border-color: rgba(255, 20, 147, 0.3);
+  transform: translateY(-2px);
+}
+
+.mediaIcon {
+  font-size: 1.2rem;
+}
+
+.mediaFeature span:last-child {
+  font-size: 0.9rem;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.communityVisual {
+  display: flex;
+  justify-content: center;
+}
+
+.communityMockup {
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 20px;
+  border: 3px solid #ff1493;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px rgba(255, 20, 147, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.communityMockup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 20, 147, 0.1) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.mockupContent {
+  text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.mockupIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.communityStats {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ff1493;
+  font-weight: bold;
 } 

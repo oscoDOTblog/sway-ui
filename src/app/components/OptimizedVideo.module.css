@@ -1,0 +1,118 @@
+.videoContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.videoContainer:hover {
+  border-color: rgba(255, 20, 147, 0.4);
+  box-shadow: 0 10px 20px rgba(255, 20, 147, 0.1);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 10px;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #ff1493;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.videoPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 10px;
+}
+
+.placeholderContent {
+  text-align: center;
+  color: #888;
+}
+
+.placeholderIcon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.placeholderContent p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.errorText {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #ff4444;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .videoContainer {
+    height: 150px;
+  }
+  
+  .placeholderIcon {
+    font-size: 2rem;
+  }
+  
+  .placeholderContent p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .videoContainer {
+    height: 120px;
+  }
+  
+  .placeholderIcon {
+    font-size: 1.5rem;
+  }
+  
+  .placeholderContent p {
+    font-size: 0.7rem;
+  }
+}

@@ -2,27 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { projects } from '../data/projects';
+
 import styles from './Header.module.css';
 
 export default function Header() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [titleSize, setTitleSize] = useState('2rem');
   const [isCompact, setIsCompact] = useState(false);
-  const dropdownRef = useRef(null);
+
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
   const navRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
 
-  const closeDropdown = () => {
-    setIsDropdownOpen(false);
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -77,25 +71,22 @@ export default function Header() {
     };
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
 
-    if (isDropdownOpen || isMenuOpen) {
+    if (isMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isDropdownOpen, isMenuOpen]);
+  }, [isMenuOpen]);
 
   return (
     <header className={styles.header} ref={headerRef}>
