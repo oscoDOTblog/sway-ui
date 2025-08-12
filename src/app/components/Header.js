@@ -112,38 +112,14 @@ export default function Header() {
         </div>
         <nav className={`${styles.nav} ${isCompact ? styles.compactNav : ''}`} ref={navRef}>
           <Link href="/" className={styles.navLink}>Home</Link>
-          <div className={styles.dropdownContainer} ref={dropdownRef}>
-            <button 
-              className={styles.navLink}
-              onClick={toggleDropdown}
-            >
-              Projects ▼
-            </button>
-            {isDropdownOpen && (
-              <div className={styles.dropdown}>
-                {projects.map((project) => (
-                  <Link
-                    key={project.id}
-                    href={project.url || '#'}
-                    className={styles.dropdownItem}
-                    onClick={closeDropdown}
-                    target={project.url ? '_blank' : undefined}
-                    rel={project.url ? 'noopener noreferrer' : undefined}
-                  >
-                    <span className={styles.dropdownIcon}>{project.icon}</span>
-                    <div className={styles.dropdownContent}>
-                      <span className={styles.dropdownTitle}>{project.title}</span>
-                      <span className={styles.dropdownCategory}>{project.category}</span>
-                      {project.comingSoon && (
-                        <span className={styles.dropdownComingSoon}>Coming Soon</span>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-          {!isCompact && <Link href="/about" className={styles.navLink}>About</Link>}
+          <a 
+            href="https://f4.sway.quest" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.navLink}
+          >
+            App
+          </a>
           {!isCompact && <Link href="/contact" className={styles.navLink}>Contact</Link>}
           {isCompact && (
             <div className={styles.dropdownContainer} ref={menuRef}>
@@ -155,12 +131,6 @@ export default function Header() {
               </button>
               {isMenuOpen && (
                 <div className={styles.dropdown}>
-                  <Link href="/about" className={styles.dropdownItem} onClick={closeMenu}>
-                    <span className={styles.dropdownIcon}>📋</span>
-                    <div className={styles.dropdownContent}>
-                      <span className={styles.dropdownTitle}>About</span>
-                    </div>
-                  </Link>
                   <Link href="/contact" className={styles.dropdownItem} onClick={closeMenu}>
                     <span className={styles.dropdownIcon}>📧</span>
                     <div className={styles.dropdownContent}>

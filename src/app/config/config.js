@@ -1,5 +1,5 @@
 // Configuration file for Sway UI app
-export const config = {
+const config = {
   // Social media links
   discord: {
     url: 'https://discord.gg/Zfk2nPrebS',

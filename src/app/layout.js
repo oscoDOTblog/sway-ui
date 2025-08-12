@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://swayquest.vercel.app'),
   title: "swayDOTquest - Your One-Stop Shop for Becoming a Better Dancer",
   description: "swayDOTquest is your comprehensive platform for dance improvement. From beginner basics to advanced techniques, discover tools, tutorials, and resources to elevate your dance skills and confidence.",
   keywords: "dance, dance improvement, dance tutorials, dance skills, dance training, dance practice, dance education, dance community, dance resources, better dancer",
@@ -44,9 +45,12 @@ export const metadata = {
     images: ["/bg/graffiti.jpg"],
     creator: "@swayquest",
   },
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: "#000000",
   manifest: "/manifest.json",
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
