@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import BlogGenerator from '@/components/admin/BlogGenerator';
+import BlogManager from '@/components/admin/BlogManager';
 import styles from './page.module.css';
 
 export default function ArgoPage() {
   const [openModules, setOpenModules] = useState({
     blogGenerator: true, // Start with blog generator open
+    blogManager: false, // Start with blog manager closed
     // Future modules will be added here
   });
 
@@ -43,6 +45,28 @@ export default function ArgoPage() {
           {openModules.blogGenerator && (
             <div className={styles.moduleContent}>
               <BlogGenerator />
+            </div>
+          )}
+        </div>
+
+        {/* Blog Manager Module */}
+        <div className={styles.module}>
+          <button 
+            className={`${styles.moduleHeader} ${openModules.blogManager ? styles.open : ''}`}
+            onClick={() => toggleModule('blogManager')}
+          >
+            <div className={styles.moduleTitle}>
+              <span className={styles.moduleIcon}>📊</span>
+              <h2>Blog Manager</h2>
+            </div>
+            <span className={styles.moduleToggle}>
+              {openModules.blogManager ? '−' : '+'}
+            </span>
+          </button>
+          
+          {openModules.blogManager && (
+            <div className={styles.moduleContent}>
+              <BlogManager />
             </div>
           )}
         </div>
