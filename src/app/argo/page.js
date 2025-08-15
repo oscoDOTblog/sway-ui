@@ -7,7 +7,7 @@ import styles from './page.module.css';
 
 export default function ArgoPage() {
   const [openModules, setOpenModules] = useState({
-    blogGenerator: true, // Start with blog generator open
+    blogGenerator: false, // Start with blog generator closed
     blogManager: false, // Start with blog manager closed
     // Future modules will be added here
   });
