@@ -12,7 +12,7 @@ const awsConfig = {
 const dynamoClient = new DynamoDBClient(awsConfig);
 
 // Blog posts table configuration
-const BLOG_POSTS_TABLE = process.env.AWS_DYNAMODB_BLOG_POSTS || 'sway-blog-posts';
+const BLOG_POSTS_TABLE = process.env.AWS_DYNAMODB_BLOG || 'sway-blog-posts';
 
 const blogPostsTable = {
   TableName: BLOG_POSTS_TABLE,

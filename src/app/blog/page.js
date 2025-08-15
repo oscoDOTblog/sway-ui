@@ -48,7 +48,7 @@ export default async function BlogPage() {
           <div className={styles.emptyIcon}>📝</div>
           <h2 className={styles.emptyTitle}>No posts yet</h2>
           <p className={styles.emptyText}>
-            We're working on some amazing dance content. Check back soon!
+            We&apos;re working on some amazing dance content. Check back soon!
           </p>
         </div>
       ) : (

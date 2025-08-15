@@ -45,7 +45,10 @@ AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 
 # DynamoDB Table Names
-AWS_DYNAMODB_BLOG_POSTS=sway-blog-posts
+AWS_DYNAMODB_BLOG=sway-blog-posts
+
+# OpenAI Configuration (for blog generation)
+OPENAI_API_KEY=your_openai_api_key
 
 # Site Configuration (optional)
 NEXT_PUBLIC_SITE_URL=https://swayquest.vercel.app
@@ -74,6 +77,18 @@ npm run dev
 ```
 
 Visit `http://localhost:3000/blog` to see your blog!
+
+### 6. Generate Blog Posts (Optional)
+
+Use the admin interface to generate AI-powered blog posts:
+
+```bash
+# Visit the blog generator
+http://localhost:3000/admin/blog-generator
+
+# Or test via API
+npm run test:blog
+```
 
 ## Blog Structure
 
@@ -244,6 +259,37 @@ GET /api/blog?search=dance
 GET /api/blog?limit=10&offset=0
 ```
 
+### POST /api/blog/generate
+Generate AI-powered blog posts:
+
+```bash
+# Generate single post with preset topic
+POST /api/blog/generate
+{
+  "count": 1
+}
+
+# Generate post with specific topic
+POST /api/blog/generate
+{
+  "topic": "How to Improve Dance Rhythm",
+  "count": 1
+}
+
+# Generate multiple posts
+POST /api/blog/generate
+{
+  "count": 3
+}
+```
+
+### GET /api/blog/generate
+Get available topics and configuration:
+
+```bash
+GET /api/blog/generate
+```
+
 ### POST /api/blog
 Create a new blog post:
 
@@ -291,11 +337,39 @@ Delete a blog post:
 DELETE /api/blog/my-post-slug
 ```
 
-## ChatGPT Integration
+## AI Blog Generation
 
-### Recommended Format
+### Automatic Blog Generation
 
-For optimal SEO and rendering, format ChatGPT output as markdown:
+The blog system includes an AI-powered generation feature that creates SEO-optimized blog posts automatically:
+
+#### Features:
+- **30+ Preset Topics** - Dance-focused content ideas
+- **Custom Topics** - Generate content for any dance-related subject
+- **SEO Optimization** - Automatic meta tags, descriptions, and keywords
+- **OG Image Generation** - Custom social media images
+- **FAQ Schema** - Structured data for search engines
+- **Markdown Formatting** - Proper heading structure and formatting
+
+#### Admin Interface:
+Visit `/admin/blog-generator` to use the web interface for generating posts.
+
+#### API Usage:
+```bash
+# Generate a single post
+curl -X POST http://localhost:3000/api/blog/generate \
+  -H "Content-Type: application/json" \
+  -d '{"topic": "Dance Tips for Beginners", "count": 1}'
+
+# Generate multiple posts
+curl -X POST http://localhost:3000/api/blog/generate \
+  -H "Content-Type: application/json" \
+  -d '{"count": 3}'
+```
+
+### Manual ChatGPT Integration
+
+For manual content creation, format ChatGPT output as markdown:
 
 ```markdown
 # Main Title
@@ -380,7 +454,7 @@ Track performance with:
 AWS_REGION=us-east-1
 AWS_ACCESS_KEY_ID=your_production_key
 AWS_SECRET_ACCESS_KEY=your_production_secret
-AWS_DYNAMODB_BLOG_POSTS=sway-blog-posts
+AWS_DYNAMODB_BLOG=sway-blog-posts
 NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 ```
 

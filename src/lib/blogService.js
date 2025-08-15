@@ -1,6 +1,5 @@
 import { 
   PutCommand, 
-  GetCommand, 
   QueryCommand, 
   ScanCommand, 
   UpdateCommand,
@@ -23,6 +22,8 @@ class BlogService {
     try {
       const timestamp = new Date().toISOString();
       const postData = {
+        pk: `BLOG#${post.slug}`,
+        createdAt: post.createdAt || timestamp,
         id: post.id || `post_${Date.now()}`,
         title: post.title,
         slug: post.slug,
@@ -63,14 +64,16 @@ class BlogService {
     try {
       const command = new QueryCommand({
         TableName: this.tableName,
-        IndexName: 'slug-index',
-        KeyConditionExpression: 'slug = :slug',
+        KeyConditionExpression: 'pk = :pk',
         ExpressionAttributeValues: {
-          ':slug': slug,
+          ':pk': `BLOG#${slug}`,
         },
-        FilterExpression: 'status = :status',
+        FilterExpression: '#status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
         ExpressionAttributeValues: {
-          ':slug': slug,
+          ':pk': `BLOG#${slug}`,
           ':status': 'published',
         },
       });
@@ -98,13 +101,19 @@ class BlogService {
   // Get a single blog post by ID
   async getPostById(id) {
     try {
-      const command = new GetCommand({
+      // For this table structure, we need to query by pk and filter by id
+      const command = new QueryCommand({
         TableName: this.tableName,
-        Key: { id },
+        KeyConditionExpression: 'pk = :pk',
+        FilterExpression: 'id = :id',
+        ExpressionAttributeValues: {
+          ':pk': `BLOG#${id}`,
+          ':id': id,
+        },
       });
 
       const response = await dynamoDocClient.send(command);
-      return response.Item;
+      return response.Items?.[0] || null;
     } catch (error) {
       if (this.isResourceNotFoundError(error)) {
         console.warn(`Blog posts table '${this.tableName}' does not exist.`);
@@ -119,8 +128,12 @@ class BlogService {
     try {
       const command = new ScanCommand({
         TableName: this.tableName,
-        FilterExpression: 'status = :status',
+        FilterExpression: 'begins_with(pk, :pkPrefix) AND #status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
         ExpressionAttributeValues: {
+          ':pkPrefix': 'BLOG#',
           ':status': 'published',
         },
         ProjectionExpression: 'id, title, slug, excerpt, author, publishedAt, updatedAt, tags, category, featuredImage, readTime, viewCount',
@@ -147,7 +160,10 @@ class BlogService {
         ExpressionAttributeValues: {
           ':category': category,
         },
-        FilterExpression: 'status = :status',
+        FilterExpression: '#status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
         ExpressionAttributeValues: {
           ':category': category,
           ':status': 'published',
@@ -171,7 +187,10 @@ class BlogService {
     try {
       const command = new ScanCommand({
         TableName: this.tableName,
-        FilterExpression: 'status = :status AND contains(tags, :tag)',
+        FilterExpression: '#status = :status AND contains(tags, :tag)',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
         ExpressionAttributeValues: {
           ':status': 'published',
           ':tag': tag,
@@ -217,7 +236,7 @@ class BlogService {
 
       const command = new UpdateCommand({
         TableName: this.tableName,
-        Key: { id },
+        Key: { pk: `BLOG#${id}`, createdAt: id },
         UpdateExpression: `SET ${updateExpressions.join(', ')}`,
         ExpressionAttributeNames: expressionAttributeNames,
         ExpressionAttributeValues: expressionAttributeValues,
@@ -239,7 +258,7 @@ class BlogService {
     try {
       const command = new DeleteCommand({
         TableName: this.tableName,
-        Key: { id },
+        Key: { pk: `BLOG#${id}`, createdAt: id },
       });
 
       await dynamoDocClient.send(command);
@@ -257,7 +276,7 @@ class BlogService {
     try {
       const command = new UpdateCommand({
         TableName: this.tableName,
-        Key: { id },
+        Key: { pk: `BLOG#${id}`, createdAt: id },
         UpdateExpression: 'SET viewCount = if_not_exists(viewCount, :zero) + :inc',
         ExpressionAttributeValues: {
           ':inc': 1,

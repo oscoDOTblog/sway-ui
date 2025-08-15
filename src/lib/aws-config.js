@@ -15,7 +15,7 @@ export const dynamoClient = new DynamoDBClient(awsConfig);
 export const dynamoDocClient = DynamoDBDocumentClient.from(dynamoClient);
 
 // DynamoDB table names
-export const BLOG_POSTS_TABLE = process.env.AWS_DYNAMODB_BLOG_POSTS || 'sway-blog-posts';
+export const BLOG_POSTS_TABLE = process.env.AWS_DYNAMODB_BLOG || 'sway-blog-posts';
 
 // Debug logging
 if (process.env.NODE_ENV === 'development') {
