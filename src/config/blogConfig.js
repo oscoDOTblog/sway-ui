@@ -260,6 +260,38 @@ export function generateSlug(title) {
     .trim();
 }
 
+// Helper function to generate unique slug with collision detection
+export async function generateUniqueSlug(title, blogService) {
+  let baseSlug = generateSlug(title);
+  let slug = baseSlug;
+  let counter = 1;
+  
+  // Check if slug exists and append number if needed
+  while (true) {
+    const existingPost = await blogService.getPostBySlug(slug);
+    if (!existingPost) {
+      break; // Slug is unique
+    }
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+    
+    // Prevent infinite loop
+    if (counter > 100) {
+      slug = `${baseSlug}-${Date.now()}`;
+      break;
+    }
+  }
+  
+  return slug;
+}
+
+// Helper function to generate unique ID
+export function generateUniqueId(slug) {
+  const timestamp = Date.now();
+  const randomSuffix = Math.random().toString(36).substring(2, 8);
+  return `${slug}-${timestamp}-${randomSuffix}`;
+}
+
 // Helper function to calculate read time
 export function calculateReadTime(content) {
   const wordsPerMinute = 200;

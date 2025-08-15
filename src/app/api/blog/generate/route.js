@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, generateSlug, calculateReadTime } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
 
 
 // Initialize OpenAI
@@ -107,7 +107,6 @@ async function generateBlogPost(topic = null) {
   try {
     // Use provided topic or get random topic
     const selectedTopic = topic || getRandomTopic();
-    const slug = generateSlug(selectedTopic);
 
     console.log(`🎯 Generating blog post for topic: ${selectedTopic}`);
 
@@ -160,6 +159,9 @@ async function generateBlogPost(topic = null) {
     const tags = tagsMatch ? tagsMatch[1].split(',').map(tag => tag.trim()) : ['dance', 'tips'];
     const category = categoryMatch ? categoryMatch[1].trim() : 'dance-tips';
 
+    // Generate unique slug from SEO title
+    const slug = await generateUniqueSlug(seoTitle, blogService);
+
     // Extract content sections
     const sections = extractContentSections(content);
 
@@ -174,7 +176,7 @@ async function generateBlogPost(topic = null) {
 
     // Prepare blog post data
     const blogPost = {
-      id: slug,
+      id: generateUniqueId(slug),
       title: sections.title || seoTitle,
       slug: slug,
       content: sections.content,

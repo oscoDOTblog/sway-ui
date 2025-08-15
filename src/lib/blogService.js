@@ -209,6 +209,86 @@ class BlogService {
     }
   }
 
+  // Get adjacent posts (previous and next)
+  async getAdjacentPosts(currentSlug) {
+    try {
+      // Get all published posts sorted by publishedAt
+      const command = new ScanCommand({
+        TableName: this.tableName,
+        FilterExpression: 'begins_with(pk, :pkPrefix) AND #status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
+        ExpressionAttributeValues: {
+          ':pkPrefix': 'BLOG#',
+          ':status': 'published',
+        },
+        ProjectionExpression: 'slug, title, excerpt, publishedAt, category',
+      });
+
+      const response = await dynamoDocClient.send(command);
+      const posts = response.Items || [];
+      
+      // Sort posts by publishedAt (newest first)
+      posts.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+      
+      // Find current post index
+      const currentIndex = posts.findIndex(post => post.slug === currentSlug);
+      
+      if (currentIndex === -1) {
+        return { prev: null, next: null };
+      }
+      
+      // Get previous and next posts
+      const prev = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+      const next = currentIndex > 0 ? posts[currentIndex - 1] : null;
+      
+      return { prev, next };
+    } catch (error) {
+      if (this.isResourceNotFoundError(error)) {
+        console.warn(`Blog posts table '${this.tableName}' does not exist.`);
+        return { prev: null, next: null };
+      }
+      throw error;
+    }
+  }
+
+  // Get related posts by category
+  async getRelatedPosts(category, currentSlug, limit = 3) {
+    try {
+      const command = new ScanCommand({
+        TableName: this.tableName,
+        FilterExpression: 'begins_with(pk, :pkPrefix) AND #status = :status AND category = :category',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
+        ExpressionAttributeValues: {
+          ':pkPrefix': 'BLOG#',
+          ':status': 'published',
+          ':category': category,
+        },
+        ProjectionExpression: 'slug, title, excerpt, publishedAt, category',
+      });
+
+      const response = await dynamoDocClient.send(command);
+      const posts = response.Items || [];
+      
+      // Filter out current post and sort by publishedAt (newest first)
+      const filteredPosts = posts
+        .filter(post => post.slug !== currentSlug)
+        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+        .slice(0, limit);
+      
+      return filteredPosts;
+    } catch (error) {
+      if (this.isResourceNotFoundError(error)) {
+        console.warn(`Blog posts table '${this.tableName}' does not exist.`);
+        return [];
+      }
+      throw error;
+    }
+  }
+
   // Update a blog post
   async updatePost(id, updates) {
     try {

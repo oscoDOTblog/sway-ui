@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import BlogNavigation from '../../../components/BlogNavigation';
+import RelatedPosts from '../../../components/RelatedPosts';
 import styles from './page.module.css';
 
 // ISR configuration - regenerate every 30 minutes
@@ -22,19 +24,33 @@ export async function generateStaticParams() {
   }
 }
 
-// Get a single blog post
+// Get a single blog post and adjacent posts
 async function getPost(slug) {
   try {
-    const post = await blogService.getPostBySlug(slug);
-    return post;
+    const [post, adjacentPosts] = await Promise.all([
+      blogService.getPostBySlug(slug),
+      blogService.getAdjacentPosts(slug)
+    ]);
+    
+    // If no adjacent posts, get related posts by category
+    let relatedPosts = [];
+    if (post && (!adjacentPosts.prev && !adjacentPosts.next)) {
+      relatedPosts = await blogService.getRelatedPosts(post.category, slug, 3);
+    }
+    
+    return {
+      post,
+      adjacentPosts,
+      relatedPosts
+    };
   } catch (error) {
     console.warn('Failed to fetch blog post:', error.message);
-    return null;
+    return { post: null, adjacentPosts: { prev: null, next: null }, relatedPosts: [] };
   }
 }
 
 export default async function BlogPostPage({ params }) {
-  const post = await getPost(params.slug);
+  const { post, adjacentPosts, relatedPosts } = await getPost(params.slug);
 
   if (!post) {
     notFound();
@@ -135,6 +151,14 @@ export default async function BlogPostPage({ params }) {
           </ReactMarkdown>
         </div>
 
+        {/* Navigation */}
+        <BlogNavigation prev={adjacentPosts.prev} next={adjacentPosts.next} />
+        
+        {/* Related Posts (shown when no adjacent posts) */}
+        {(!adjacentPosts.prev && !adjacentPosts.next) && relatedPosts.length > 0 && (
+          <RelatedPosts posts={relatedPosts} currentSlug={post.slug} />
+        )}
+
         {/* Footer */}
         <footer className={styles.footer}>
           <div className={styles.footerContent}>
@@ -182,7 +206,7 @@ export default async function BlogPostPage({ params }) {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
-  const post = await getPost(params.slug);
+  const { post } = await getPost(params.slug);
   
   if (!post) {
     return {

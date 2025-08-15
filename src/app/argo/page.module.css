@@ -1,0 +1,216 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 2rem 1rem;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  padding: 2rem 0;
+  border-bottom: 2px solid #333;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff0080, #ff6b9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #b0b0b0;
+  margin: 0;
+  font-weight: 400;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.module {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.module:hover {
+  border-color: #444;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.moduleHeader {
+  width: 100%;
+  background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: none;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.moduleHeader:hover {
+  background: linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 100%);
+}
+
+.moduleHeader.open {
+  border-bottom: 1px solid #333;
+  background: linear-gradient(90deg, #ff0080 0%, #ff6b9d 100%);
+}
+
+.moduleHeader.open:hover {
+  background: linear-gradient(90deg, #ff0080 0%, #ff6b9d 100%);
+  opacity: 0.9;
+}
+
+.moduleTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.moduleIcon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.moduleTitle h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: inherit;
+}
+
+.moduleToggle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff0080;
+  transition: all 0.3s ease;
+  width: 2rem;
+  text-align: center;
+}
+
+.moduleHeader.open .moduleToggle {
+  color: #ffffff;
+}
+
+.moduleContent {
+  padding: 2rem;
+  background: #1a1a1a;
+  animation: slideDown 0.3s ease-out;
+}
+
+.comingSoon {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #b0b0b0;
+}
+
+.comingSoon p:first-child {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ff0080;
+  margin: 0 0 0.5rem 0;
+}
+
+.comingSoon p:last-child {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .main {
+    gap: 1rem;
+  }
+
+  .moduleHeader {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .moduleTitle h2 {
+    font-size: 1.125rem;
+  }
+
+  .moduleContent {
+    padding: 1.5rem;
+  }
+
+  .comingSoon {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .moduleHeader {
+    padding: 1.5rem 1.75rem;
+  }
+}
+
+/* Hover effects for touch devices */
+@media (hover: none) {
+  .module:hover {
+    border-color: #333;
+    box-shadow: none;
+  }
+
+  .moduleHeader:hover {
+    background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%);
+  }
+
+  .moduleHeader.open:hover {
+    background: linear-gradient(90deg, #ff0080 0%, #ff6b9d 100%);
+    opacity: 1;
+  }
+}
