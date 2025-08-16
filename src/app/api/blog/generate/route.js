@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 import { blogService } from '../../../../lib/blogService';
 import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
+import { telegramService } from '../../../../lib/telegramService';
 
 
 // Initialize OpenAI
@@ -224,6 +225,16 @@ Tags: [comma-separated list of 5-8 relevant tags]`
 
     console.log(`✅ Blog post generated successfully: ${slug}`);
     
+    // Send Telegram notification for successful generation
+    try {
+      console.log('📱 Sending Telegram notification for blog post:', savedPost.title);
+      const telegramResult = await telegramService.sendBlogPostNotification(savedPost);
+      console.log('📱 Telegram notification result:', telegramResult);
+    } catch (error) {
+      console.error('❌ Error sending Telegram notification:', error);
+      // Don't fail the entire request if Telegram fails
+    }
+    
     return {
       success: true,
       post: savedPost,
@@ -232,6 +243,17 @@ Tags: [comma-separated list of 5-8 relevant tags]`
 
   } catch (error) {
     console.error('❌ Error generating blog post:', error);
+    
+    // Send Telegram notification for failed generation
+    try {
+      console.log('📱 Sending Telegram notification for failed blog generation');
+      await telegramService.sendAutomationStatus(false, { 
+        error: error.message || 'Failed to generate blog post',
+        topic: topic || 'Unknown topic'
+      });
+    } catch (telegramError) {
+      console.error('❌ Error sending Telegram failure notification:', telegramError);
+    }
     
     return {
       success: false,
@@ -277,9 +299,6 @@ async function generateAutomatedBlogPost() {
 // Send notification about automated blog generation
 async function sendAutomatedGenerationNotification(result, date) {
   try {
-    // You can integrate with your preferred notification service here
-    // Examples: Slack, Discord, Email, etc.
-    
     const message = {
       type: 'automated_blog_generation',
       date: date.toISOString(),
@@ -291,18 +310,12 @@ async function sendAutomatedGenerationNotification(result, date) {
     
     console.log('📢 Automated generation notification:', message);
     
-    // Example: Send to Discord webhook (uncomment and configure if needed)
-    // if (process.env.DISCORD_WEBHOOK_URL) {
-    //   await fetch(process.env.DISCORD_WEBHOOK_URL, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       content: result.success 
-    //         ? `✅ Daily blog post generated: "${result.post.title}"` 
-    //         : `❌ Daily blog generation failed: ${result.error}`
-    //     })
-    //   });
-    // }
+    // Send Telegram notification
+    if (result.success && result.post) {
+      await telegramService.sendBlogPostNotification(result.post);
+    } else {
+      await telegramService.sendAutomationStatus(false, { error: result.error });
+    }
     
   } catch (error) {
     console.error('❌ Error sending notification:', error);

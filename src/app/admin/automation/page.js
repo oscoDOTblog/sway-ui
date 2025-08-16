@@ -170,6 +170,29 @@ export default function AutomationDashboard() {
         </div>
       </div>
 
+      {/* Telegram Status */}
+      <div className={styles.statusSection}>
+        <h2>📱 Telegram Notifications</h2>
+        <div className={styles.statusCard}>
+          <div className={styles.statusItem}>
+            <span className={styles.statusLabel}>Status:</span>
+            <span className={styles.statusValue}>
+              {process.env.NEXT_PUBLIC_TELEGRAM_ENABLED === 'true' ? '✅ Enabled' : '❌ Disabled'}
+            </span>
+          </div>
+          <div className={styles.statusItem}>
+            <span className={styles.statusLabel}>Notifications:</span>
+            <span className={styles.statusValue}>✅ Blog Posts, ❌ Failures, 📊 Summaries</span>
+          </div>
+          <div className={styles.statusItem}>
+            <span className={styles.statusLabel}>Setup:</span>
+            <span className={styles.statusValue}>
+              <a href="/admin/telegram-setup" className={styles.setupLink}>Configure Telegram Bot</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Recent Posts */}
       <div className={styles.recentSection}>
         <h2>📝 Recent Posts</h2>

@@ -104,6 +104,18 @@
   font-weight: 500;
 }
 
+.setupLink {
+  color: #ff0080;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.setupLink:hover {
+  color: #ff6b9d;
+  text-decoration: underline;
+}
+
 /* Recent Posts Section */
 .recentSection {
   margin-bottom: 3rem;

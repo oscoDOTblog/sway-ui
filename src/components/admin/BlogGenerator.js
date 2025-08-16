@@ -15,6 +15,7 @@ export default function BlogGenerator() {
   const [selectedCharacter, setSelectedCharacter] = useState('');
   const [count, setCount] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationProgress, setGenerationProgress] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
@@ -46,6 +47,7 @@ export default function BlogGenerator() {
 
   const generateBlogPost = async () => {
     setIsGenerating(true);
+    setGenerationProgress(0);
     setError(null);
     setResult(null);
 
@@ -57,6 +59,14 @@ export default function BlogGenerator() {
         setIsGenerating(false);
         return;
       }
+
+      // Simulate progress updates
+      const progressInterval = setInterval(() => {
+        setGenerationProgress(prev => {
+          if (prev >= 90) return prev;
+          return prev + Math.random() * 10;
+        });
+      }, 1000);
 
       const response = await fetch('/api/blog/generate', {
         method: 'POST',
@@ -72,6 +82,9 @@ export default function BlogGenerator() {
         }),
       });
 
+      clearInterval(progressInterval);
+      setGenerationProgress(100);
+
       const data = await response.json();
 
       if (data.success) {
@@ -85,12 +98,59 @@ export default function BlogGenerator() {
       setError('Network error. Please try again.');
       console.error('Generation error:', error);
     } finally {
-      setIsGenerating(false);
+      setTimeout(() => {
+        setIsGenerating(false);
+        setGenerationProgress(0);
+      }, 1000); // Show 100% for a moment before hiding
     }
   };
 
   return (
     <div className={styles.container}>
+      {isGenerating && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingContent}>
+            <div className={styles.loadingSpinner}></div>
+            <h3 className={styles.loadingTitle}>Creating Your Blog Post</h3>
+            <div className={styles.progressContainer}>
+              <div className={styles.progressBar}>
+                <div 
+                  className={styles.progressFill} 
+                  style={{ width: `${generationProgress}%` }}
+                ></div>
+              </div>
+              <div className={styles.progressText}>{Math.round(generationProgress)}%</div>
+            </div>
+            
+            <div className={styles.loadingSteps}>
+              <div className={`${styles.loadingStep} ${generationProgress > 10 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>🤖</div>
+                <span>AI is writing your content...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 30 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>🎨</div>
+                <span>Generating SEO metadata...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 50 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>📝</div>
+                <span>Creating unique slug...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 70 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>💾</div>
+                <span>Saving to database...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 90 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>📱</div>
+                <span>Sending notifications...</span>
+              </div>
+            </div>
+            <p className={styles.loadingNote}>
+              This usually takes 30-60 seconds. Please don't close this page.
+            </p>
+          </div>
+        </div>
+      )}
+      
       <div className={styles.form}>
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Topic Selection</h2>
@@ -288,7 +348,14 @@ export default function BlogGenerator() {
           disabled={isGenerating || (!selectedTopic && !customTopic)}
           className={styles.generateButton}
         >
-          {isGenerating ? 'Generating...' : 'Generate Blog Post'}
+          {isGenerating ? (
+            <div className={styles.loadingButton}>
+              <div className={styles.spinner}></div>
+              <span>Generating...</span>
+            </div>
+          ) : (
+            'Generate Blog Post'
+          )}
         </button>
       </div>
 
