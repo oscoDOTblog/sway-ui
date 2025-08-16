@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'DynamoDB table for Sway newsletter subscribers'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: 'production'
+    Description: 'Environment name'
+    AllowedValues:
+      - development
+      - staging
+      - production
+
+Resources:
+  NewsletterSubscribersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: sway-news-use2
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: subscriberId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+        - AttributeName: subscriberId
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: StatusIndex
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: subscribedAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          AttributeDefinitions:
+            - AttributeName: status
+              AttributeType: S
+            - AttributeName: subscribedAt
+              AttributeType: S
+        - IndexName: SourceIndex
+          KeySchema:
+            - AttributeName: source
+              KeyType: HASH
+            - AttributeName: subscribedAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          AttributeDefinitions:
+            - AttributeName: source
+              AttributeType: S
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Purpose
+          Value: Newsletter Subscribers
+        - Key: Project
+          Value: Sway
+
+  NewsletterSubscribersTablePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: NewsletterSubscribersTablePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:BatchGetItem
+              - dynamodb:BatchWriteItem
+            Resource:
+              - !GetAtt NewsletterSubscribersTable.Arn
+              - !Sub '${NewsletterSubscribersTable.Arn}/index/*'
+      Roles:
+        - !Ref NewsletterSubscribersRole
+
+  NewsletterSubscribersRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'sway-newsletter-subscribers-role-${Environment}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Purpose
+          Value: Newsletter Subscribers Access
+
+Outputs:
+  NewsletterSubscribersTableName:
+    Description: 'Name of the newsletter subscribers table'
+    Value: !Ref NewsletterSubscribersTable
+    Export:
+      Name: !Sub '${AWS::StackName}-TableName'
+
+  NewsletterSubscribersTableArn:
+    Description: 'ARN of the newsletter subscribers table'
+    Value: !GetAtt NewsletterSubscribersTable.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-TableArn'
+
+  NewsletterSubscribersRoleArn:
+    Description: 'ARN of the IAM role for newsletter subscribers access'
+    Value: !GetAtt NewsletterSubscribersRole.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-RoleArn'

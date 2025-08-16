@@ -1,18 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
+import { addSubscriber } from '../../../lib/newsletterService.js';
 import axios from 'axios';
-
-// Initialize Supabase client with error handling
-let supabase = null;
-try {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  
-  if (supabaseUrl && supabaseServiceKey) {
-    supabase = createClient(supabaseUrl, supabaseServiceKey);
-  }
-} catch (error) {
-  console.error('Failed to initialize Supabase client:', error);
-}
 
 // Telegram configuration with better debugging
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -38,42 +25,20 @@ export async function POST(request) {
       );
     }
 
-    // Check if Supabase is configured
-    if (!supabase) {
-      console.error('Supabase not configured');
-      return new Response(
-        JSON.stringify({ success: false, message: 'Database not configured' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
+    // Add subscriber to DynamoDB
+    const result = await addSubscriber({
+      email: email,
+      source: 'sway-ui'
+    });
 
-    // Check if email already exists in Supabase
-    const { data: existingEmail } = await supabase
-      .from('newsletter_subscribers')
-      .select('email')
-      .eq('email', email)
-      .single();
-
-    if (existingEmail) {
-      return new Response(
-        JSON.stringify({ success: false, message: 'Email already subscribed' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Insert email into Supabase
-    const { error: supabaseError } = await supabase
-      .from('newsletter_subscribers')
-      .insert([
-        {
-          email: email,
-          subscribed_at: new Date().toISOString(),
-          source: 'sway-ui'
-        }
-      ]);
-
-    if (supabaseError) {
-      console.error('Supabase error:', supabaseError);
+    if (!result.success) {
+      if (result.error === 'Email already subscribed') {
+        return new Response(
+          JSON.stringify({ success: false, message: 'Email already subscribed' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      console.error('DynamoDB error:', result.error);
       return new Response(
         JSON.stringify({ success: false, message: 'Database error occurred' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }

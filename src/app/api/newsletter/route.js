@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server.js';
+import { addSubscriber } from '../../../lib/newsletterService.js';
 import axios from 'axios';
 
 // Telegram configuration
@@ -53,11 +54,28 @@ export async function POST(request) {
       console.log('⚠️ Telegram not configured - skipping notification');
     }
 
-    // Log the subscription
-    console.log('Newsletter subscription:', { email, telegramSent: telegramSuccess });
+    // Add subscriber to DynamoDB
+    const result = await addSubscriber({
+      email: email,
+      source: 'sway-ui'
+    });
 
-    // Simulate processing time
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (!result.success) {
+      if (result.error === 'Email already subscribed') {
+        return NextResponse.json(
+          { error: 'Email already subscribed' },
+          { status: 400 }
+        );
+      }
+      console.error('DynamoDB error:', result.error);
+      return NextResponse.json(
+        { error: 'Database error occurred' },
+        { status: 500 }
+      );
+    }
+
+    // Log the subscription
+    console.log('Newsletter subscription:', { email, telegramSent: telegramSuccess, dynamoSuccess: result.success });
 
     return NextResponse.json(
       { 

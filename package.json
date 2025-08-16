@@ -33,7 +33,13 @@
     "lint": "next lint",
     "setup:blog": "node scripts/setup-blog-table.js",
     "create:sample": "node scripts/create-sample-post.js",
-    "test:blog": "node scripts/test-blog-generation.js"
+    "test:blog": "node scripts/test-blog-generation.js",
+    "test:dynamodb": "node scripts/test-dynamodb-connection.js",
+    "test:newsletter": "node scripts/test-newsletter-dynamodb.js",
+    "test:newsletter-service": "node scripts/test-newsletter-service.js",
+    "migrate:newsletter": "node scripts/migrate-newsletter-to-dynamodb.js",
+    "update:iam": "node scripts/update-iam-permissions.js",
+    "create:newsletter-policy": "node scripts/create-newsletter-policy.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",
@@ -52,7 +58,8 @@
     "react-icons": "^5.5.0",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

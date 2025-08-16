@@ -16,11 +16,13 @@ export const dynamoDocClient = DynamoDBDocumentClient.from(dynamoClient);
 
 // DynamoDB table names
 export const BLOG_POSTS_TABLE = process.env.AWS_DYNAMODB_BLOG || 'sway-blog-posts';
+export const NEWSLETTER_TABLE = process.env.AWS_DYNAMODB_NEWSLETTER || 'sway-news-use2';
 
 // Debug logging
 if (process.env.NODE_ENV === 'development') {
   console.log('AWS Config:', {
     region: awsConfig.region,
     blogTable: BLOG_POSTS_TABLE,
+    newsletterTable: NEWSLETTER_TABLE,
   });
 }
