@@ -104,11 +104,39 @@ characters: {
 }
 ```
 
+### Topic Categories
+The blog topics are now organized into SEO-optimized categories:
+
+```javascript
+topics: {
+  homeLearning: [
+    "The Best Online Dance Classes for Beginners in 2025",
+    "How to Learn Hip Hop Dance at Home Without a Teacher",
+    // ... more topics
+  ],
+  fitness: [
+    "Best Dance Styles for Weight Loss and Fitness",
+    "Zumba vs. Aerobics: Which is Better for Burning Calories?",
+    // ... more topics
+  ],
+  // ... 9 total categories with 70+ topics
+}
+```
+
 ### Helper Functions
 - `getRandomCharacter()` - Selects a random character
 - `getCharacterByDate(date)` - Selects character based on date (for consistency)
 - `getCharacterInfo(key)` - Gets character information
 - `getAllCharacterNames()` - Gets all character names
+
+### Topic Helper Functions
+- `getAllTopics()` - Gets all topics as a flat array
+- `getRandomTopic()` - Selects a random topic from all categories
+- `getTopicByDate(date)` - Selects topic based on date
+- `getTopicByCategory(category)` - Gets all topics in a category
+- `getRandomTopicFromCategory(category)` - Selects random topic from category
+- `getTopicByCategoryRotation(date)` - Rotates through categories daily
+- `getCategoryNames()` - Gets all category names
 
 ### Database Schema
 Blog posts now include:
@@ -116,8 +144,8 @@ Blog posts now include:
 - `character`: Character key (e.g., "emilia")
 
 ### API Endpoints
-- `GET /api/blog/generate` - Returns available characters
-- `POST /api/blog/generate` - Accepts `character` parameter for specific character
+- `GET /api/blog/generate` - Returns available characters and topic categories
+- `POST /api/blog/generate` - Accepts `character` and `category` parameters
 
 ## Usage
 
@@ -128,18 +156,37 @@ Blog posts now include:
 
 ### Programmatic Usage
 ```javascript
-// Generate with random character
+// Generate with random topic and character
 const result = await fetch('/api/blog/generate', {
   method: 'POST',
-  body: JSON.stringify({ topic: 'Dance Tips', count: 1 })
+  body: JSON.stringify({ count: 1 })
 });
 
-// Generate with specific character
+// Generate with specific category
 const result = await fetch('/api/blog/generate', {
   method: 'POST',
   body: JSON.stringify({ 
-    topic: 'Dance Tips', 
     count: 1, 
+    category: 'fitness' 
+  })
+});
+
+// Generate with specific topic and character
+const result = await fetch('/api/blog/generate', {
+  method: 'POST',
+  body: JSON.stringify({ 
+    topic: 'Hip Hop Dance Basics for Beginners', 
+    count: 1, 
+    character: 'dare' 
+  })
+});
+
+// Generate with category and character
+const result = await fetch('/api/blog/generate', {
+  method: 'POST',
+  body: JSON.stringify({ 
+    count: 1, 
+    category: 'homeLearning',
     character: 'emilia' 
   })
 });
@@ -158,6 +205,9 @@ node scripts/update-blog-characters.js
 3. **Personality**: Readers can connect with characters they relate to
 4. **Consistency**: Date-based character selection ensures predictable variety
 5. **Scalability**: Easy to add new characters or modify existing ones
+6. **SEO Optimization**: 70+ topics organized by search-friendly categories
+7. **Content Strategy**: Daily category rotation for balanced content mix
+8. **Targeted Content**: Age-specific and skill-level appropriate topics
 
 ## Future Enhancements
 
@@ -174,9 +224,14 @@ Run the character system tests:
 node scripts/test-character-generation.js
 ```
 
-This will verify:
-- Character configuration
-- Helper functions
-- Prompt generation
-- Character validation
-- Distribution algorithms
+Run the categorized topic system tests:
+```bash
+node scripts/test-categorized-topics.js
+```
+
+These will verify:
+- Character configuration and validation
+- Topic categorization and distribution
+- Helper functions and API compatibility
+- Prompt generation and SEO optimization
+- Daily rotation algorithms

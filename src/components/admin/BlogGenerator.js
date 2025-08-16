@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import styles from './BlogGenerator.module.css';
 
 export default function BlogGenerator() {
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState({});
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
   const [characters, setCharacters] = useState({});
+  const [topicCategories, setTopicCategories] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [customTopic, setCustomTopic] = useState('');
   const [selectedCharacter, setSelectedCharacter] = useState('');
   const [count, setCount] = useState(1);
@@ -35,6 +37,7 @@ export default function BlogGenerator() {
         setCategories(data.categories);
         setTags(data.tags);
         setCharacters(data.characters || {});
+        setTopicCategories(data.topicCategories || []);
       }
     } catch (error) {
       console.error('Error fetching config:', error);
@@ -64,7 +67,8 @@ export default function BlogGenerator() {
         body: JSON.stringify({
           topic: topic,
           count: count,
-          character: selectedCharacter || undefined
+          character: selectedCharacter || undefined,
+          category: selectedCategory || undefined
         }),
       });
 
@@ -106,19 +110,56 @@ export default function BlogGenerator() {
               </label>
               
               {!customTopic && (
-                <select
-                  value={selectedTopic}
-                  onChange={(e) => setSelectedTopic(e.target.value)}
-                  className={styles.select}
-                  disabled={isGenerating}
-                >
-                  <option value="">Select a topic...</option>
-                  {topics.map((topic, index) => (
-                    <option key={index} value={topic}>
-                      {topic}
-                    </option>
-                  ))}
-                </select>
+                <>
+                  <div className={styles.categorySelection}>
+                    <label className={styles.label}>Category (Optional):</label>
+                    <select
+                      value={selectedCategory}
+                      onChange={(e) => {
+                        setSelectedCategory(e.target.value);
+                        setSelectedTopic('');
+                      }}
+                      className={styles.select}
+                      disabled={isGenerating}
+                    >
+                      <option value="">All Categories</option>
+                      {topicCategories.map((category) => (
+                        <option key={category} value={category}>
+                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div className={styles.topicSelection}>
+                    <label className={styles.label}>Topic:</label>
+                    <select
+                      value={selectedTopic}
+                      onChange={(e) => setSelectedTopic(e.target.value)}
+                      className={styles.select}
+                      disabled={isGenerating}
+                    >
+                      <option value="">Select a topic...</option>
+                      {selectedCategory && topics[selectedCategory] ? (
+                        topics[selectedCategory].map((topic, index) => (
+                          <option key={index} value={topic}>
+                            {topic}
+                          </option>
+                        ))
+                      ) : (
+                        Object.entries(topics).map(([category, categoryTopics]) => (
+                          <optgroup key={category} label={category.charAt(0).toUpperCase() + category.slice(1)}>
+                            {categoryTopics.map((topic, index) => (
+                              <option key={`${category}-${index}`} value={topic}>
+                                {topic}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))
+                      )}
+                    </select>
+                  </div>
+                </>
               )}
             </div>
 
@@ -129,7 +170,10 @@ export default function BlogGenerator() {
                   name="topicType"
                   value="custom"
                   checked={!!customTopic}
-                  onChange={() => setSelectedTopic('')}
+                  onChange={() => {
+                    setSelectedTopic('');
+                    setSelectedCategory('');
+                  }}
                   className={styles.radio}
                 />
                 Custom Topic
@@ -187,24 +231,35 @@ export default function BlogGenerator() {
         </div>
 
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Available Categories</h2>
-          <div className={styles.tags}>
-            {categories.map((category, index) => (
-              <span key={index} className={styles.tag}>
-                {category}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Available Tags</h2>
-          <div className={styles.tags}>
-            {tags.map((tag, index) => (
-              <span key={index} className={styles.tag}>
-                {tag}
-              </span>
-            ))}
+          <h2 className={styles.sectionTitle}>Auto-Generated Categories & Tags</h2>
+          <p className={styles.autoGenNote}>
+            Categories and tags are automatically generated by AI based on the blog topic content. 
+            The system analyzes each topic and assigns the most appropriate category and relevant tags.
+          </p>
+          
+          <div className={styles.autoGenInfo}>
+            <div className={styles.autoGenSection}>
+              <h4 className={styles.autoGenTitle}>Available Categories</h4>
+              <div className={styles.tags}>
+                {categories.map((category, index) => (
+                  <span key={index} className={styles.tag}>
+                    {category}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div className={styles.autoGenSection}>
+              <h4 className={styles.autoGenTitle}>Sample Tags</h4>
+              <div className={styles.tags}>
+                {tags.slice(0, 10).map((tag, index) => (
+                  <span key={index} className={styles.tag}>
+                    {tag}
+                  </span>
+                ))}
+                <span className={styles.moreTags}>+ more auto-generated</span>
+              </div>
+            </div>
           </div>
         </div>
 

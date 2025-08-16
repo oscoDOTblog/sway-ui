@@ -2,38 +2,114 @@
 // This file contains all the settings for blog post generation
 
 export const blogConfig = {
-  // Blog Topics - Dance-focused content
-  topics: [
-    "10 Essential Dance Tips for Beginners",
-    "How to Improve Your Dance Rhythm and Timing",
-    "Best Dance Styles for Fitness and Weight Loss",
-    "Dance Moves That Build Core Strength",
-    "How to Overcome Dance Performance Anxiety",
-    "Dance Warm-up Routines for Injury Prevention",
-    "Street Dance vs Studio Dance: Which is Right for You?",
-    "How to Learn Dance Choreography Faster",
-    "Dance Music Genres and Their Unique Styles",
-    "Building Confidence Through Dance",
-    "Dance Training for Different Body Types",
-    "How to Practice Dance at Home Effectively",
-    "Dance Competition Preparation Guide",
-    "Dance History: From Traditional to Modern Styles",
-    "Dance and Mental Health Benefits",
-    "How to Choose the Right Dance Shoes",
-    "Dance Partner Work: Communication and Trust",
-    "Dance Photography: Capturing Movement",
-    "Dance Nutrition: Fueling Your Performance",
-    "Dance Injury Prevention and Recovery",
-    "Dance for Kids: Building Coordination and Confidence",
-    "Dance and Cultural Expression",
-    "Professional Dance Career Paths",
-    "Dance Technology: Apps and Tools for Dancers",
-    "Dance Community Building and Networking",
-    "Dance and Social Media: Building Your Brand",
-    "Dance Education: Formal vs Informal Learning",
-    "Dance and Aging: Staying Active Through Movement",
-    "Dance Therapy: Healing Through Movement"
-  ],
+  // Blog Topics - SEO-optimized dance content organized by categories
+  topics: {
+    // 🏠 Learn Dance at Home (high SEO potential)
+    homeLearning: [
+      "The Best Online Dance Classes for Beginners in 2025",
+      "How to Learn Hip Hop Dance at Home Without a Teacher",
+      "Beginner Ballet at Home: A Step-by-Step Guide",
+      "Zumba at Home: Burn Calories While Having Fun",
+      "Top 5 YouTube Channels to Learn Dance Online",
+      "How to Create the Perfect Home Dance Practice Space",
+      "Learn Dance at Home: Complete Beginner's Guide",
+      "Virtual Dance Classes: What to Expect and How to Succeed"
+    ],
+
+    // 💪 Dance for Fitness & Health
+    fitness: [
+      "Best Dance Styles for Weight Loss and Fitness",
+      "Zumba vs. Aerobics: Which is Better for Burning Calories?",
+      "Dance Workouts You Can Do in 15 Minutes a Day",
+      "5 Dance Moves That Double as Full-Body Workouts",
+      "Dancing for Mental Health: Stress Relief Through Movement",
+      "Dance Cardio: High-Energy Workouts That Don't Feel Like Exercise",
+      "Dance for Weight Loss: How Many Calories Can You Burn?",
+      "Dance Fitness Classes: What to Expect Your First Time"
+    ],
+
+    // 🎶 Dance Styles & Trends
+    styles: [
+      "Hip Hop Dance Basics for Beginners",
+      "Shuffle Dance Tutorial: Learn the Viral TikTok Moves",
+      "Salsa Dance for Beginners: Step-by-Step Guide",
+      "Ballet for Adults: Can You Start at Any Age?",
+      "Top 10 Most Popular Dance Styles in the World Right Now",
+      "Pole Dance for Fitness: What to Know Before You Start",
+      "Contemporary Dance: Understanding the Art Form",
+      "Jazz Dance Fundamentals: From Broadway to Street"
+    ],
+
+    // 🧠 Skill Building & Improvement
+    skills: [
+      "How to Learn Dance Choreography Faster",
+      "Top Drills to Improve Dance Rhythm and Timing",
+      "How to Freestyle Dance Without Feeling Awkward",
+      "Daily Habits That Make You a Better Dancer",
+      "How to Master Turns and Spins in Dance",
+      "How to Memorize Complex Dance Moves",
+      "Dance Technique: Building a Strong Foundation",
+      "How to Improve Dance Flexibility and Range of Motion"
+    ],
+
+    // 👶 Dance by Age Group
+    ageGroups: [
+      "Dance for Kids: Fun At-Home Activities to Build Coordination",
+      "Dance for Teens: Styles That Build Confidence",
+      "Dance for Adults: Starting Your Journey Later in Life",
+      "Dance for Seniors: Staying Active Through Movement",
+      "Toddler Dance Classes: What to Look For",
+      "Teen Dance Programs: Building Skills and Self-Esteem",
+      "Adult Beginner Dance: It's Never Too Late to Start"
+    ],
+
+    // 🎭 Performance & Lifestyle
+    performance: [
+      "How to Prepare for Your First Dance Competition",
+      "Dance Costumes on a Budget: Tips for Beginners",
+      "Stage Confidence: Overcoming Performance Anxiety",
+      "Building a Dance Career: From Amateur to Professional",
+      "How to Create Viral Dance Content on TikTok",
+      "Dance Photography: Capturing Movement and Emotion",
+      "Dance Auditions: How to Stand Out and Succeed",
+      "Dance Studio Etiquette: What Every Dancer Should Know"
+    ],
+
+    // ⚡ Tech, Culture & Community
+    culture: [
+      "Top 10 Dance Apps That Can Improve Your Skills",
+      "A Beginner's Guide to Cultural Dance Styles Around the World",
+      "The Evolution of Hip Hop Dance: From the Streets to TikTok",
+      "How Social Media is Changing the Way We Learn Dance",
+      "The Future of Virtual Reality Dance Lessons",
+      "Dance History: From Traditional to Modern Styles",
+      "Cultural Dance Traditions: Preserving Heritage Through Movement",
+      "Dance and Technology: How Apps Are Revolutionizing Learning"
+    ],
+
+    // 🏥 Health & Wellness
+    wellness: [
+      "Dance Warm-up Routines for Injury Prevention",
+      "Dance Injury Prevention and Recovery",
+      "Dance Nutrition: Fueling Your Performance",
+      "Dance Therapy: Healing Through Movement",
+      "Dance and Mental Health: The Therapeutic Benefits",
+      "Dance for Stress Relief: Finding Peace Through Movement",
+      "Dance and Physical Therapy: Rehabilitation Through Movement",
+      "Dance for Anxiety: How Movement Can Calm Your Mind"
+    ],
+
+    // 🎵 Music & Rhythm
+    music: [
+      "Dance Music Genres and Their Unique Styles",
+      "How to Find the Beat in Any Song",
+      "Dance to Different Music Genres: A Complete Guide",
+      "Rhythm Training: Exercises to Improve Your Musicality",
+      "Dance and Music Theory: Understanding the Connection",
+      "How to Choose the Right Music for Your Dance Routine",
+      "Dance to World Music: Exploring Global Rhythms"
+    ]
+  },
 
   // Dance Central Characters Configuration
   characters: {
@@ -301,11 +377,13 @@ Generate SEO metadata for this dance blog post:
 
 Topic: ${topic}
 
-Provide:
-1. SEO Title (40-60 characters, include main keyword)
-2. Meta Description (120-160 characters, compelling and clickable)
-3. 5-7 relevant tags for categorization
-4. Primary category from: dance-tips, dance-tutorials, dance-fitness, dance-technique, dance-performance, dance-education, dance-lifestyle, dance-health, dance-culture, dance-business
+This function is now handled automatically by the AI system which will:
+1. Generate an optimized SEO title (40-60 characters)
+2. Create a compelling meta description (120-160 characters)
+3. Auto-select the most appropriate category from available options
+4. Generate 5-8 relevant tags based on content focus and skill level
+
+The system analyzes the topic content and automatically categorizes it appropriately.
     `,
 
     image: (title) => `
@@ -371,15 +449,52 @@ The image should be:
   }
 };
 
+// Helper function to get all topics as a flat array
+export function getAllTopics() {
+  const allTopics = [];
+  Object.values(blogConfig.topics).forEach(category => {
+    allTopics.push(...category);
+  });
+  return allTopics;
+}
+
 // Helper function to get random topic
 export function getRandomTopic() {
-  return blogConfig.topics[Math.floor(Math.random() * blogConfig.topics.length)];
+  const allTopics = getAllTopics();
+  return allTopics[Math.floor(Math.random() * allTopics.length)];
 }
 
 // Helper function to get topic by date (for scheduled content)
 export function getTopicByDate(date = new Date()) {
+  const allTopics = getAllTopics();
   const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-  return blogConfig.topics[dayOfYear % blogConfig.topics.length];
+  return allTopics[dayOfYear % allTopics.length];
+}
+
+// Helper function to get topic by category
+export function getTopicByCategory(category) {
+  return blogConfig.topics[category] || [];
+}
+
+// Helper function to get random topic from specific category
+export function getRandomTopicFromCategory(category) {
+  const categoryTopics = getTopicByCategory(category);
+  if (categoryTopics.length === 0) return null;
+  return categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
+}
+
+// Helper function to get topic by category rotation (for daily posting)
+export function getTopicByCategoryRotation(date = new Date()) {
+  const categories = Object.keys(blogConfig.topics);
+  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const categoryIndex = dayOfYear % categories.length;
+  const category = categories[categoryIndex];
+  return getRandomTopicFromCategory(category);
+}
+
+// Helper function to get all category names
+export function getCategoryNames() {
+  return Object.keys(blogConfig.topics);
 }
 
 // Helper function to get random character

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 
 
@@ -104,10 +104,16 @@ function extractContentSections(content) {
 }
 
 // Generate blog post using OpenAI
-async function generateBlogPost(topic = null, character = null) {
+async function generateBlogPost(topic = null, character = null, category = null) {
   try {
-    // Use provided topic or get random topic
-    const selectedTopic = topic || getRandomTopic();
+    // Use provided topic, category-based topic, or random topic
+    let selectedTopic = topic;
+    if (!selectedTopic && category) {
+      selectedTopic = getRandomTopicFromCategory(category);
+    }
+    if (!selectedTopic) {
+      selectedTopic = getRandomTopic();
+    }
     
     // Use provided character or get random character
     const selectedCharacter = character || getRandomCharacter();
@@ -134,17 +140,28 @@ async function generateBlogPost(topic = null, character = null) {
 
     const content = contentCompletion.choices[0].message.content;
 
-    // Generate SEO metadata
+    // Generate SEO metadata and auto-categorization
     const seoCompletion = await openai.chat.completions.create({
       model: blogConfig.generation.model,
       messages: [
         {
           role: "system",
-          content: "You are an SEO expert. Generate optimized metadata for dance blog posts."
+          content: `You are an SEO expert specializing in dance content. Analyze the blog topic and generate optimized metadata including appropriate categories and tags.
+
+Available categories: ${blogConfig.categories.join(', ')}
+
+For categories, choose the most relevant one from the list above.
+For tags, generate 5-8 relevant tags that describe the content's focus, skill level, and key concepts.
+
+Format your response exactly as follows:
+SEO Title: [optimized title under 60 characters]
+Meta Description: [compelling description under 160 characters]
+Category: [one category from the list]
+Tags: [comma-separated list of 5-8 relevant tags]`
         },
         {
           role: "user",
-          content: blogConfig.prompts.seo(selectedTopic)
+          content: `Generate SEO metadata for this dance blog post topic: "${selectedTopic}"`
         }
       ],
       temperature: 0.5,
@@ -234,7 +251,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { topic, count = 1, character } = body;
+    const { topic, count = 1, character, category } = body;
 
     // Validate count
     if (count > 5) {
@@ -252,11 +269,19 @@ export async function POST(request) {
       );
     }
 
+    // Validate category if provided
+    if (category && !blogConfig.topics[category]) {
+      return NextResponse.json(
+        { success: false, error: `Invalid category. Available categories: ${Object.keys(blogConfig.topics).join(', ')}` },
+        { status: 400 }
+      );
+    }
+
     const results = [];
 
     // Generate specified number of posts
     for (let i = 0; i < count; i++) {
-      const result = await generateBlogPost(topic, character);
+      const result = await generateBlogPost(topic, character, category);
       results.push(result);
       
       // Add delay between generations to avoid rate limits
@@ -302,6 +327,7 @@ export async function GET() {
       categories: blogConfig.categories,
       tags: blogConfig.tags,
       characters: blogConfig.characters,
+      topicCategories: getCategoryNames(),
       config: {
         tone: blogConfig.tone,
         structure: blogConfig.structure,

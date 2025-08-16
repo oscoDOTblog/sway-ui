@@ -70,6 +70,21 @@
   color: #ffffff;
 }
 
+.select optgroup {
+  background: #ff0080;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.select optgroup option {
+  background: #1a1a1a;
+  color: #ffffff;
+  font-weight: normal;
+  padding-left: 1rem;
+}
+
 .input {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -110,6 +125,99 @@
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid rgba(255, 107, 157, 0.3);
+}
+
+.topicCategories {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.topicCategory {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.categoryTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff0080;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 0, 128, 0.2);
+}
+
+.topicList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.topicItem {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  padding: 0.25rem 0;
+  line-height: 1.4;
+}
+
+.moreTopics {
+  font-size: 0.8rem;
+  color: #ff6b9d;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+.categorySelection,
+.topicSelection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.autoGenNote {
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 0, 128, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 0, 128, 0.2);
+}
+
+.autoGenInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.autoGenSection {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.autoGenTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff0080;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 0, 128, 0.2);
+}
+
+.moreTags {
+  font-size: 0.8rem;
+  color: #ff6b9d;
+  font-style: italic;
+  background: rgba(255, 107, 157, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 107, 157, 0.2);
 }
 
 .characters {
