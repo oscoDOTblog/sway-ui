@@ -21,7 +21,11 @@ export default function BlogGenerator() {
 
   const fetchConfig = async () => {
     try {
-      const response = await fetch('/api/blog/generate');
+      const response = await fetch('/api/blog/generate', {
+        headers: {
+          'x-admin-password': 'admin-authenticated',
+        },
+      });
       const data = await response.json();
       
       if (data.success) {
@@ -52,6 +56,7 @@ export default function BlogGenerator() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-admin-password': 'admin-authenticated',
         },
         body: JSON.stringify({
           topic: topic,

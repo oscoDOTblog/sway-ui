@@ -1,16 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BlogGenerator from '@/components/admin/BlogGenerator';
 import BlogManager from '@/components/admin/BlogManager';
+import LoginModal from '@/components/admin/LoginModal';
+import { sessionUtils } from '@/config/adminConfig';
 import styles from './page.module.css';
 
 export default function ArgoPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [openModules, setOpenModules] = useState({
     blogGenerator: false, // Start with blog generator closed
     blogManager: false, // Start with blog manager closed
     // Future modules will be added here
   });
+
+  // Check authentication on mount
+  useEffect(() => {
+    const checkAuth = () => {
+      const isValid = sessionUtils.isSessionValid();
+      setIsAuthenticated(isValid);
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    sessionUtils.clearSession();
+    setIsAuthenticated(false);
+  };
 
   const toggleModule = (moduleName) => {
     setOpenModules(prev => ({
@@ -19,11 +43,34 @@ export default function ArgoPage() {
     }));
   };
 
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>
+          <p>Loading admin panel...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login modal if not authenticated
+  if (!isAuthenticated) {
+    return <LoginModal onLoginSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Argo Admin Panel</h1>
-        <p className={styles.subtitle}>Configuration and management tools for Sway Quest</p>
+        <div className={styles.headerContent}>
+          <div>
+            <h1 className={styles.title}>Argo Admin Panel</h1>
+            <p className={styles.subtitle}>Configuration and management tools for Sway Quest</p>
+          </div>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            Logout
+          </button>
+        </div>
       </header>
 
       <main className={styles.main}>

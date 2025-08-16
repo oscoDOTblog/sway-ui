@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
 import { blogConfig, getRandomTopic, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
+import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 
 
 // Initialize OpenAI
@@ -220,6 +221,12 @@ async function generateBlogPost(topic = null) {
 
 // API Route handlers
 export async function POST(request) {
+  // Validate admin authentication
+  const authResult = validateAdminAuth(request);
+  if (!authResult.isValid) {
+    return createUnauthorizedResponse(authResult.error);
+  }
+
   try {
     const body = await request.json();
     const { topic, count = 1 } = body;

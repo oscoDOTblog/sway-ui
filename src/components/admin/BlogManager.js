@@ -40,7 +40,11 @@ export default function BlogManager() {
     setError(null);
     
     try {
-      const response = await fetch('/api/blog');
+      const response = await fetch('/api/blog', {
+        headers: {
+          'x-admin-password': 'admin-authenticated',
+        },
+      });
       const data = await response.json();
       
       if (data.success) {
@@ -81,6 +85,7 @@ export default function BlogManager() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'x-admin-password': adminConfig.password,
         },
         body: JSON.stringify(editingPost),
       });
@@ -116,6 +121,9 @@ export default function BlogManager() {
     try {
       const response = await fetch(`/api/blog/${slug}`, {
         method: 'DELETE',
+        headers: {
+          'x-admin-password': adminConfig.password,
+        },
       });
 
       const data = await response.json();

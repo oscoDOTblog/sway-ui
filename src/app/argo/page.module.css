@@ -8,9 +8,24 @@
 .header {
   max-width: 1200px;
   margin: 0 auto 3rem;
-  text-align: center;
   padding: 2rem 0;
   border-bottom: 2px solid #333;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: #b0b0b0;
+  font-size: 1.125rem;
 }
 
 .title {
@@ -29,6 +44,25 @@
   color: #b0b0b0;
   margin: 0;
   font-weight: 400;
+}
+
+.logoutButton {
+  background: linear-gradient(45deg, #ff0080, #ff6b9d);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logoutButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 128, 0.3);
 }
 
 .main {
@@ -158,12 +192,23 @@
     padding: 1.5rem 0;
   }
 
+  .headerContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
   .title {
     font-size: 2rem;
   }
 
   .subtitle {
     font-size: 1rem;
+  }
+
+  .logoutButton {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8rem;
   }
 
   .main {
