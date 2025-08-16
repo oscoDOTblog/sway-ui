@@ -50,7 +50,8 @@ async function getPost(slug) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const { post, adjacentPosts, relatedPosts } = await getPost(params.slug);
+  const resolvedParams = await params;
+  const { post, adjacentPosts, relatedPosts } = await getPost(resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -206,7 +207,8 @@ export default async function BlogPostPage({ params }) {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
-  const { post } = await getPost(params.slug);
+  const resolvedParams = await params;
+  const { post } = await getPost(resolvedParams.slug);
   
   if (!post) {
     return {
