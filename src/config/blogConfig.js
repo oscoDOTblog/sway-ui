@@ -530,9 +530,21 @@ export function generateSlug(title) {
     .trim();
 }
 
+// Helper function to generate date-based slug
+export function generateDateBasedSlug(title, date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const datePrefix = `${year}-${month}-${day}`;
+  
+  const baseSlug = generateSlug(title);
+  
+  return `${datePrefix}-${baseSlug}`;
+}
+
 // Helper function to generate unique slug with collision detection
-export async function generateUniqueSlug(title, blogService) {
-  let baseSlug = generateSlug(title);
+export async function generateUniqueSlug(title, blogService, date = new Date()) {
+  let baseSlug = generateDateBasedSlug(title, date);
   let slug = baseSlug;
   let counter = 1;
   

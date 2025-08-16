@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 
 
@@ -181,8 +181,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     const tags = tagsMatch ? tagsMatch[1].split(',').map(tag => tag.trim()) : ['dance', 'tips'];
     const category = categoryMatch ? categoryMatch[1].trim() : 'dance-tips';
 
-    // Generate unique slug from SEO title
-    const slug = await generateUniqueSlug(seoTitle, blogService);
+    // Generate unique slug from SEO title with date
+    const slug = await generateUniqueSlug(seoTitle, blogService, new Date());
 
     // Extract content sections
     const sections = extractContentSections(content);
@@ -241,20 +241,99 @@ Tags: [comma-separated list of 5-8 relevant tags]`
   }
 }
 
+// Automated blog generation with intelligent rotation
+async function generateAutomatedBlogPost() {
+  const today = new Date();
+  
+  try {
+    // Get topic by category rotation (ensures variety)
+    const topic = getTopicByCategoryRotation(today);
+    
+    // Get character by date rotation (ensures character variety)
+    const character = getCharacterByDate(today);
+    
+    console.log(`🤖 Automated generation for ${today.toDateString()}: Topic from category rotation, Character: ${character}`);
+    
+    const result = await generateBlogPost(topic, character, null);
+    
+    // Send notification about the result
+    await sendAutomatedGenerationNotification(result, today);
+    
+    return result;
+  } catch (error) {
+    console.error('❌ Error in automated blog generation:', error);
+    
+    // Fallback to random generation if rotation fails
+    console.log('🔄 Falling back to random generation...');
+    const fallbackResult = await generateBlogPost(null, null, null);
+    
+    // Send notification about fallback result
+    await sendAutomatedGenerationNotification(fallbackResult, today);
+    
+    return fallbackResult;
+  }
+}
+
+// Send notification about automated blog generation
+async function sendAutomatedGenerationNotification(result, date) {
+  try {
+    // You can integrate with your preferred notification service here
+    // Examples: Slack, Discord, Email, etc.
+    
+    const message = {
+      type: 'automated_blog_generation',
+      date: date.toISOString(),
+      success: result.success,
+      postTitle: result.post?.title || 'Unknown',
+      postSlug: result.post?.slug || 'Unknown',
+      error: result.error || null
+    };
+    
+    console.log('📢 Automated generation notification:', message);
+    
+    // Example: Send to Discord webhook (uncomment and configure if needed)
+    // if (process.env.DISCORD_WEBHOOK_URL) {
+    //   await fetch(process.env.DISCORD_WEBHOOK_URL, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       content: result.success 
+    //         ? `✅ Daily blog post generated: "${result.post.title}"` 
+    //         : `❌ Daily blog generation failed: ${result.error}`
+    //     })
+    //   });
+    // }
+    
+  } catch (error) {
+    console.error('❌ Error sending notification:', error);
+  }
+}
+
 // API Route handlers
 export async function POST(request) {
-  // Validate admin authentication
-  const authResult = validateAdminAuth(request);
-  if (!authResult.isValid) {
-    return createUnauthorizedResponse(authResult.error);
+  // Check if this is an automated request (cron job)
+  const isAutomated = request.headers.get('x-vercel-cron') === '1';
+  
+  // Only validate admin auth for manual requests
+  if (!isAutomated) {
+    const authResult = validateAdminAuth(request);
+    if (!authResult.isValid) {
+      return createUnauthorizedResponse(authResult.error);
+    }
   }
 
   try {
     const body = await request.json();
     const { topic, count = 1, character, category } = body;
 
-    // Validate count
-    if (count > 5) {
+    // For automated requests, use default settings if not specified
+    const finalCount = isAutomated ? 1 : count;
+    const finalTopic = isAutomated ? null : topic;
+    const finalCharacter = isAutomated ? null : character;
+    const finalCategory = isAutomated ? null : category;
+
+    // Validate count for manual requests
+    if (!isAutomated && finalCount > 5) {
       return NextResponse.json(
         { success: false, error: 'Maximum 5 posts can be generated at once' },
         { status: 400 }
@@ -262,7 +341,7 @@ export async function POST(request) {
     }
 
     // Validate character if provided
-    if (character && !blogConfig.characters[character]) {
+    if (finalCharacter && !blogConfig.characters[finalCharacter]) {
       return NextResponse.json(
         { success: false, error: `Invalid character. Available characters: ${Object.keys(blogConfig.characters).join(', ')}` },
         { status: 400 }
@@ -270,7 +349,7 @@ export async function POST(request) {
     }
 
     // Validate category if provided
-    if (category && !blogConfig.topics[category]) {
+    if (finalCategory && !blogConfig.topics[finalCategory]) {
       return NextResponse.json(
         { success: false, error: `Invalid category. Available categories: ${Object.keys(blogConfig.topics).join(', ')}` },
         { status: 400 }
@@ -280,25 +359,34 @@ export async function POST(request) {
     const results = [];
 
     // Generate specified number of posts
-    for (let i = 0; i < count; i++) {
-      const result = await generateBlogPost(topic, character, category);
+    for (let i = 0; i < finalCount; i++) {
+      let result;
+      
+      if (isAutomated) {
+        // Use automated generation with rotation
+        result = await generateAutomatedBlogPost();
+      } else {
+        // Use manual generation with specified parameters
+        result = await generateBlogPost(finalTopic, finalCharacter, finalCategory);
+      }
+      
       results.push(result);
       
       // Add delay between generations to avoid rate limits
-      if (i < count - 1) {
+      if (i < finalCount - 1) {
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
 
     // If generating multiple posts, return summary
-    if (count > 1) {
+    if (finalCount > 1) {
       const successful = results.filter(r => r.success).length;
       const failed = results.filter(r => !r.success).length;
       
       return NextResponse.json({
         success: true,
         summary: {
-          total: count,
+          total: finalCount,
           successful,
           failed
         },
