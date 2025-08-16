@@ -1,3 +1,4 @@
+the website is located at https://sway.quest
 do not use typescript
 do not use tailwind css
 when creating css, use nextjs css modules and make sure it's mobile-responsive

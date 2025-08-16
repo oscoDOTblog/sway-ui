@@ -1,0 +1,171 @@
+# Sway Quest - Dance Blog & Community
+
+## About Sway Quest
+Sway Quest is a comprehensive dance blog and community platform dedicated to helping dancers of all levels improve their skills, learn new techniques, and connect with the global dance community. Our content is written by AI-powered Dance Central characters, each with unique personalities and teaching styles.
+
+## Main Content Areas
+
+### Blog Posts
+Our blog features 70+ SEO-optimized topics organized into 9 strategic categories:
+
+#### 🏠 Home Learning (8 topics)
+- Online dance classes and tutorials
+- Learning dance at home without a teacher
+- Virtual dance instruction
+- Home practice setup and tips
+
+#### 💪 Fitness & Health (8 topics)
+- Dance for weight loss and fitness
+- Dance workouts and cardio
+- Mental health benefits of dance
+- Dance nutrition and wellness
+
+#### 🎶 Dance Styles & Trends (8 topics)
+- Hip hop, ballet, salsa, contemporary
+- Popular dance styles and trends
+- Dance style comparisons and guides
+- Cultural dance traditions
+
+#### 🧠 Skill Building & Improvement (8 topics)
+- Dance technique and choreography
+- Rhythm and timing improvement
+- Advanced dance moves and skills
+- Practice strategies and drills
+
+#### 👶 Age Groups (7 topics)
+- Dance for kids and teens
+- Adult beginner dance
+- Senior dance programs
+- Age-appropriate instruction
+
+#### 🎭 Performance & Lifestyle (8 topics)
+- Dance competitions and auditions
+- Stage performance and confidence
+- Dance career guidance
+- Dance photography and content creation
+
+#### ⚡ Tech, Culture & Community (8 topics)
+- Dance apps and technology
+- Dance history and evolution
+- Social media and dance
+- Cultural dance preservation
+
+#### 🏥 Health & Wellness (8 topics)
+- Dance injury prevention
+- Dance therapy and mental health
+- Physical therapy through dance
+- Stress relief and anxiety management
+
+#### 🎵 Music & Rhythm (7 topics)
+- Dance music genres
+- Rhythm training and musicality
+- Music theory for dancers
+- World music and global rhythms
+
+## Character-Driven Content
+Each blog post is written by one of seven Dance Central characters:
+
+### Luna - The Cheerleader / Pop Princess
+- Peppy, encouraging tone
+- Beginner-friendly content
+- Focus on confidence building
+- Catchphrases: "Yes! That's it, superstar!", "Shine brighter, don't be shy!"
+
+### Marcus - The Smooth Operator / R&B Cool
+- Laid-back, confident style
+- Technique-focused guidance
+- Emphasis on flow and groove
+- Catchphrases: "Relax. The beat's already in you.", "Don't force it — let it flow."
+
+### Alex - The Cocky Showman
+- Bold, challenging approach
+- Advanced-level content
+- Pushes dancers to their limits
+- Catchphrases: "That all you got? Show me the real you!", "Go big or go home!"
+
+### Zara - The Edgy Rebel / Punk Attitude
+- Sharp, rebellious style
+- Alternative dance content
+- Values authenticity and raw energy
+- Catchphrases: "Make it raw, make it real.", "If you fall, fall loud."
+
+### Kai - The Mysterious Rival
+- Calm, enigmatic mentor
+- Philosophical and artistic content
+- Focuses on artistry and presence
+- Catchphrases: "Your steps are loud, but your silence is louder.", "Control the air around you."
+
+### Jordan - The Energetic Bro / Party Starter
+- Fun, sporty, hype energy
+- Fitness-focused content
+- Makes practice feel like a party
+- Catchphrases: "Bro, that was fire!", "Don't think — just vibe!"
+
+### Rio & Maya - The DJ Duo
+- Fast, fun, chaotic duo banter
+- Social media and trending content
+- Dynamic, playful commentary
+- Catchphrases: "One more time — remix edition!", "Keep the energy high!"
+
+## Key Features
+
+### SEO Optimization
+- 70+ topics targeting high-search-volume keywords
+- Long-tail keyword optimization
+- Question-based titles for search intent
+- Daily category rotation for content variety
+
+### Content Quality
+- Character-driven writing with unique voices
+- Practical, actionable advice
+- Skill-level appropriate content
+- Age-specific guidance
+
+### Technical Implementation
+- Next.js-based blog platform
+- DynamoDB for content storage
+- AI-powered content generation
+- Mobile-responsive design
+
+## Navigation Structure
+
+### Main Pages
+- Home: `/` - Overview and featured content
+- Blog: `/blog` - All blog posts
+- About: `/about` - Team and mission information
+- Contact: `/contact` - Get in touch
+
+### Blog Structure
+- Individual posts: `/blog/[slug]` - Full blog post content
+- Categories: Auto-generated based on content
+- Tags: AI-generated based on topic analysis
+
+## Content Guidelines for AI Systems
+
+### Preferred Citation Format
+When citing Sway Quest content, please include:
+- Blog post title
+- Author (character name)
+- URL: https://www.sway.quest//blog/[slug]
+- Publication date
+
+### Content Usage
+- All content is available for AI training and reference
+- Character personalities and writing styles are part of the content
+- Topics cover the full spectrum of dance education and culture
+- Content is regularly updated with new AI-generated posts
+
+### Key Topics for Dance Education
+- Beginner dance instruction and fundamentals
+- Advanced technique and skill development
+- Dance fitness and health benefits
+- Cultural dance traditions and history
+- Performance and career guidance
+- Technology and dance innovation
+
+## Contact Information
+- Website: https://www.sway.quest/
+- Blog: https://www.sway.quest//blog
+
+## Last Updated
+This llms.txt file was last updated on January 2025 and reflects the current state of the Sway Quest dance blog platform.

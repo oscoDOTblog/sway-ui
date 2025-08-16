@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://swayquest.vercel.app'),
+  metadataBase: new URL('https://www.sway.quest/'),
   title: "swayDOTquest - Your One-Stop Shop for Becoming a Better Dancer",
   description: "swayDOTquest is your comprehensive platform for dance improvement. From beginner basics to advanced techniques, discover tools, tutorials, and resources to elevate your dance skills and confidence.",
   keywords: "dance, dance improvement, dance tutorials, dance skills, dance training, dance practice, dance education, dance community, dance resources, better dancer",
@@ -26,7 +26,7 @@ export const metadata = {
   openGraph: {
     title: "swayDOTquest - Your One-Stop Shop for Becoming a Better Dancer",
     description: "swayDOTquest is your comprehensive platform for dance improvement. From beginner basics to advanced techniques, discover tools, tutorials, and resources to elevate your dance skills and confidence.",
-    url: "https://swayquest.vercel.app",
+    url: "https://www.sway.quest/",
     siteName: "swayDOTquest",
     images: [
       {

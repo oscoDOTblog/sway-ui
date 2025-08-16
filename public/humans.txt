@@ -1,0 +1,33 @@
+/* TEAM */
+    Developer: Team Stay Afloat
+    Contact: sway@tuta.io
+    From: Dance Community
+
+/* SITE */
+    Last update: 2025/01/01
+    Language: English
+    Doctype: HTML5
+    IDE: Cursor
+    Standards: HTML5, CSS3, JavaScript
+    Components: Next.js, React, AWS DynamoDB, Supabase
+    Software: Node.js, npm
+
+/* THANKS */
+    Dance Community: For inspiration and feedback
+    OpenAI: For AI-powered content generation
+    AWS: For reliable infrastructure
+    Supabase: For authentication services
+
+/* MISSION */
+    To inspire and educate dancers of all levels through 
+    character-driven content, AI-powered insights, and 
+    a supportive community focused on movement and growth.
+
+/* CHARACTERS */
+    Luna: The encouraging cheerleader
+    Marcus: The smooth mentor
+    Alex: The confident showman
+    Zara: The edgy rebel
+    Kai: The mysterious guide
+    Jordan: The energetic big brother
+    Rio & Maya: The dynamic DJ duo

@@ -51,7 +51,7 @@ AWS_DYNAMODB_BLOG=sway-blog-posts
 OPENAI_API_KEY=your_openai_api_key
 
 # Site Configuration (optional)
-NEXT_PUBLIC_SITE_URL=https://swayquest.vercel.app
+NEXT_PUBLIC_SITE_URL=https://www.sway.quest/
 ```
 
 ### 3. Create DynamoDB Table

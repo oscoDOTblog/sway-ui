@@ -170,7 +170,7 @@ export default async function BlogPostPage({ params }) {
               <h3 className={styles.shareTitle}>Share this post</h3>
               <div className={styles.shareButtons}>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app'}/blog/${post.slug}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/'}/blog/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.shareButton}
@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }) {
                   Twitter
                 </a>
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app'}/blog/${post.slug}`)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/'}/blog/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.shareButton}
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }) {
                   Facebook
                 </a>
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app'}/blog/${post.slug}`)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/'}/blog/${post.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.shareButton}
@@ -227,7 +227,7 @@ export async function generateMetadata({ params }) {
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
       type: 'article',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app'}/blog/${post.slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/'}/blog/${post.slug}`,
       images: post.featuredImage ? [post.featuredImage] : [],
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
@@ -241,7 +241,7 @@ export async function generateMetadata({ params }) {
       images: post.featuredImage ? [post.featuredImage] : [],
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app'}/blog/${post.slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/'}/blog/${post.slug}`,
     },
   };
 }

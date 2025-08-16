@@ -1,0 +1,12 @@
+# Security Policy for Sway Quest
+# Last updated: January 2025
+
+Contact: mailto:security@swayquest.com
+Expires: 2026-01-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.sway.quest//.well-known/security.txt
+Policy: https://www.sway.quest//security-policy
+
+# Security researchers are welcome to report vulnerabilities
+# We appreciate responsible disclosure and will respond within 48 hours
+# For urgent security issues, please use the email above

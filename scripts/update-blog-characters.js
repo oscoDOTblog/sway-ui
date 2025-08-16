@@ -15,38 +15,38 @@ const TABLE_NAME = process.env.BLOG_POSTS_TABLE || 'sway-blog-posts';
 
 // Character mapping for existing posts
 const characters = {
-  emilia: {
-    name: "Emilia",
+  luna: {
+    name: "Luna",
     title: "The Cheerleader / Pop Princess",
     tone: "peppy, encouraging, full of sparkle"
   },
-  mo: {
-    name: "Mo",
+  marcus: {
+    name: "Marcus",
     title: "The Smooth Operator / R&B Cool",
     tone: "laid-back, confident, smooth-talker"
   },
-  dare: {
-    name: "Dare",
+  alex: {
+    name: "Alex",
     title: "The Cocky Showman",
     tone: "bold, cocky, always challenging"
   },
-  angel: {
-    name: "Angel",
+  zara: {
+    name: "Zara",
     title: "The Edgy Rebel / Punk Attitude",
     tone: "sharp, rebellious, witty"
   },
-  oblio: {
-    name: "Oblio",
+  kai: {
+    name: "Kai",
     title: "The Mysterious Rival",
     tone: "calm, enigmatic, mentor-like"
   },
-  bodie: {
-    name: "Bodie",
+  jordan: {
+    name: "Jordan",
     title: "The Energetic Bro / Party Starter",
     tone: "fun, sporty, hype like a big brother"
   },
-  glitch: {
-    name: "Glitch & Katalina",
+  rio: {
+    name: "Rio & Maya",
     title: "The DJ Duo",
     tone: "fast, fun, chaotic duo banter"
   }

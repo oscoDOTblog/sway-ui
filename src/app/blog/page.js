@@ -123,7 +123,7 @@ export async function generateMetadata() {
       title: 'Dance Blog - Tips, Tutorials & Insights',
       description: 'Discover expert dance tips, tutorials, and insights to improve your skills.',
       type: 'website',
-      url: 'https://swayquest.vercel.app/blog',
+      url: 'https://www.sway.quest//blog',
     },
     twitter: {
       card: 'summary_large_image',

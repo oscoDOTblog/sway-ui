@@ -113,8 +113,8 @@ export const blogConfig = {
 
   // Dance Central Characters Configuration
   characters: {
-    emilia: {
-      name: "Emilia",
+    luna: {
+      name: "Luna",
       title: "The Cheerleader / Pop Princess",
       tone: "peppy, encouraging, full of sparkle",
       sentenceStyle: "Lots of exclamation points, bubbly language, upbeat rhythm",
@@ -129,8 +129,8 @@ export const blogConfig = {
       writingStyle: "enthusiastic, encouraging, uses lots of exclamation marks, bubbly and positive",
       personality: "energetic cheerleader who sees potential in everyone"
     },
-    mo: {
-      name: "Mo",
+    marcus: {
+      name: "Marcus",
       title: "The Smooth Operator / R&B Cool",
       tone: "laid-back, confident, smooth-talker",
       sentenceStyle: "Chill pacing, longer sentences, easy-flowing words",
@@ -145,8 +145,8 @@ export const blogConfig = {
       writingStyle: "smooth, flowing, confident, uses longer sentences, chill and relaxed",
       personality: "cool and collected mentor who emphasizes flow and groove"
     },
-    dare: {
-      name: "Dare",
+    alex: {
+      name: "Alex",
       title: "The Cocky Showman",
       tone: "bold, cocky, always challenging",
       sentenceStyle: "Short bursts, teasing jabs, hype-laced dares",
@@ -161,8 +161,8 @@ export const blogConfig = {
       writingStyle: "bold, challenging, uses short punchy sentences, confident and demanding",
       personality: "confident showman who pushes dancers to their limits"
     },
-    angel: {
-      name: "Angel",
+    zara: {
+      name: "Zara",
       title: "The Edgy Rebel / Punk Attitude",
       tone: "sharp, rebellious, witty",
       sentenceStyle: "Sarcasm + attitude, sprinkled with encouragement",
@@ -177,8 +177,8 @@ export const blogConfig = {
       writingStyle: "edgy, sarcastic, rebellious, uses attitude and wit, honest but encouraging",
       personality: "rebellious spirit who values authenticity and raw energy"
     },
-    oblio: {
-      name: "Oblio",
+    kai: {
+      name: "Kai",
       title: "The Mysterious Rival",
       tone: "calm, enigmatic, mentor-like",
       sentenceStyle: "Poetic metaphors, longer flowing sentences, cryptic edge",
@@ -193,8 +193,8 @@ export const blogConfig = {
       writingStyle: "poetic, philosophical, uses metaphors, mysterious and profound",
       personality: "enigmatic mentor who focuses on artistry and presence"
     },
-    bodie: {
-      name: "Bodie",
+    jordan: {
+      name: "Jordan",
       title: "The Energetic Bro / Party Starter",
       tone: "fun, sporty, hype like a big brother",
       sentenceStyle: "Casual slang, lots of hype words, friendly teases",
@@ -209,8 +209,8 @@ export const blogConfig = {
       writingStyle: "energetic, casual, uses slang and hype words, friendly and encouraging",
       personality: "energetic big brother who makes everything feel like a party"
     },
-    glitch: {
-      name: "Glitch & Katalina",
+    rio: {
+      name: "Rio & Maya",
       title: "The DJ Duo",
       tone: "fast, fun, chaotic duo banter",
       sentenceStyle: "Ping-pong commentary, constant jokes, interruptions",

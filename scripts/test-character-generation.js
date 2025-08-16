@@ -22,7 +22,7 @@ function testCharacterConfig() {
   // Test helper functions
   console.log('🔧 Testing Helper Functions:\n');
 
-  const testCharacter = 'emilia';
+  const testCharacter = 'luna';
   const characterInfo = getCharacterInfo(testCharacter);
   console.log(`getCharacterInfo('${testCharacter}'):`, characterInfo ? '✅ Working' : '❌ Failed');
 
@@ -33,7 +33,7 @@ function testCharacterConfig() {
   console.log('\n📝 Testing Prompt Generation:\n');
 
   const testTopic = 'How to Improve Your Dance Rhythm';
-  const testCharacterKey = 'dare';
+  const testCharacterKey = 'alex';
   
   try {
     const prompt = blogConfig.prompts.main(testTopic, testCharacterKey);

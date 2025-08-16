@@ -17,7 +17,7 @@ const openai = new OpenAI({
 function generateOGImageURL(title, slug) {
   try {
     // Use the Vercel OG endpoint
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://swayquest.vercel.app';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sway.quest/';
     return `${baseUrl}/api/og?title=${encodeURIComponent(title)}&slug=${encodeURIComponent(slug)}`;
   } catch (error) {
     console.error('Error generating OG image URL:', error);
