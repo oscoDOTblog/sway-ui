@@ -112,6 +112,63 @@
   border: 1px solid rgba(255, 107, 157, 0.3);
 }
 
+.characters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.characterCard {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.characterCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 0, 128, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 0, 128, 0.1);
+}
+
+.characterName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff0080;
+  margin-bottom: 0.25rem;
+}
+
+.characterTitle {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.characterTone {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.characterCatchphrases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.catchphrase {
+  font-size: 0.8rem;
+  color: #ff6b9d;
+  font-style: italic;
+  background: rgba(255, 107, 157, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 107, 157, 0.2);
+}
+
 .generateButton {
   background: linear-gradient(45deg, #ff0080, #ff6b9d);
   color: white;
@@ -266,6 +323,15 @@
   .tag {
     font-size: 0.8rem;
     padding: 0.2rem 0.5rem;
+  }
+
+  .characters {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .characterCard {
+    padding: 0.75rem;
   }
 
   .result {

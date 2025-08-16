@@ -79,6 +79,9 @@ export default async function BlogPage() {
                   <div className={styles.postFooter}>
                     <div className={styles.authorInfo}>
                       <span className={styles.author}>By {post.author}</span>
+                      {post.character && (
+                        <span className={styles.character}>• {post.character}</span>
+                      )}
                       <span className={styles.date}>
                         {format(new Date(post.publishedAt), 'MMM dd, yyyy')}
                       </span>

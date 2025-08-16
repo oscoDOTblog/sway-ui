@@ -7,8 +7,10 @@ export default function BlogGenerator() {
   const [topics, setTopics] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [characters, setCharacters] = useState({});
   const [selectedTopic, setSelectedTopic] = useState('');
   const [customTopic, setCustomTopic] = useState('');
+  const [selectedCharacter, setSelectedCharacter] = useState('');
   const [count, setCount] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState(null);
@@ -32,6 +34,7 @@ export default function BlogGenerator() {
         setTopics(data.topics);
         setCategories(data.categories);
         setTags(data.tags);
+        setCharacters(data.characters || {});
       }
     } catch (error) {
       console.error('Error fetching config:', error);
@@ -60,7 +63,8 @@ export default function BlogGenerator() {
         },
         body: JSON.stringify({
           topic: topic,
-          count: count
+          count: count,
+          character: selectedCharacter || undefined
         }),
       });
 
@@ -163,6 +167,23 @@ export default function BlogGenerator() {
               <option value={5}>5 Posts</option>
             </select>
           </div>
+
+          <div className={styles.setting}>
+            <label className={styles.label}>Character (Optional):</label>
+            <select
+              value={selectedCharacter}
+              onChange={(e) => setSelectedCharacter(e.target.value)}
+              className={styles.select}
+              disabled={isGenerating}
+            >
+              <option value="">Random Character</option>
+              {Object.entries(characters).map(([key, character]) => (
+                <option key={key} value={key}>
+                  {character.name} - {character.title}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className={styles.section}>
@@ -183,6 +204,26 @@ export default function BlogGenerator() {
               <span key={index} className={styles.tag}>
                 {tag}
               </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Available Characters</h2>
+          <div className={styles.characters}>
+            {Object.entries(characters).map(([key, character]) => (
+              <div key={key} className={styles.characterCard}>
+                <h4 className={styles.characterName}>{character.name}</h4>
+                <p className={styles.characterTitle}>{character.title}</p>
+                <p className={styles.characterTone}>{character.tone}</p>
+                <div className={styles.characterCatchphrases}>
+                  {character.catchphrases.slice(0, 2).map((phrase, index) => (
+                    <span key={index} className={styles.catchphrase}>
+                      "{phrase}"
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

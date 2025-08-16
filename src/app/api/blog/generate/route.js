@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 
 
@@ -104,12 +104,16 @@ function extractContentSections(content) {
 }
 
 // Generate blog post using OpenAI
-async function generateBlogPost(topic = null) {
+async function generateBlogPost(topic = null, character = null) {
   try {
     // Use provided topic or get random topic
     const selectedTopic = topic || getRandomTopic();
+    
+    // Use provided character or get random character
+    const selectedCharacter = character || getRandomCharacter();
+    const characterInfo = getCharacterInfo(selectedCharacter);
 
-    console.log(`🎯 Generating blog post for topic: ${selectedTopic}`);
+    console.log(`🎯 Generating blog post for topic: ${selectedTopic} with character: ${characterInfo.name}`);
 
     // Generate main content
     const contentCompletion = await openai.chat.completions.create({
@@ -117,11 +121,11 @@ async function generateBlogPost(topic = null) {
       messages: [
         {
           role: "system",
-          content: "You are an expert dance instructor and content creator. Write engaging, informative blog posts that help dancers improve their skills and knowledge."
+          content: `You are ${characterInfo.name}, ${characterInfo.title}. ${characterInfo.personality}. Write engaging, informative blog posts in your unique voice and style that help dancers improve their skills and knowledge.`
         },
         {
           role: "user",
-          content: blogConfig.prompts.main(selectedTopic)
+          content: blogConfig.prompts.main(selectedTopic, selectedCharacter)
         }
       ],
       temperature: blogConfig.generation.temperature,
@@ -183,7 +187,8 @@ async function generateBlogPost(topic = null) {
       content: sections.content,
       excerpt: sections.excerpt,
       metaDescription: sections.metaDescription || metaDescription,
-      author: "Sway Team",
+      author: characterInfo.name,
+      character: selectedCharacter,
       category: category,
       tags: tags,
       featuredImage: ogImagePath,
@@ -229,7 +234,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { topic, count = 1 } = body;
+    const { topic, count = 1, character } = body;
 
     // Validate count
     if (count > 5) {
@@ -239,11 +244,19 @@ export async function POST(request) {
       );
     }
 
+    // Validate character if provided
+    if (character && !blogConfig.characters[character]) {
+      return NextResponse.json(
+        { success: false, error: `Invalid character. Available characters: ${Object.keys(blogConfig.characters).join(', ')}` },
+        { status: 400 }
+      );
+    }
+
     const results = [];
 
     // Generate specified number of posts
     for (let i = 0; i < count; i++) {
-      const result = await generateBlogPost(topic);
+      const result = await generateBlogPost(topic, character);
       results.push(result);
       
       // Add delay between generations to avoid rate limits
@@ -288,6 +301,7 @@ export async function GET() {
       topics: blogConfig.topics,
       categories: blogConfig.categories,
       tags: blogConfig.tags,
+      characters: blogConfig.characters,
       config: {
         tone: blogConfig.tone,
         structure: blogConfig.structure,

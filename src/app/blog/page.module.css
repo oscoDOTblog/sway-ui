@@ -194,6 +194,17 @@
   font-weight: 600;
 }
 
+.character {
+  color: #ff0080;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  background: rgba(255, 0, 128, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 0, 128, 0.2);
+}
+
 .date {
   color: #808080;
   font-size: 0.8rem;

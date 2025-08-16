@@ -30,6 +30,7 @@ class BlogService {
         content: post.content,
         excerpt: post.excerpt,
         author: post.author || 'Sway Team',
+        character: post.character || null,
         publishedAt: post.publishedAt || timestamp,
         updatedAt: timestamp,
         status: post.status || 'published',
