@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './BlogManager.module.css';
+import ImageRegenerationModal from './ImageRegenerationModal';
 
 export default function BlogManager() {
   const [posts, setPosts] = useState([]);
@@ -11,8 +12,13 @@ export default function BlogManager() {
   const [editingPost, setEditingPost] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deletingSlug, setDeletingSlug] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [regenerationModal, setRegenerationModal] = useState({
+    isOpen: false,
+    blogPost: null
+  });
 
   // Fetch all blog posts
   useEffect(() => {
@@ -85,7 +91,7 @@ export default function BlogManager() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-password': adminConfig.password,
+          'x-admin-password': 'admin-authenticated',
         },
         body: JSON.stringify(editingPost),
       });
@@ -115,6 +121,7 @@ export default function BlogManager() {
     }
 
     setIsDeleting(true);
+    setDeletingSlug(slug);
     setError(null);
     setSuccess(null);
 
@@ -122,7 +129,7 @@ export default function BlogManager() {
       const response = await fetch(`/api/blog/${slug}`, {
         method: 'DELETE',
         headers: {
-          'x-admin-password': adminConfig.password,
+          'x-admin-password': 'admin-authenticated',
         },
       });
 
@@ -142,7 +149,34 @@ export default function BlogManager() {
       console.error('Error deleting post:', error);
     } finally {
       setIsDeleting(false);
+      setDeletingSlug(null);
     }
+  };
+
+  const handleRegenerateImage = (post) => {
+    setRegenerationModal({
+      isOpen: true,
+      blogPost: post
+    });
+    setError(null);
+    setSuccess(null);
+  };
+
+  const handleCloseRegenerationModal = () => {
+    setRegenerationModal({
+      isOpen: false,
+      blogPost: null
+    });
+  };
+
+  const handleImageRegenerated = (newImageUrl) => {
+    setSuccess('Image regenerated successfully!');
+    // Update the post in the list with the new image URL
+    setPosts(posts.map(post => 
+      post.slug === regenerationModal.blogPost.slug 
+        ? { ...post, featuredImage: newImageUrl }
+        : post
+    ));
   };
 
   const formatDate = (dateString) => {
@@ -217,7 +251,7 @@ export default function BlogManager() {
             </div>
 
             {filteredPosts.map((post) => (
-              <div key={post.slug} className={styles.tableRow}>
+              <div key={post.slug} className={`${styles.tableRow} ${deletingSlug === post.slug ? styles.deletingRow : ''}`}>
                 {editingPost?.slug === post.slug ? (
                   // Edit Mode
                   <>
@@ -306,6 +340,9 @@ export default function BlogManager() {
                         {post.excerpt && (
                           <p className={styles.excerpt}>{post.excerpt.substring(0, 100)}...</p>
                         )}
+                        {deletingSlug === post.slug && (
+                          <p className={styles.deletingText}>🗑️ Deleting post and cleaning up images...</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.cell}>
@@ -338,12 +375,23 @@ export default function BlogManager() {
                           ✏️
                         </button>
                         <button
+                          onClick={() => handleRegenerateImage(post)}
+                          className={styles.regenerateButton}
+                          title="Regenerate Image"
+                        >
+                          🎨
+                        </button>
+                        <button
                           onClick={() => handleDelete(post.slug)}
                           disabled={isDeleting}
-                          className={styles.deleteButton}
-                          title="Delete"
+                          className={`${styles.deleteButton} ${deletingSlug === post.slug ? styles.deleting : ''}`}
+                          title={deletingSlug === post.slug ? "Deleting..." : "Delete"}
                         >
-                          {isDeleting ? '⏳' : '🗑️'}
+                          {deletingSlug === post.slug ? (
+                            <span className={styles.deleteSpinner}>🗑️</span>
+                          ) : (
+                            '🗑️'
+                          )}
                         </button>
                         <a
                           href={`/blog/${post.slug}`}
@@ -363,6 +411,14 @@ export default function BlogManager() {
           </div>
         )}
       </div>
+
+      {/* Image Regeneration Modal */}
+      <ImageRegenerationModal
+        isOpen={regenerationModal.isOpen}
+        onClose={handleCloseRegenerationModal}
+        blogPost={regenerationModal.blogPost}
+        onRegenerate={handleImageRegenerated}
+      />
     </div>
   );
 }

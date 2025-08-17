@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { blogService } from '../../../../lib/blogService';
+import { deleteBlogImages } from '../../../../lib/imageService';
 
 // GET /api/blog/[slug] - Get a single blog post
 export async function GET(request, { params }) {
@@ -87,7 +88,7 @@ export async function PUT(request, { params }) {
 // DELETE /api/blog/[slug] - Delete a blog post
 export async function DELETE(request, { params }) {
   try {
-    // Get the existing post to get its ID
+    // Get the existing post to get its ID and image data
     const existingPost = await blogService.getPostBySlug(params.slug);
     if (!existingPost) {
       return NextResponse.json(
@@ -96,12 +97,32 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    // Delete the post
+    console.log(`🗑️ Starting deletion process for blog post: ${existingPost.title} (${params.slug})`);
+
+    // Delete S3 images BEFORE deleting from database
+    // If S3 deletion fails, the entire process will fail and database won't be modified
+    try {
+      await deleteBlogImages(existingPost);
+      console.log('✅ S3 image deletion completed successfully');
+    } catch (s3Error) {
+      console.error('❌ S3 image deletion failed:', s3Error);
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Failed to delete associated images from storage. Blog post was not deleted.',
+          details: s3Error.message
+        },
+        { status: 500 }
+      );
+    }
+
+    // Only delete from database if S3 deletion was successful
+    console.log('🗑️ Deleting blog post from database...');
     await blogService.deletePost(existingPost.id);
 
     return NextResponse.json({
       success: true,
-      message: 'Blog post deleted successfully',
+      message: 'Blog post and associated images deleted successfully',
     });
   } catch (error) {
     console.error('Error deleting blog post:', error);

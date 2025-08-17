@@ -40,6 +40,31 @@
             ]
         },
         {
+            "Sid": "BlogS3ImageUpload",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:DeleteObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::sway-public-use2",
+                "arn:aws:s3:::sway-public-use2/*"
+            ]
+        },
+        {
+            "Sid": "S3ListBuckets",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListAllMyBuckets",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "*"
+        },
+        {
             "Sid": "DynamoDBListTables",
             "Effect": "Allow",
             "Action": [

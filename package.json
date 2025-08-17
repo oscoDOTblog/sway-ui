@@ -39,15 +39,22 @@
     "test:newsletter-service": "node scripts/test-newsletter-service.js",
     "migrate:newsletter": "node scripts/migrate-newsletter-to-dynamodb.js",
     "update:iam": "node scripts/update-iam-permissions.js",
+    "update:iam-s3": "node scripts/update-iam-s3-permissions.js",
+    "update:iam-s3-secure": "node scripts/update-iam-secure-s3-permissions.js",
     "create:newsletter-policy": "node scripts/create-newsletter-policy.js",
     "update:blog-policy": "node scripts/update-blog-policy.js",
     "update:newsletter-policy": "node scripts/update-newsletter-policy.js",
     "clean:blog-content": "node scripts/clean-blog-content.js",
-    "test:blog-cta": "node scripts/test-blog-cta.js"
+    "test:blog-cta": "node scripts/test-blog-cta.js",
+    "test:image-generation": "node scripts/test-image-generation.js",
+    "test:blog-timeout": "node scripts/test-blog-timeout.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",
+    "@aws-sdk/client-iam": "^3.864.0",
+    "@aws-sdk/client-s3": "^3.864.0",
     "@aws-sdk/lib-dynamodb": "^3.863.0",
+    "@aws-sdk/s3-request-presigner": "^3.864.0",
     "@supabase/supabase-js": "^2.53.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/og": "^0.6.8",
@@ -62,6 +69,7 @@
     "react-icons": "^5.5.0",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
+    "sharp": "^0.34.3",
     "slugify": "^1.6.6",
     "uuid": "^11.1.0"
   },

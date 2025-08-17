@@ -11,7 +11,7 @@ const requiredVars = [
   'AWS_REGION',
   'AWS_ACCESS_KEY_ID', 
   'AWS_SECRET_ACCESS_KEY',
-  'AWS_DYNAMODB_NEWSLETTER'
+  'AWS_DYNAMODB_NEWS'
 ];
 
 let allVarsPresent = true;
