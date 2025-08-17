@@ -321,7 +321,7 @@ export default function Home() {
       {/* Projects Grid */}
       <section className={styles.projectsSection}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>The Lab</h2>
+          <h2 className={styles.sectionTitle}>The Lab - Upcoming Projects</h2>
         </div>
         
         <div className={styles.projectsGrid}>
