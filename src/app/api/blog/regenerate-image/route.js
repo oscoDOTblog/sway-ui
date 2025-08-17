@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { regenerateBlogImage } from '../../../../lib/imageService';
 import { blogService } from '../../../../lib/blogService';
 
@@ -48,6 +49,10 @@ export async function POST(request) {
     await blogService.updatePost(blogPost.id, {
       featuredImage: result.newImageUrl
     });
+
+    // Invalidate the cache to ensure the updated image shows immediately
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${slug}`);
 
     return NextResponse.json({
       success: true,
