@@ -11,6 +11,7 @@ export default function BlogManager() {
   const [editingPost, setEditingPost] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deletingSlug, setDeletingSlug] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -85,7 +86,7 @@ export default function BlogManager() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-password': adminConfig.password,
+          'x-admin-password': 'admin-authenticated',
         },
         body: JSON.stringify(editingPost),
       });
@@ -115,6 +116,7 @@ export default function BlogManager() {
     }
 
     setIsDeleting(true);
+    setDeletingSlug(slug);
     setError(null);
     setSuccess(null);
 
@@ -122,7 +124,7 @@ export default function BlogManager() {
       const response = await fetch(`/api/blog/${slug}`, {
         method: 'DELETE',
         headers: {
-          'x-admin-password': adminConfig.password,
+          'x-admin-password': 'admin-authenticated',
         },
       });
 
@@ -142,6 +144,7 @@ export default function BlogManager() {
       console.error('Error deleting post:', error);
     } finally {
       setIsDeleting(false);
+      setDeletingSlug(null);
     }
   };
 
@@ -217,7 +220,7 @@ export default function BlogManager() {
             </div>
 
             {filteredPosts.map((post) => (
-              <div key={post.slug} className={styles.tableRow}>
+              <div key={post.slug} className={`${styles.tableRow} ${deletingSlug === post.slug ? styles.deletingRow : ''}`}>
                 {editingPost?.slug === post.slug ? (
                   // Edit Mode
                   <>
@@ -306,6 +309,9 @@ export default function BlogManager() {
                         {post.excerpt && (
                           <p className={styles.excerpt}>{post.excerpt.substring(0, 100)}...</p>
                         )}
+                        {deletingSlug === post.slug && (
+                          <p className={styles.deletingText}>🗑️ Deleting post and cleaning up images...</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.cell}>
@@ -340,10 +346,14 @@ export default function BlogManager() {
                         <button
                           onClick={() => handleDelete(post.slug)}
                           disabled={isDeleting}
-                          className={styles.deleteButton}
-                          title="Delete"
+                          className={`${styles.deleteButton} ${deletingSlug === post.slug ? styles.deleting : ''}`}
+                          title={deletingSlug === post.slug ? "Deleting..." : "Delete"}
                         >
-                          {isDeleting ? '⏳' : '🗑️'}
+                          {deletingSlug === post.slug ? (
+                            <span className={styles.deleteSpinner}>🗑️</span>
+                          ) : (
+                            '🗑️'
+                          )}
                         </button>
                         <a
                           href={`/blog/${post.slug}`}

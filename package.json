@@ -46,7 +46,8 @@
     "update:newsletter-policy": "node scripts/update-newsletter-policy.js",
     "clean:blog-content": "node scripts/clean-blog-content.js",
     "test:blog-cta": "node scripts/test-blog-cta.js",
-    "test:image-generation": "node scripts/test-image-generation.js"
+    "test:image-generation": "node scripts/test-image-generation.js",
+    "test:blog-timeout": "node scripts/test-blog-timeout.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",

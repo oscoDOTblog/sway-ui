@@ -215,3 +215,125 @@ export async function generateFallbackImage(title, slug) {
     return null;
   }
 }
+
+/**
+ * Delete blog image from S3
+ * @param {string} imageUrl - The S3 URL of the image to delete
+ * @returns {Promise<boolean>} - true if deleted successfully, false if no image to delete
+ * @throws {Error} - if S3 deletion fails
+ */
+export async function deleteBlogImage(imageUrl) {
+  try {
+    if (!imageUrl) {
+      console.log('ℹ️ No image URL provided for deletion');
+      return false;
+    }
+
+    // Handle S3 URLs
+    if (imageUrl.includes('s3.amazonaws.com')) {
+      // Extract bucket and key from S3 URL
+      const url = new URL(imageUrl);
+      const hostname = url.hostname;
+      
+      // Parse bucket name from hostname (e.g., "sway-public-use2.s3.amazonaws.com")
+      const bucketName = hostname.split('.')[0];
+      const key = url.pathname.substring(1); // Remove leading slash
+
+      console.log(`🗑️ Deleting blog image from S3: ${bucketName}/${key}`);
+
+      const { DeleteObjectCommand } = await import('@aws-sdk/client-s3');
+      const deleteCommand = new DeleteObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      });
+
+      await s3Client.send(deleteCommand);
+      console.log(`✅ Blog image deleted from S3 successfully: ${key}`);
+      return true;
+    }
+
+    // Handle custom S3 bucket URLs
+    if (imageUrl.includes(BLOG_IMAGES_BUCKET)) {
+      // Extract key from URL
+      const url = new URL(imageUrl);
+      const key = url.pathname.substring(1); // Remove leading slash
+
+      console.log(`🗑️ Deleting blog image from custom S3: ${BLOG_IMAGES_BUCKET}/${key}`);
+
+      const { DeleteObjectCommand } = await import('@aws-sdk/client-s3');
+      const deleteCommand = new DeleteObjectCommand({
+        Bucket: BLOG_IMAGES_BUCKET,
+        Key: key,
+      });
+
+      await s3Client.send(deleteCommand);
+      console.log(`✅ Blog image deleted from custom S3 successfully: ${key}`);
+      return true;
+    }
+
+    console.log(`ℹ️ Unknown storage URL format for blog image: ${imageUrl}`);
+    return false;
+  } catch (error) {
+    console.error(`❌ Error deleting blog image from S3:`, error);
+    
+    // Log specific S3 errors
+    if (error.name === 'NoSuchKey') {
+      console.error('🔍 Image not found in S3 - may have been already deleted');
+    } else if (error.name === 'AccessDenied') {
+      console.error('🚫 Access denied to S3 bucket');
+    } else if (error.name === 'NoSuchBucket') {
+      console.error('🪣 S3 bucket does not exist');
+    }
+    
+    // Re-throw the error to fail the entire deletion process
+    throw new Error(`Failed to delete blog image from S3: ${error.message}`);
+  }
+}
+
+/**
+ * Delete all images associated with a blog post
+ * @param {Object} blogPost - The blog post object containing image URLs
+ * @returns {Promise<boolean>} - true if all deletions successful or no images to delete
+ * @throws {Error} - if any S3 deletion fails
+ */
+export async function deleteBlogImages(blogPost) {
+  try {
+    if (!blogPost) {
+      console.log('ℹ️ No blog post provided for image deletion');
+      return true;
+    }
+
+    const imageDeletions = [];
+
+    // Check for featured image
+    if (blogPost.featuredImage) {
+      console.log(`🗑️ Deleting featured image for blog post: ${blogPost.title}`);
+      imageDeletions.push(deleteBlogImage(blogPost.featuredImage));
+    }
+
+    // Check for any other image fields that might exist
+    if (blogPost.image) {
+      console.log(`🗑️ Deleting image for blog post: ${blogPost.title}`);
+      imageDeletions.push(deleteBlogImage(blogPost.image));
+    }
+
+    if (blogPost.thumbnail) {
+      console.log(`🗑️ Deleting thumbnail for blog post: ${blogPost.title}`);
+      imageDeletions.push(deleteBlogImage(blogPost.thumbnail));
+    }
+
+    // Wait for all image deletions to complete
+    if (imageDeletions.length > 0) {
+      console.log(`⏳ Waiting for ${imageDeletions.length} image deletions to complete...`);
+      await Promise.all(imageDeletions);
+      console.log('✅ All blog images deleted successfully');
+    } else {
+      console.log('ℹ️ No images to delete for this blog post');
+    }
+
+    return true;
+  } catch (error) {
+    console.error('❌ Error during blog image deletion:', error);
+    throw error; // Re-throw to fail the entire deletion process
+  }
+}
