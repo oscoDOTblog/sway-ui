@@ -90,7 +90,6 @@ export default function Header() {
           {!isMobile && (
             <>
               <Link href="/" className={styles.navLink}>Home</Link>
-              <Link href="/blog" className={styles.navLink}>Blog</Link>
               <a 
                 href="https://f4.sway.quest" 
                 target="_blank" 
@@ -99,6 +98,8 @@ export default function Header() {
               >
                 App
               </a>
+              <Link href="/blog" className={styles.navLink}>Blog</Link>
+              <Link href="/tunes" className={styles.navLink}>Tunes</Link>
               <Link href="/contact" className={styles.navLink}>Contact</Link>
             </>
           )}
@@ -121,12 +122,6 @@ export default function Header() {
                       <span className={styles.dropdownTitle}>Home</span>
                     </div>
                   </Link>
-                  <Link href="/blog" className={styles.dropdownItem} onClick={closeMenu}>
-                    <span className={styles.dropdownIcon}>📝</span>
-                    <div className={styles.dropdownContent}>
-                      <span className={styles.dropdownTitle}>Blog</span>
-                    </div>
-                  </Link>
                   <a 
                     href="https://f4.sway.quest" 
                     target="_blank" 
@@ -139,6 +134,18 @@ export default function Header() {
                       <span className={styles.dropdownTitle}>App</span>
                     </div>
                   </a>
+                  <Link href="/blog" className={styles.dropdownItem} onClick={closeMenu}>
+                    <span className={styles.dropdownIcon}>📝</span>
+                    <div className={styles.dropdownContent}>
+                      <span className={styles.dropdownTitle}>Blog</span>
+                    </div>
+                  </Link>
+                  <Link href="/tunes" className={styles.dropdownItem} onClick={closeMenu}>
+                    <span className={styles.dropdownIcon}>🎵</span>
+                    <div className={styles.dropdownContent}>
+                      <span className={styles.dropdownTitle}>Tunes</span>
+                    </div>
+                  </Link>
                   <Link href="/contact" className={styles.dropdownItem} onClick={closeMenu}>
                     <span className={styles.dropdownIcon}>📧</span>
                     <div className={styles.dropdownContent}>
