@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate, getTopicWithDuplicatePrevention } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 import { telegramService } from '../../../../lib/telegramService';
 import { generateBlogImage, generateFallbackImage } from '../../../../lib/imageService';
@@ -311,13 +311,13 @@ async function generateAutomatedBlogPost() {
   const today = new Date();
   
   try {
-    // Get topic by category rotation (ensures variety)
-    const topic = getTopicByCategoryRotation(today);
+    // Get topic with duplicate prevention (ensures variety for hourly posting)
+    const topic = await getTopicWithDuplicatePrevention(today, blogService);
     
     // Get character by date rotation (ensures character variety)
     const character = getCharacterByDate(today);
     
-    console.log(`🤖 Automated generation for ${today.toDateString()}: Topic from category rotation, Character: ${character}`);
+    console.log(`🤖 Automated generation for ${today.toDateString()} ${today.getHours()}:${String(today.getMinutes()).padStart(2, '0')}: Topic from category rotation with duplicate prevention, Character: ${character}`);
     
     const result = await generateBlogPost(topic, character, null);
     

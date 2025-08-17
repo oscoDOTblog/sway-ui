@@ -64,14 +64,14 @@ export default function AutomationDashboard() {
   };
 
   const loadRotationInfo = () => {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    const now = new Date();
+    const nextHour = new Date(now);
+    nextHour.setHours(now.getHours() + 1);
     
-    const todayCategory = getTopicByCategoryRotation(today);
-    const todayCharacter = getCharacterByDate(today);
-    const tomorrowCategory = getTopicByCategoryRotation(tomorrow);
-    const tomorrowCharacter = getCharacterByDate(tomorrow);
+    const todayCategory = getTopicByCategoryRotation(now);
+    const todayCharacter = getCharacterByDate(now);
+    const tomorrowCategory = getTopicByCategoryRotation(nextHour);
+    const tomorrowCharacter = getCharacterByDate(nextHour);
     
     setRotationInfo({
       todayCategory,
@@ -138,7 +138,7 @@ export default function AutomationDashboard() {
         <div className={styles.statusCard}>
           <div className={styles.statusItem}>
             <span className={styles.statusLabel}>Cron Job:</span>
-            <span className={styles.statusValue}>✅ Active (Daily at 9:00 AM)</span>
+            <span className={styles.statusValue}>✅ Active (Hourly at :00)</span>
           </div>
           <div className={styles.statusItem}>
             <span className={styles.statusLabel}>Next Run:</span>
@@ -148,23 +148,23 @@ export default function AutomationDashboard() {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
-              })} at 9:00 AM
+              })} at {new Date().getHours() + 1}:00
             </span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Today&apos;s Category:</span>
+            <span className={styles.statusLabel}>This Hour&apos;s Topic:</span>
             <span className={styles.statusValue}>{rotationInfo.todayCategory}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Today&apos;s Character:</span>
+            <span className={styles.statusLabel}>This Hour&apos;s Character:</span>
             <span className={styles.statusValue}>{blogConfig.characters[rotationInfo.todayCharacter]?.name || rotationInfo.todayCharacter}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Tomorrow&apos;s Category:</span>
+            <span className={styles.statusLabel}>Next Hour&apos;s Topic:</span>
             <span className={styles.statusValue}>{rotationInfo.tomorrowCategory}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Tomorrow&apos;s Character:</span>
+            <span className={styles.statusLabel}>Next Hour&apos;s Character:</span>
             <span className={styles.statusValue}>{blogConfig.characters[rotationInfo.tomorrowCharacter]?.name || rotationInfo.tomorrowCharacter}</span>
           </div>
         </div>
@@ -231,8 +231,8 @@ export default function AutomationDashboard() {
         <h2>🎯 Manual Generation</h2>
         <p className={styles.manualNote}>
           You can still manually generate posts through the admin panel. 
-          Automated generation runs daily at 9:00 AM and uses intelligent 
-          topic and character rotation.
+          Automated generation runs hourly and uses intelligent 
+          topic and character rotation with duplicate prevention.
         </p>
       </div>
     </div>

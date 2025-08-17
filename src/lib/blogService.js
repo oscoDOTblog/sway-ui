@@ -480,6 +480,21 @@ class BlogService {
       return [];
     }
   }
+
+  // Get posts by date range (for duplicate prevention in hourly posting)
+  async getPostsByDateRange(startDate, endDate) {
+    try {
+      const posts = await this.getAllPosts();
+      
+      return posts.filter(post => {
+        const postDate = new Date(post.createdAt);
+        return postDate >= startDate && postDate <= endDate;
+      }).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } catch (error) {
+      console.warn('Failed to get posts by date range:', error.message);
+      return [];
+    }
+  }
 }
 
 export const blogService = new BlogService();

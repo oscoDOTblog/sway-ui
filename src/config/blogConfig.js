@@ -497,13 +497,60 @@ export function getRandomTopicFromCategory(category) {
   return categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
 }
 
-// Helper function to get topic by category rotation (for daily posting)
+// Helper function to get topic by category rotation (for hourly posting)
 export function getTopicByCategoryRotation(date = new Date()) {
   const categories = Object.keys(blogConfig.topics);
-  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-  const categoryIndex = dayOfYear % categories.length;
+  // Use hour of year for more frequent rotation (365 days * 24 hours)
+  const hourOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60));
+  const categoryIndex = hourOfYear % categories.length;
   const category = categories[categoryIndex];
-  return getRandomTopicFromCategory(category);
+  
+  // Add minute-based randomization to ensure variety within the same hour
+  const minuteOfHour = date.getMinutes();
+  const categoryTopics = getTopicByCategory(category);
+  const topicIndex = (hourOfYear + minuteOfHour) % categoryTopics.length;
+  
+  return categoryTopics[topicIndex] || getRandomTopicFromCategory(category);
+}
+
+// Helper function to get topic with duplicate prevention (for hourly posting)
+export async function getTopicWithDuplicatePrevention(date = new Date(), blogService) {
+  const primaryTopic = getTopicByCategoryRotation(date);
+  
+  try {
+    // Check for recent posts with similar topics (last 6 hours)
+    const sixHoursAgo = new Date(date.getTime() - (6 * 60 * 60 * 1000));
+    const recentPosts = await blogService.getPostsByDateRange(sixHoursAgo, date);
+    
+    // If we have recent posts, try to avoid exact topic matches
+    if (recentPosts && recentPosts.length > 0) {
+      const recentTopics = recentPosts.map(post => post.title.toLowerCase());
+      const primaryTopicLower = primaryTopic.toLowerCase();
+      
+      // If primary topic was used recently, get a different topic
+      if (recentTopics.some(recentTopic => 
+        recentTopic.includes(primaryTopicLower.split(' ')[0]) || 
+        primaryTopicLower.includes(recentTopic.split(' ')[0])
+      )) {
+        // Get a random topic from a different category
+        const categories = Object.keys(blogConfig.topics);
+        const currentCategory = categories.find(cat => 
+          blogConfig.topics[cat].includes(primaryTopic)
+        );
+        
+        const otherCategories = categories.filter(cat => cat !== currentCategory);
+        const randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
+        const alternativeTopic = getRandomTopicFromCategory(randomCategory);
+        
+        return alternativeTopic || primaryTopic;
+      }
+    }
+    
+    return primaryTopic;
+  } catch (error) {
+    console.error('Error checking for duplicate topics:', error);
+    return primaryTopic; // Fallback to primary topic if check fails
+  }
 }
 
 // Helper function to get all category names
@@ -520,8 +567,12 @@ export function getRandomCharacter() {
 // Helper function to get character by date (for scheduled content)
 export function getCharacterByDate(date = new Date()) {
   const characterKeys = Object.keys(blogConfig.characters);
-  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-  return characterKeys[dayOfYear % characterKeys.length];
+  // Use hour of year for more frequent character rotation
+  const hourOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60));
+  // Add minute-based randomization to ensure variety within the same hour
+  const minuteOfHour = date.getMinutes();
+  const characterIndex = (hourOfYear + minuteOfHour) % characterKeys.length;
+  return characterKeys[characterIndex];
 }
 
 // Helper function to get character info
@@ -549,7 +600,8 @@ export function generateDateBasedSlug(title, date = new Date()) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  const datePrefix = `${year}-${month}-${day}`;
+  const hour = String(date.getHours()).padStart(2, '0');
+  const datePrefix = `${year}-${month}-${day}-${hour}`;
   
   const baseSlug = generateSlug(title);
   
