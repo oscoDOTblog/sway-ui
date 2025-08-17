@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { s3Client, BLOG_IMAGES_BUCKET } from './aws-config';
+import { DEFAULT_AI_IMG_MODEL } from '../config/blogConfig.js';
 import sharp from 'sharp';
 
 // Initialize OpenAI
@@ -12,18 +13,20 @@ const openai = new OpenAI({
  * Generate an image using OpenAI's newer API with image_generation tool
  * @param {string} topic - The blog topic to generate image for
  * @param {string} slug - The blog post slug for filename
+ * @param {string} model - The AI model to use for image generation
+ * @param {string} customPrompt - Optional custom prompt to override default
  * @returns {Promise<string|null>} - S3 URL of the generated image or null if failed
  */
-export async function generateBlogImage(topic, slug) {
+export async function generateBlogImage(topic, slug, model = DEFAULT_AI_IMG_MODEL, customPrompt = null) {
   try {
-    console.log(`🎨 Generating image for topic: ${topic}`);
+    console.log(`🎨 Generating image for topic: ${topic} using model: ${model}`);
     
     // Create the prompt with anime graffiti street style prefix
-    const imagePrompt = `anime graffiti street style, ${topic}, vibrant colors, dynamic composition, high quality, detailed`;
+    const imagePrompt = customPrompt || `anime graffiti street style, ${topic}, vibrant colors, dynamic composition, high quality, detailed`;
     
     // Generate image using OpenAI's newer API with image_generation tool
     const response = await openai.responses.create({
-      model: "gpt-5",
+      model: model,
       input: imagePrompt,
       tools: [{ type: "image_generation" }],
     });
@@ -39,7 +42,7 @@ export async function generateBlogImage(topic, slug) {
     }
 
     const imageBase64 = imageData[0];
-    console.log(`✅ Image generated successfully with new API`);
+    console.log(`✅ Image generated successfully with model: ${model}`);
 
     // Convert base64 to buffer and process the image
     const imageBuffer = Buffer.from(imageBase64, 'base64');
@@ -74,6 +77,57 @@ export async function generateBlogImage(topic, slug) {
     }
     
     return null;
+  }
+}
+
+/**
+ * Regenerate a blog image with a different AI model
+ * @param {string} topic - The blog topic to generate image for
+ * @param {string} slug - The blog post slug for filename
+ * @param {string} model - The AI model to use for image generation
+ * @param {string} oldImageUrl - The URL of the old image to delete
+ * @param {string} customPrompt - Optional custom prompt to override default
+ * @returns {Promise<{success: boolean, newImageUrl: string|null, error: string|null}>}
+ */
+export async function regenerateBlogImage(topic, slug, model, oldImageUrl = null, customPrompt = null) {
+  try {
+    console.log(`🔄 Regenerating image for blog: ${slug} with model: ${model}`);
+    
+    // Generate new image
+    const newImageUrl = await generateBlogImage(topic, slug, model, customPrompt);
+    
+    if (!newImageUrl) {
+      return {
+        success: false,
+        newImageUrl: null,
+        error: 'Failed to generate new image'
+      };
+    }
+    
+    // Delete old image if it exists
+    if (oldImageUrl) {
+      try {
+        await deleteBlogImage(oldImageUrl);
+        console.log(`✅ Old image deleted: ${oldImageUrl}`);
+      } catch (deleteError) {
+        console.warn(`⚠️ Failed to delete old image: ${deleteError.message}`);
+        // Don't fail the entire operation if old image deletion fails
+      }
+    }
+    
+    return {
+      success: true,
+      newImageUrl: newImageUrl,
+      error: null
+    };
+    
+  } catch (error) {
+    console.error('❌ Error regenerating blog image:', error.message);
+    return {
+      success: false,
+      newImageUrl: null,
+      error: error.message
+    };
   }
 }
 

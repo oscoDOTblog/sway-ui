@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './BlogManager.module.css';
+import ImageRegenerationModal from './ImageRegenerationModal';
 
 export default function BlogManager() {
   const [posts, setPosts] = useState([]);
@@ -14,6 +15,10 @@ export default function BlogManager() {
   const [deletingSlug, setDeletingSlug] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [regenerationModal, setRegenerationModal] = useState({
+    isOpen: false,
+    blogPost: null
+  });
 
   // Fetch all blog posts
   useEffect(() => {
@@ -146,6 +151,32 @@ export default function BlogManager() {
       setIsDeleting(false);
       setDeletingSlug(null);
     }
+  };
+
+  const handleRegenerateImage = (post) => {
+    setRegenerationModal({
+      isOpen: true,
+      blogPost: post
+    });
+    setError(null);
+    setSuccess(null);
+  };
+
+  const handleCloseRegenerationModal = () => {
+    setRegenerationModal({
+      isOpen: false,
+      blogPost: null
+    });
+  };
+
+  const handleImageRegenerated = (newImageUrl) => {
+    setSuccess('Image regenerated successfully!');
+    // Update the post in the list with the new image URL
+    setPosts(posts.map(post => 
+      post.slug === regenerationModal.blogPost.slug 
+        ? { ...post, featuredImage: newImageUrl }
+        : post
+    ));
   };
 
   const formatDate = (dateString) => {
@@ -344,6 +375,13 @@ export default function BlogManager() {
                           ✏️
                         </button>
                         <button
+                          onClick={() => handleRegenerateImage(post)}
+                          className={styles.regenerateButton}
+                          title="Regenerate Image"
+                        >
+                          🎨
+                        </button>
+                        <button
                           onClick={() => handleDelete(post.slug)}
                           disabled={isDeleting}
                           className={`${styles.deleteButton} ${deletingSlug === post.slug ? styles.deleting : ''}`}
@@ -373,6 +411,14 @@ export default function BlogManager() {
           </div>
         )}
       </div>
+
+      {/* Image Regeneration Modal */}
+      <ImageRegenerationModal
+        isOpen={regenerationModal.isOpen}
+        onClose={handleCloseRegenerationModal}
+        blogPost={regenerationModal.blogPost}
+        onRegenerate={handleImageRegenerated}
+      />
     </div>
   );
 }

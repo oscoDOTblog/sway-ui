@@ -225,7 +225,7 @@
   align-items: center;
 }
 
-.editButton, .deleteButton, .saveButton, .cancelButton, .viewButton {
+.editButton, .deleteButton, .saveButton, .cancelButton, .viewButton, .regenerateButton {
   background: none;
   border: none;
   font-size: 1.25rem;
@@ -242,6 +242,11 @@
 
 .editButton:hover {
   background: rgba(255, 193, 7, 0.2);
+  transform: scale(1.1);
+}
+
+.regenerateButton:hover {
+  background: rgba(255, 0, 128, 0.2);
   transform: scale(1.1);
 }
 

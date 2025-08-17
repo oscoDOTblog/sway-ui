@@ -2,6 +2,22 @@
 // This file contains all the settings for blog post generation
 
 export const blogConfig = {
+  // AI Models configuration
+  ai: {
+    imageModels: [
+      'gpt-5-mini',
+      'gpt-5-nano',
+      'gpt-5',
+      'gpt-4o',
+      'gpt-4o-mini',
+      'gpt-4.1',
+      'gpt-4.1-mini',
+      'gpt-4.1-nano',
+      'o3'
+    ],
+    defaultImageModel: 'gpt-5-mini'
+  },
+
   // Blog Topics - SEO-optimized dance content organized by categories
   topics: {
     // 🏠 Learn Dance at Home (high SEO potential)
@@ -582,3 +598,7 @@ export function calculateReadTime(content) {
 }
 
 export default blogConfig;
+
+// Export AI model constants
+export const AI_IMAGE_MODELS = blogConfig.ai.imageModels;
+export const DEFAULT_AI_IMG_MODEL = blogConfig.ai.defaultImageModel;
