@@ -113,7 +113,7 @@ export default function ImageRegenerationModal({
               disabled={isRegenerating}
             />
             <p className={styles.helpText}>
-              Leave empty to use the default prompt: "{defaultPrompt}"
+              Leave empty to use the default prompt: &ldquo;{defaultPrompt}&rdquo;
             </p>
           </div>
 
