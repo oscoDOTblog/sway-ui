@@ -351,7 +351,7 @@ ${characterPrompt}
 Requirements:
 - Use markdown formatting with proper H1, H2, H3 headings
 - Title should be under 60 characters and include main keyword
-- Meta description should be under 160 characters and compelling
+- DO NOT include meta descriptions or SEO text in the content - these are generated separately
 - Include "Key Takeaways" section near the top with 3-5 bullet points
 - Write 800-1200 words of engaging, informative content
 - Include practical tips and actionable advice

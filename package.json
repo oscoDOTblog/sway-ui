@@ -41,7 +41,8 @@
     "update:iam": "node scripts/update-iam-permissions.js",
     "create:newsletter-policy": "node scripts/create-newsletter-policy.js",
     "update:blog-policy": "node scripts/update-blog-policy.js",
-    "update:newsletter-policy": "node scripts/update-newsletter-policy.js"
+    "update:newsletter-policy": "node scripts/update-newsletter-policy.js",
+    "clean:blog-content": "node scripts/clean-blog-content.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",

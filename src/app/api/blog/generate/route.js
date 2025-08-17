@@ -80,20 +80,36 @@ function extractContentSections(content) {
     metaDescription: ''
   };
 
+  // Clean content by removing SEO-related text that shouldn't be visible
+  let cleanedContent = content;
+  
+  // Remove "Meta Description: " lines and similar SEO text
+  cleanedContent = cleanedContent.replace(/^Meta Description:\s*.+$/gm, '');
+  cleanedContent = cleanedContent.replace(/^SEO Title:\s*.+$/gm, '');
+  cleanedContent = cleanedContent.replace(/^Tags:\s*.+$/gm, '');
+  cleanedContent = cleanedContent.replace(/^Category:\s*.+$/gm, '');
+  cleanedContent = cleanedContent.replace(/^Meta:\s*.+$/gm, '');
+  
+  // Remove empty lines that might be left after cleaning
+  cleanedContent = cleanedContent.replace(/\n\s*\n\s*\n/g, '\n\n');
+  cleanedContent = cleanedContent.trim();
+  
+  sections.content = cleanedContent;
+
   // Extract title from first H1
-  const titleMatch = content.match(/^#\s+(.+)$/m);
+  const titleMatch = cleanedContent.match(/^#\s+(.+)$/m);
   if (titleMatch) {
     sections.title = titleMatch[1].trim();
   }
 
   // Extract excerpt (first paragraph after title)
-  const paragraphs = content.split('\n\n').filter(p => p.trim() && !p.startsWith('#'));
+  const paragraphs = cleanedContent.split('\n\n').filter(p => p.trim() && !p.startsWith('#'));
   if (paragraphs.length > 0) {
     sections.excerpt = paragraphs[0].replace(/[#*`]/g, '').trim().substring(0, 160);
   }
 
-  // Extract meta description from content
-  const metaMatch = content.match(/Meta:\s*(.+)/i);
+  // Extract meta description from content (before cleaning)
+  const metaMatch = content.match(/Meta Description:\s*(.+)/i);
   if (metaMatch) {
     sections.metaDescription = metaMatch[1].trim();
   } else {

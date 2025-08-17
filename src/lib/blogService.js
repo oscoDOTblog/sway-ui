@@ -17,6 +17,26 @@ class BlogService {
     return error.name === 'ResourceNotFoundException';
   }
 
+  // Clean content by removing SEO-related text that shouldn't be visible
+  cleanContent(content) {
+    if (!content) return content;
+    
+    let cleanedContent = content;
+    
+    // Remove "Meta Description: " lines and similar SEO text
+    cleanedContent = cleanedContent.replace(/^Meta Description:\s*.+$/gm, '');
+    cleanedContent = cleanedContent.replace(/^SEO Title:\s*.+$/gm, '');
+    cleanedContent = cleanedContent.replace(/^Tags:\s*.+$/gm, '');
+    cleanedContent = cleanedContent.replace(/^Category:\s*.+$/gm, '');
+    cleanedContent = cleanedContent.replace(/^Meta:\s*.+$/gm, '');
+    
+    // Remove empty lines that might be left after cleaning
+    cleanedContent = cleanedContent.replace(/\n\s*\n\s*\n/g, '\n\n');
+    cleanedContent = cleanedContent.trim();
+    
+    return cleanedContent;
+  }
+
   // Create a new blog post
   async createPost(post) {
     try {
@@ -88,6 +108,11 @@ class BlogService {
 
       // Increment view count
       await this.incrementViewCount(post.id);
+
+      // Clean content to remove any SEO text that shouldn't be visible
+      if (post.content) {
+        post.content = this.cleanContent(post.content);
+      }
 
       return post;
     } catch (error) {
@@ -286,6 +311,40 @@ class BlogService {
         console.warn(`Blog posts table '${this.tableName}' does not exist.`);
         return [];
       }
+      throw error;
+    }
+  }
+
+  // Clean a single blog post's content
+  async cleanPostContent(id) {
+    try {
+      const post = await this.getPostById(id);
+      if (!post) {
+        throw new Error(`Post with ID ${id} not found`);
+      }
+
+      const originalContent = post.content;
+      const cleanedContent = this.cleanContent(originalContent);
+      
+      if (cleanedContent !== originalContent) {
+        const updates = {
+          content: cleanedContent,
+          updatedAt: new Date().toISOString(),
+          lastModified: new Date().toISOString(),
+        };
+
+        // Extract meta description if it exists in content and we don't have one
+        const metaMatch = originalContent.match(/Meta Description:\s*(.+)/i);
+        if (metaMatch && !post.seoDescription) {
+          updates.seoDescription = metaMatch[1].trim();
+        }
+
+        await this.updatePost(id, updates);
+        return { cleaned: true, updates };
+      }
+
+      return { cleaned: false, message: 'Content was already clean' };
+    } catch (error) {
       throw error;
     }
   }
