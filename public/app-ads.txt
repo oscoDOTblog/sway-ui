@@ -1,0 +1,9 @@
+# Sway Quest App-Ads.txt
+# Last updated: January 2025
+# This file declares authorized digital sellers for mobile app advertising
+
+# Example entries (replace with actual mobile ad network info when you have mobile ads)
+# mobile-ad-network.com, 12345, DIRECT, abc123
+
+# Placeholder - update when you implement mobile advertising
+# No current mobile advertising partners

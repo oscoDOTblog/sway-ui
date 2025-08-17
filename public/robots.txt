@@ -1,0 +1,83 @@
+# Sway Quest - Dance Blog Robots.txt
+# Last updated: January 2025
+
+User-agent: *
+Allow: /
+
+# Allow crawling of all blog content
+Allow: /blog/
+Allow: /blog/*
+
+# Allow crawling of main pages
+Allow: /about/
+Allow: /contact/
+
+# Allow crawling of static assets
+Allow: /public/
+Allow: /images/
+Allow: /videos/
+
+# Allow crawling of LLM files for AI systems
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/admin/
+Disallow: /_next/
+Disallow: /api/blog/generate
+
+# Sitemap location
+Sitemap: https://www.sway.quest//sitemap.xml
+
+# Crawl delay (optional - be respectful to server)
+Crawl-delay: 1
+
+# Specific rules for AI crawlers
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /blog/
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /blog/
+Crawl-delay: 2
+
+User-agent: CCBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /blog/
+Crawl-delay: 2
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /blog/
+Crawl-delay: 2
+
+User-agent: Claude-Web
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /blog/
+Crawl-delay: 2
+
+# Block common bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

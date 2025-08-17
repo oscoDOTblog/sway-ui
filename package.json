@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/swayquest/swayDOTquest.git"
   },
-  "homepage": "https://swayquest.vercel.app",
+  "homepage": "https://www.sway.quest/",
   "bugs": {
     "url": "https://github.com/swayquest/swayDOTquest/issues"
   },
@@ -30,15 +30,40 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup:blog": "node scripts/setup-blog-table.js",
+    "create:sample": "node scripts/create-sample-post.js",
+    "test:blog": "node scripts/test-blog-generation.js",
+    "test:dynamodb": "node scripts/test-dynamodb-connection.js",
+    "test:newsletter": "node scripts/test-newsletter-dynamodb.js",
+    "test:newsletter-service": "node scripts/test-newsletter-service.js",
+    "migrate:newsletter": "node scripts/migrate-newsletter-to-dynamodb.js",
+    "update:iam": "node scripts/update-iam-permissions.js",
+    "create:newsletter-policy": "node scripts/create-newsletter-policy.js",
+    "update:blog-policy": "node scripts/update-blog-policy.js",
+    "update:newsletter-policy": "node scripts/update-newsletter-policy.js",
+    "clean:blog-content": "node scripts/clean-blog-content.js",
+    "test:blog-cta": "node scripts/test-blog-cta.js"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.863.0",
+    "@aws-sdk/lib-dynamodb": "^3.863.0",
     "@supabase/supabase-js": "^2.53.0",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/og": "^0.6.8",
     "axios": "^1.11.0",
+    "date-fns": "^3.6.0",
+    "dotenv": "^17.2.1",
+    "gray-matter": "^4.0.3",
     "next": "15.4.4",
+    "openai": "^4.104.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "slugify": "^1.6.6",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

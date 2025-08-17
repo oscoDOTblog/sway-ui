@@ -1,0 +1,211 @@
+.navigation {
+  margin: 4rem 0 2rem;
+  padding: 0 1rem;
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navLink:hover {
+  transform: translateY(-4px);
+}
+
+.navCard {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.navCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff0080, #ff6b9d);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navLink:hover .navCard {
+  border-color: #ff0080;
+  box-shadow: 0 8px 32px rgba(255, 0, 128, 0.2);
+}
+
+.navLink:hover .navCard::before {
+  transform: scaleX(1);
+}
+
+.navArrow {
+  font-size: 1.5rem;
+  color: #ff0080;
+  font-weight: bold;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.navLink:hover .navArrow {
+  transform: scale(1.2);
+}
+
+.navContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.navLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ff0080;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.navTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.navExcerpt {
+  font-size: 0.875rem;
+  color: #b0b0b0;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.navMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+}
+
+.navCategory {
+  background: linear-gradient(90deg, #ff0080, #ff6b9d);
+  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navDate {
+  color: #888;
+  font-weight: 500;
+}
+
+/* Single navigation item (when only prev or next exists) */
+.navContainer:has(.navLink:only-child) {
+  grid-template-columns: 1fr;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navigation {
+    margin: 3rem 0 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .navContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .navCard {
+    padding: 1.25rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .navArrow {
+    font-size: 1.25rem;
+  }
+
+  .navTitle {
+    font-size: 1rem;
+  }
+
+  .navExcerpt {
+    font-size: 0.8rem;
+  }
+
+  .navMeta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navContainer {
+    gap: 1.5rem;
+  }
+
+  .navCard {
+    padding: 1.25rem;
+  }
+
+  .navTitle {
+    font-size: 1rem;
+  }
+}
+
+/* Hover effects for touch devices */
+@media (hover: none) {
+  .navLink:hover {
+    transform: none;
+  }
+
+  .navLink:hover .navCard {
+    border-color: #333;
+    box-shadow: none;
+  }
+
+  .navLink:hover .navCard::before {
+    transform: scaleX(0);
+  }
+
+  .navLink:hover .navArrow {
+    transform: none;
+  }
+
+  .navLink:active {
+    transform: scale(0.98);
+  }
+}

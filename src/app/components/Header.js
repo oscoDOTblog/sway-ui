@@ -8,15 +8,13 @@ import styles from './Header.module.css';
 export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [titleSize, setTitleSize] = useState('2rem');
+  const [isMobile, setIsMobile] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
 
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
   const navRef = useRef(null);
-
-
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,7 +24,7 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
-  // Dynamic header resizing
+  // Dynamic header resizing and mobile detection
   useEffect(() => {
     const adjustHeaderSize = () => {
       if (!headerRef.current || !logoRef.current || !navRef.current) return;
@@ -38,22 +36,11 @@ export default function Header() {
       
       const availableSpace = headerWidth - navWidth - padding;
       const shouldBeCompact = availableSpace < logoWidth + 50; // 50px buffer
+      const isMobileView = headerWidth < 768;
 
       // Set compact mode for very small screens
       setIsCompact(shouldBeCompact);
-
-      // Dynamic title sizing based on available space
-      if (headerWidth < 320) {
-        setTitleSize('0.8rem');
-      } else if (headerWidth < 480) {
-        setTitleSize('1rem');
-      } else if (headerWidth < 768) {
-        setTitleSize('1.4rem');
-      } else if (shouldBeCompact) {
-        setTitleSize('1.6rem');
-      } else {
-        setTitleSize('2rem');
-      }
+      setIsMobile(isMobileView);
     };
 
     // Initial check
@@ -93,35 +80,65 @@ export default function Header() {
       <div className={`${styles.headerContent} ${isCompact ? styles.compact : ''}`}>
         <div className={styles.logo} ref={logoRef}>
           <Link href="/" className={styles.logoLink}>
-            <span 
-              className={styles.logoText}
-              style={{ fontSize: titleSize }}
-            >
+            <span className={styles.logoText}>
               swayDOTquest
             </span>
           </Link>
         </div>
         <nav className={`${styles.nav} ${isCompact ? styles.compactNav : ''}`} ref={navRef}>
-          <Link href="/" className={styles.navLink}>Home</Link>
-          <a 
-            href="https://f4.sway.quest" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.navLink}
-          >
-            App
-          </a>
-          {!isCompact && <Link href="/contact" className={styles.navLink}>Contact</Link>}
-          {isCompact && (
+          {/* Show navigation links only on desktop */}
+          {!isMobile && (
+            <>
+              <Link href="/" className={styles.navLink}>Home</Link>
+              <Link href="/blog" className={styles.navLink}>Blog</Link>
+              <a 
+                href="https://f4.sway.quest" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.navLink}
+              >
+                App
+              </a>
+              <Link href="/contact" className={styles.navLink}>Contact</Link>
+            </>
+          )}
+          
+          {/* Show hamburger menu on mobile */}
+          {isMobile && (
             <div className={styles.dropdownContainer} ref={menuRef}>
               <button 
                 className={`${styles.navLink} ${styles.menuIcon}`}
                 onClick={toggleMenu}
+                aria-label="Toggle menu"
               >
-                ⋯
+                {isMenuOpen ? '✕' : '☰'}
               </button>
               {isMenuOpen && (
                 <div className={styles.dropdown}>
+                  <Link href="/" className={styles.dropdownItem} onClick={closeMenu}>
+                    <span className={styles.dropdownIcon}>🏠</span>
+                    <div className={styles.dropdownContent}>
+                      <span className={styles.dropdownTitle}>Home</span>
+                    </div>
+                  </Link>
+                  <Link href="/blog" className={styles.dropdownItem} onClick={closeMenu}>
+                    <span className={styles.dropdownIcon}>📝</span>
+                    <div className={styles.dropdownContent}>
+                      <span className={styles.dropdownTitle}>Blog</span>
+                    </div>
+                  </Link>
+                  <a 
+                    href="https://f4.sway.quest" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className={styles.dropdownItem}
+                    onClick={closeMenu}
+                  >
+                    <span className={styles.dropdownIcon}>📱</span>
+                    <div className={styles.dropdownContent}>
+                      <span className={styles.dropdownTitle}>App</span>
+                    </div>
+                  </a>
                   <Link href="/contact" className={styles.dropdownItem} onClick={closeMenu}>
                     <span className={styles.dropdownIcon}>📧</span>
                     <div className={styles.dropdownContent}>

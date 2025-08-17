@@ -1,0 +1,10 @@
+# Sway Quest Ads.txt
+# Last updated: January 2025
+# This file declares authorized digital sellers for advertising
+
+# Example entries (replace with actual ad network info when you have ads)
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# example-ad-network.com, 12345, DIRECT, abc123
+
+# Placeholder - update when you implement advertising
+# No current advertising partners
