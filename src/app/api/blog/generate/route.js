@@ -5,6 +5,7 @@ import { blogService } from '../../../../lib/blogService';
 import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 import { telegramService } from '../../../../lib/telegramService';
+import { generateBlogImage, generateFallbackImage } from '../../../../lib/imageService';
 
 
 // Initialize OpenAI
@@ -204,8 +205,23 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     // Extract content sections
     const sections = extractContentSections(content);
 
-    // Generate OG image URL
-    const ogImagePath = generateOGImageURL(seoTitle, slug);
+    // Generate AI image for the blog post
+    let featuredImage = null;
+    try {
+      console.log('🎨 Generating AI image for blog post...');
+      featuredImage = await generateBlogImage(selectedTopic, slug);
+      
+      if (!featuredImage) {
+        console.log('⚠️ AI image generation failed, trying fallback image...');
+        featuredImage = await generateFallbackImage(seoTitle, slug);
+      }
+    } catch (imageError) {
+      console.error('❌ Error generating image:', imageError.message);
+      // Continue without image - don't fail the entire blog generation
+    }
+
+    // Use AI-generated image if available, otherwise fall back to OG image
+    const finalImage = featuredImage || generateOGImageURL(seoTitle, slug);
 
     // Extract FAQ schema
     const faqSchema = extractFAQSchema(content);
@@ -225,8 +241,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
       character: selectedCharacter,
       category: selectedCategory,
       tags: tags,
-      featuredImage: ogImagePath,
-      ogImage: ogImagePath,
+      featuredImage: finalImage,
+      ogImage: finalImage,
       faqSchema: faqSchema,
       readTime: readTime,
       viewCount: 0,
