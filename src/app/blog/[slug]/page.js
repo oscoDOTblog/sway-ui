@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import BlogNavigation from '../../../components/BlogNavigation';
 import RelatedPosts from '../../../components/RelatedPosts';
+import BlogCTA from '../../components/BlogCTA';
 import styles from './page.module.css';
 
 // ISR configuration - regenerate every 30 minutes
@@ -154,6 +155,9 @@ export default async function BlogPostPage({ params }) {
             {post.content}
           </ReactMarkdown>
         </div>
+
+        {/* CTA Component */}
+        <BlogCTA />
 
         {/* Navigation */}
         <BlogNavigation prev={adjacentPosts.prev} next={adjacentPosts.next} />

@@ -1,6 +1,7 @@
 import { blogService } from '../../lib/blogService';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import BlogCTA from '../components/BlogCTA';
 import styles from './page.module.css';
 
 // ISR configuration - regenerate every hour
@@ -109,6 +110,9 @@ export default async function BlogPage() {
           ))}
         </div>
       )}
+
+      {/* CTA Component */}
+      <BlogCTA />
     </div>
   );
 }

@@ -18,6 +18,7 @@ The Sway Quest blog system is a comprehensive, SEO-optimized blog built with Nex
 - **Beautiful Typography** - Optimized for readability
 - **Smooth Animations** - Engaging user interactions
 - **Social Sharing** - Easy sharing on social platforms
+- **App CTA Integration** - Call-to-action components to promote the Sway app
 
 ### 📊 Content Management
 - **AWS DynamoDB Integration** - Scalable, serverless database
@@ -189,6 +190,23 @@ function dance() {
 |--------|-----|-----------|
 | Row 1  | Data| Here      |
 ```
+
+## App Integration
+
+### Call-to-Action Components
+
+The blog system includes integrated CTA components that promote the Sway app:
+
+- **BlogCTA Component** - Appears at the end of each blog post and on the blog listing page
+- **App Promotion** - Encourages readers to try the interactive dance learning platform
+- **Feature Highlights** - Showcases key app features like real-time feedback, advanced video player, comprehensive library, progress tracking, and worldwide community
+- **App Statistics** - Displays impressive numbers: 100+ dance moves, HD video quality, 24/7 feedback
+- **Mobile Responsive** - Optimized for all device sizes
+- **Netflix-Style Design** - Matches the overall site theming with hot pink accents
+
+The CTA component automatically appears on:
+- Individual blog post pages (after content, before navigation)
+- Blog listing page (after all posts)
 
 ## SEO Optimization
 
