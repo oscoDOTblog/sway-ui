@@ -188,6 +188,17 @@
   border: 1px solid rgba(255, 0, 128, 0.2);
 }
 
+.characterNote {
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 0, 128, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 0, 128, 0.2);
+}
+
 .autoGenInfo {
   display: flex;
   flex-direction: column;
@@ -232,12 +243,46 @@
   padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .characterCard:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 0, 128, 0.3);
   box-shadow: 0 5px 15px rgba(255, 0, 128, 0.1);
+}
+
+.characterCard.selected {
+  background: rgba(255, 0, 128, 0.1);
+  border-color: #ff0080;
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+  transform: translateY(-2px);
+}
+
+.characterCard.selected::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 0, 128, 0.1), rgba(255, 107, 157, 0.1));
+  pointer-events: none;
+}
+
+.selectedIndicator {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #ff0080;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  animation: fadeInUp 0.3s ease-out;
 }
 
 .characterName {
@@ -440,6 +485,13 @@
 
   .characterCard {
     padding: 0.75rem;
+  }
+
+  .selectedIndicator {
+    top: 0.25rem;
+    right: 0.25rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
   }
 
   .result {

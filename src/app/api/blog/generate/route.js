@@ -139,6 +139,8 @@ async function generateBlogPost(topic = null, character = null, category = null)
 
     console.log(`🎯 Generating blog post for topic: ${selectedTopic} with character: ${characterInfo.name}`);
 
+    // 🤖 AI is writing your content...
+    console.log('🤖 AI is writing your content...');
     // Generate main content
     const contentCompletion = await openai.chat.completions.create({
       model: blogConfig.generation.model,
@@ -158,6 +160,8 @@ async function generateBlogPost(topic = null, character = null, category = null)
 
     const content = contentCompletion.choices[0].message.content;
 
+    // 📝 Generating SEO metadata...
+    console.log('📝 Generating SEO metadata...');
     // Generate SEO metadata and auto-categorization
     const seoCompletion = await openai.chat.completions.create({
       model: blogConfig.generation.model,
@@ -199,6 +203,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     const tags = tagsMatch ? tagsMatch[1].split(',').map(tag => tag.trim()) : ['dance', 'tips'];
     const selectedCategory = categoryMatch ? categoryMatch[1].trim() : 'dance-tips';
 
+    // 🔗 Creating unique slug...
+    console.log('🔗 Creating unique slug...');
     // Generate unique slug from SEO title with date
     const slug = await generateUniqueSlug(seoTitle, blogService, new Date());
 
@@ -208,7 +214,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     // Generate AI image for the blog post
     let featuredImage = null;
     try {
-      console.log('🎨 Generating AI image for blog post...');
+      // 🎨 Generating AI image...
+      console.log('🎨 Generating AI image...');
       featuredImage = await generateBlogImage(selectedTopic, slug);
       
       if (!featuredImage) {
@@ -229,6 +236,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     // Calculate read time
     const readTime = calculateReadTime(content);
 
+    // 💾 Saving to database...
+    console.log('💾 Saving to database...');
     // Prepare blog post data
     const blogPost = {
       id: generateUniqueId(slug),
@@ -257,6 +266,8 @@ Tags: [comma-separated list of 5-8 relevant tags]`
 
     console.log(`✅ Blog post generated successfully: ${slug}`);
     
+    // 📱 Sending notifications...
+    console.log('📱 Sending notifications...');
     // Send Telegram notification for successful generation
     try {
       console.log('📱 Sending Telegram notification for blog post:', savedPost.title);

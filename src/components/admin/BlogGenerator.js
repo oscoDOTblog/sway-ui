@@ -13,7 +13,6 @@ export default function BlogGenerator() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [customTopic, setCustomTopic] = useState('');
   const [selectedCharacter, setSelectedCharacter] = useState('');
-  const [count, setCount] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const [result, setResult] = useState(null);
@@ -60,13 +59,13 @@ export default function BlogGenerator() {
         return;
       }
 
-      // Simulate progress updates
+      // Simulate progress updates based on actual server steps
       const progressInterval = setInterval(() => {
         setGenerationProgress(prev => {
           if (prev >= 90) return prev;
-          return prev + Math.random() * 10;
+          return prev + Math.random() * 8;
         });
-      }, 1000);
+      }, 1200);
 
       const response = await fetch('/api/blog/generate', {
         method: 'POST',
@@ -76,7 +75,7 @@ export default function BlogGenerator() {
         },
         body: JSON.stringify({
           topic: topic,
-          count: count,
+          count: 1,
           character: selectedCharacter || undefined,
           category: selectedCategory || undefined
         }),
@@ -105,6 +104,10 @@ export default function BlogGenerator() {
     }
   };
 
+  const handleCharacterSelect = (characterKey) => {
+    setSelectedCharacter(characterKey === selectedCharacter ? '' : characterKey);
+  };
+
   return (
     <div className={styles.container}>
       {isGenerating && (
@@ -123,19 +126,27 @@ export default function BlogGenerator() {
             </div>
             
             <div className={styles.loadingSteps}>
-              <div className={`${styles.loadingStep} ${generationProgress > 10 ? styles.active : ''}`}>
+              <div className={`${styles.loadingStep} ${generationProgress > 5 ? styles.active : ''}`}>
                 <div className={styles.stepIcon}>🤖</div>
                 <span>AI is writing your content...</span>
               </div>
-              <div className={`${styles.loadingStep} ${generationProgress > 30 ? styles.active : ''}`}>
-                <div className={styles.stepIcon}>🎨</div>
+              <div className={`${styles.loadingStep} ${generationProgress > 20 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>📝</div>
                 <span>Generating SEO metadata...</span>
               </div>
-              <div className={`${styles.loadingStep} ${generationProgress > 50 ? styles.active : ''}`}>
-                <div className={styles.stepIcon}>📝</div>
+              <div className={`${styles.loadingStep} ${generationProgress > 35 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>🔗</div>
                 <span>Creating unique slug...</span>
               </div>
-              <div className={`${styles.loadingStep} ${generationProgress > 70 ? styles.active : ''}`}>
+              <div className={`${styles.loadingStep} ${generationProgress > 50 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>🎨</div>
+                <span>Generating AI image...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 65 ? styles.active : ''}`}>
+                <div className={styles.stepIcon}>☁️</div>
+                <span>Uploading image to S3...</span>
+              </div>
+              <div className={`${styles.loadingStep} ${generationProgress > 80 ? styles.active : ''}`}>
                 <div className={styles.stepIcon}>💾</div>
                 <span>Saving to database...</span>
               </div>
@@ -253,81 +264,20 @@ export default function BlogGenerator() {
           </div>
         </div>
 
-        <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Generation Settings</h2>
-          
-          <div className={styles.setting}>
-            <label className={styles.label}>Number of Posts:</label>
-            <select
-              value={count}
-              onChange={(e) => setCount(parseInt(e.target.value))}
-              className={styles.select}
-              disabled={isGenerating}
-            >
-              <option value={1}>1 Post</option>
-              <option value={2}>2 Posts</option>
-              <option value={3}>3 Posts</option>
-              <option value={4}>4 Posts</option>
-              <option value={5}>5 Posts</option>
-            </select>
-          </div>
 
-          <div className={styles.setting}>
-            <label className={styles.label}>Character (Optional):</label>
-            <select
-              value={selectedCharacter}
-              onChange={(e) => setSelectedCharacter(e.target.value)}
-              className={styles.select}
-              disabled={isGenerating}
-            >
-              <option value="">Random Character</option>
-              {Object.entries(characters).map(([key, character]) => (
-                <option key={key} value={key}>
-                  {character.name} - {character.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
 
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Auto-Generated Categories & Tags</h2>
-          <p className={styles.autoGenNote}>
-            Categories and tags are automatically generated by AI based on the blog topic content. 
-            The system analyzes each topic and assigns the most appropriate category and relevant tags.
+          <h2 className={styles.sectionTitle}>Character Selection</h2>
+          <p className={styles.characterNote}>
+            Click on a character to select them, or leave unselected for a random character.
           </p>
-          
-          <div className={styles.autoGenInfo}>
-            <div className={styles.autoGenSection}>
-              <h4 className={styles.autoGenTitle}>Available Categories</h4>
-              <div className={styles.tags}>
-                {categories.map((category, index) => (
-                  <span key={index} className={styles.tag}>
-                    {category}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div className={styles.autoGenSection}>
-              <h4 className={styles.autoGenTitle}>Sample Tags</h4>
-              <div className={styles.tags}>
-                {tags.slice(0, 10).map((tag, index) => (
-                  <span key={index} className={styles.tag}>
-                    {tag}
-                  </span>
-                ))}
-                <span className={styles.moreTags}>+ more auto-generated</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Available Characters</h2>
           <div className={styles.characters}>
             {Object.entries(characters).map(([key, character]) => (
-              <div key={key} className={styles.characterCard}>
+              <div 
+                key={key} 
+                className={`${styles.characterCard} ${selectedCharacter === key ? styles.selected : ''}`}
+                onClick={() => handleCharacterSelect(key)}
+              >
                 <h4 className={styles.characterName}>{character.name}</h4>
                 <p className={styles.characterTitle}>{character.title}</p>
                 <p className={styles.characterTone}>{character.tone}</p>
@@ -338,6 +288,9 @@ export default function BlogGenerator() {
                     </span>
                   ))}
                 </div>
+                {selectedCharacter === key && (
+                  <div className={styles.selectedIndicator}>✓ Selected</div>
+                )}
               </div>
             ))}
           </div>

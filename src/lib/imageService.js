@@ -165,7 +165,7 @@ async function uploadImageToS3(imageBuffer, slug) {
  */
 export async function generateFallbackImage(title, slug) {
   try {
-    console.log('🎨 Generating fallback image with text overlay...');
+    console.log('🎨 Generating fallback image...');
     
     // Create a simple text-based image
     const width = 1200;
