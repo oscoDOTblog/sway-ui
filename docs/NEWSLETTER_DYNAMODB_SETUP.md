@@ -67,7 +67,7 @@ AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 
 # DynamoDB Table
-AWS_DYNAMODB_NEWSLETTER=sway-news-use2
+AWS_DYNAMODB_NEWS=sway-news-use2
 ```
 
 ### 3. Install Dependencies
