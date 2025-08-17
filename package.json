@@ -47,7 +47,8 @@
     "clean:blog-content": "node scripts/clean-blog-content.js",
     "test:blog-cta": "node scripts/test-blog-cta.js",
     "test:image-generation": "node scripts/test-image-generation.js",
-    "test:blog-timeout": "node scripts/test-blog-timeout.js"
+    "test:blog-timeout": "node scripts/test-blog-timeout.js",
+    "test:cache-invalidation": "node scripts/test-cache-invalidation.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",

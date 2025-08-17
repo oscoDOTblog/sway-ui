@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { blogService } from '../../../../lib/blogService';
 import { deleteBlogImages } from '../../../../lib/imageService';
 
@@ -64,6 +65,23 @@ export async function PUT(request, { params }) {
     // Update the post
     const updatedPost = await blogService.updatePost(existingPost.id, body);
 
+    // 🔄 Invalidate cache to reflect updates immediately
+    console.log('🔄 Invalidating cache for blog post update...');
+    try {
+      // Invalidate the blog index page
+      revalidatePath('/blog');
+      // Invalidate the specific blog post page
+      revalidatePath(`/blog/${updatedPost.slug}`);
+      // If slug changed, also invalidate the old slug
+      if (body.slug && body.slug !== params.slug) {
+        revalidatePath(`/blog/${params.slug}`);
+      }
+      console.log(`✅ Cache invalidated for blog post update`);
+    } catch (cacheError) {
+      console.warn('⚠️ Cache invalidation failed:', cacheError.message);
+      // Don't fail the entire request if cache invalidation fails
+    }
+
     return NextResponse.json({
       success: true,
       post: updatedPost,
@@ -119,6 +137,19 @@ export async function DELETE(request, { params }) {
     // Only delete from database if S3 deletion was successful
     console.log('🗑️ Deleting blog post from database...');
     await blogService.deletePost(existingPost.id);
+
+    // 🔄 Invalidate cache to reflect deletion immediately
+    console.log('🔄 Invalidating cache for blog post deletion...');
+    try {
+      // Invalidate the blog index page
+      revalidatePath('/blog');
+      // Invalidate the specific blog post page
+      revalidatePath(`/blog/${params.slug}`);
+      console.log(`✅ Cache invalidated for blog post deletion`);
+    } catch (cacheError) {
+      console.warn('⚠️ Cache invalidation failed:', cacheError.message);
+      // Don't fail the entire request if cache invalidation fails
+    }
 
     return NextResponse.json({
       success: true,

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
@@ -265,6 +266,19 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     const savedPost = await blogService.createPost(blogPost);
 
     console.log(`✅ Blog post generated successfully: ${slug}`);
+    
+    // 🔄 Invalidate cache to reflect new image immediately
+    console.log('🔄 Invalidating cache for immediate image update...');
+    try {
+      // Invalidate the blog index page
+      revalidatePath('/blog');
+      // Invalidate the specific blog post page
+      revalidatePath(`/blog/${savedPost.slug}`);
+      console.log(`✅ Cache invalidated for /blog and /blog/${savedPost.slug}`);
+    } catch (cacheError) {
+      console.warn('⚠️ Cache invalidation failed:', cacheError.message);
+      // Don't fail the entire request if cache invalidation fails
+    }
     
     // 📱 Sending notifications...
     console.log('📱 Sending notifications...');

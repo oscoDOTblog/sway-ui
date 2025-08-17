@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { blogService } from '../../../lib/blogService';
 
 // GET /api/blog - Get all blog posts
@@ -86,6 +87,19 @@ export async function POST(request) {
 
     // Create the post
     const post = await blogService.createPost(body);
+
+    // 🔄 Invalidate cache to reflect new post immediately
+    console.log('🔄 Invalidating cache for new blog post...');
+    try {
+      // Invalidate the blog index page
+      revalidatePath('/blog');
+      // Invalidate the specific blog post page
+      revalidatePath(`/blog/${post.slug}`);
+      console.log(`✅ Cache invalidated for new blog post: ${post.slug}`);
+    } catch (cacheError) {
+      console.warn('⚠️ Cache invalidation failed:', cacheError.message);
+      // Don't fail the entire request if cache invalidation fails
+    }
 
     return NextResponse.json({
       success: true,
