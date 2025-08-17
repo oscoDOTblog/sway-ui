@@ -196,7 +196,7 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     const seoTitle = seoTitleMatch ? seoTitleMatch[1].trim() : selectedTopic;
     const metaDescription = metaDescMatch ? metaDescMatch[1].trim() : `Learn about ${selectedTopic.toLowerCase()}`;
     const tags = tagsMatch ? tagsMatch[1].split(',').map(tag => tag.trim()) : ['dance', 'tips'];
-    const category = categoryMatch ? categoryMatch[1].trim() : 'dance-tips';
+    const selectedCategory = categoryMatch ? categoryMatch[1].trim() : 'dance-tips';
 
     // Generate unique slug from SEO title with date
     const slug = await generateUniqueSlug(seoTitle, blogService, new Date());
@@ -223,7 +223,7 @@ Tags: [comma-separated list of 5-8 relevant tags]`
       metaDescription: sections.metaDescription || metaDescription,
       author: characterInfo.name,
       character: selectedCharacter,
-      category: category,
+      category: selectedCategory,
       tags: tags,
       featuredImage: ogImagePath,
       ogImage: ogImagePath,

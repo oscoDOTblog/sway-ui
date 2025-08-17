@@ -145,7 +145,7 @@ export default function BlogGenerator() {
               </div>
             </div>
             <p className={styles.loadingNote}>
-              This usually takes 30-60 seconds. Please don't close this page.
+              This usually takes 30-60 seconds. Please don&apos;t close this page.
             </p>
           </div>
         </div>
@@ -334,7 +334,7 @@ export default function BlogGenerator() {
                 <div className={styles.characterCatchphrases}>
                   {character.catchphrases.slice(0, 2).map((phrase, index) => (
                     <span key={index} className={styles.catchphrase}>
-                      "{phrase}"
+                      &quot;{phrase}&quot;
                     </span>
                   ))}
                 </div>

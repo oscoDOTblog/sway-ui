@@ -152,19 +152,19 @@ export default function AutomationDashboard() {
             </span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Today's Category:</span>
+            <span className={styles.statusLabel}>Today&apos;s Category:</span>
             <span className={styles.statusValue}>{rotationInfo.todayCategory}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Today's Character:</span>
+            <span className={styles.statusLabel}>Today&apos;s Character:</span>
             <span className={styles.statusValue}>{blogConfig.characters[rotationInfo.todayCharacter]?.name || rotationInfo.todayCharacter}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Tomorrow's Category:</span>
+            <span className={styles.statusLabel}>Tomorrow&apos;s Category:</span>
             <span className={styles.statusValue}>{rotationInfo.tomorrowCategory}</span>
           </div>
           <div className={styles.statusItem}>
-            <span className={styles.statusLabel}>Tomorrow's Character:</span>
+            <span className={styles.statusLabel}>Tomorrow&apos;s Character:</span>
             <span className={styles.statusValue}>{blogConfig.characters[rotationInfo.tomorrowCharacter]?.name || rotationInfo.tomorrowCharacter}</span>
           </div>
         </div>
