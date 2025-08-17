@@ -5,8 +5,6 @@ export const blogConfig = {
   // AI Models configuration
   ai: {
     imageModels: [
-      'gpt-5-mini',
-      'gpt-5-nano',
       'gpt-5',
       'gpt-4o',
       'gpt-4o-mini',
@@ -15,7 +13,7 @@ export const blogConfig = {
       'gpt-4.1-nano',
       'o3'
     ],
-    defaultImageModel: 'gpt-5-mini'
+    defaultImageModel: 'gpt-5'
   },
 
   // Blog Topics - SEO-optimized dance content organized by categories
