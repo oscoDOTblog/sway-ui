@@ -39,7 +39,9 @@
     "test:newsletter-service": "node scripts/test-newsletter-service.js",
     "migrate:newsletter": "node scripts/migrate-newsletter-to-dynamodb.js",
     "update:iam": "node scripts/update-iam-permissions.js",
-    "create:newsletter-policy": "node scripts/create-newsletter-policy.js"
+    "create:newsletter-policy": "node scripts/create-newsletter-policy.js",
+    "update:blog-policy": "node scripts/update-blog-policy.js",
+    "update:newsletter-policy": "node scripts/update-newsletter-policy.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.863.0",

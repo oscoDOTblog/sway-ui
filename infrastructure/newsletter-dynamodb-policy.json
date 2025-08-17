@@ -13,8 +13,7 @@
         "dynamodb:Scan",
         "dynamodb:BatchGetItem",
         "dynamodb:BatchWriteItem",
-        "dynamodb:DescribeTable",
-        "dynamodb:ListTables"
+        "dynamodb:DescribeTable"
       ],
       "Resource": [
         "arn:aws:dynamodb:us-east-2:*:table/sway-news-use2",
@@ -22,7 +21,7 @@
       ]
     },
     {
-      "Sid": "NewsletterDynamoDBListTables",
+      "Sid": "DynamoDBListTables",
       "Effect": "Allow",
       "Action": [
         "dynamodb:ListTables"
