@@ -4,9 +4,10 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
   padding: 1rem 4%;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .headerContent {
@@ -32,7 +33,7 @@
 }
 
 .logoText {
-  font-size: clamp(1.2rem, 4vw, 2rem); /* Dynamic scaling based on viewport width */
+  font-size: clamp(1.2rem, 4vw, 2.5rem); /* Dynamic scaling based on viewport width */
   font-weight: bold;
   color: #ff1493;
   text-decoration: none;
@@ -40,7 +41,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  transition: font-size 0.3s ease, max-width 0.3s ease;
+  transition: all 0.3s ease;
+  line-height: 1;
 }
 
 .nav {
@@ -48,28 +50,33 @@
   gap: clamp(0.5rem, 2vw, 2rem); /* Dynamic gap scaling */
   flex-shrink: 1;
   min-width: 0;
+  align-items: center;
 }
 
 .navLink {
   color: #fff;
   text-decoration: none;
-  font-size: clamp(0.7rem, 1.8vw, 0.9rem); /* Dynamic font scaling */
-  transition: color 0.3s ease;
+  font-size: clamp(0.8rem, 2vw, 1rem); /* Dynamic font scaling */
+  transition: all 0.3s ease;
   background: none;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  padding: 0;
+  padding: 0.5rem 0.8rem;
   margin: 0;
   display: flex;
   align-items: center;
   line-height: 1;
   white-space: nowrap;
   flex-shrink: 0;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
 .navLink:hover {
   color: #ff1493;
+  background: rgba(255, 20, 147, 0.1);
+  transform: translateY(-1px);
 }
 
 /* Dropdown Styles */
@@ -81,15 +88,16 @@
 .dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  min-width: 280px;
+  border-radius: 12px;
+  min-width: 200px;
   z-index: 1001;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   animation: dropdownFadeIn 0.2s ease-out;
+  margin-top: 0.5rem;
 }
 
 @keyframes dropdownFadeIn {
@@ -109,7 +117,7 @@
   padding: 12px 16px;
   color: #fff;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -120,6 +128,7 @@
 .dropdownItem:hover {
   background: rgba(255, 20, 147, 0.2);
   color: #ff1493;
+  transform: translateX(4px);
 }
 
 .dropdownIcon {
@@ -165,7 +174,7 @@
   }
   
   .logoText {
-    font-size: clamp(1rem, 3.5vw, 1.6rem);
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
   }
   
   .nav {
@@ -173,7 +182,8 @@
   }
   
   .navLink {
-    font-size: clamp(0.65rem, 1.6vw, 0.8rem);
+    font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+    padding: 0.4rem 0.6rem;
   }
   
   .dropdown {
@@ -187,6 +197,7 @@
     border-right: none;
     max-height: 70vh;
     overflow-y: auto;
+    margin-top: 0;
   }
   
   .dropdownItem {
@@ -219,7 +230,7 @@
   }
   
   .logoText {
-    font-size: clamp(0.9rem, 3vw, 1.4rem);
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
     max-width: 50vw; /* Limit logo width on very small screens */
   }
   
@@ -230,8 +241,8 @@
   }
   
   .navLink {
-    font-size: clamp(0.6rem, 1.4vw, 0.75rem);
-    padding: 0.2rem 0;
+    font-size: clamp(0.65rem, 1.6vw, 0.8rem);
+    padding: 0.3rem 0.5rem;
   }
   
   .dropdown {
@@ -250,19 +261,23 @@
 
 .compactNav .navLink {
   font-size: 0.75rem;
-  padding: 0.1rem 0.3rem;
+  padding: 0.2rem 0.4rem;
 }
 
 /* Menu icon for compact mode */
 .menuIcon {
   font-size: 1.2rem;
-  padding: 0.2rem;
-  border-radius: 3px;
-  transition: background-color 0.2s ease;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .menuIcon:hover {
-  background-color: rgba(255, 20, 147, 0.2);
+  background: rgba(255, 20, 147, 0.2);
+  border-color: rgba(255, 20, 147, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Very small devices (up to 320px) */
@@ -272,9 +287,8 @@
   }
   
   .logoText {
-    font-size: clamp(0.8rem, 2.8vw, 1.2rem);
+    font-size: clamp(0.8rem, 2.8vw, 1.3rem);
     max-width: 45vw;
-    transition: font-size 0.3s ease;
   }
   
   .nav {
@@ -283,7 +297,7 @@
   
   .navLink {
     font-size: 0.6rem;
-    padding: 0.1rem 0;
+    padding: 0.2rem 0.4rem;
   }
   
   .compact .logoText {
