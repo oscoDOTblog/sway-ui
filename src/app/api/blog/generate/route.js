@@ -14,6 +14,18 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY 
 });
 
+// Debug environment variables
+console.log('🔧 Environment check:', {
+  hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+  hasAwsRegion: !!process.env.AWS_REGION,
+  hasAwsAccessKey: !!process.env.AWS_ACCESS_KEY_ID,
+  hasAwsSecretKey: !!process.env.AWS_SECRET_ACCESS_KEY,
+  hasDynamoTable: !!process.env.AWS_DYNAMODB_BLOG,
+  hasTelegramToken: !!process.env.TELEGRAM_BOT_TOKEN,
+  hasTelegramChatId: !!process.env.TELEGRAM_CHAT_ID,
+  nodeEnv: process.env.NODE_ENV
+});
+
 
 
 // Generate OG image URL for the blog post
@@ -125,6 +137,8 @@ function extractContentSections(content) {
 // Generate blog post using OpenAI
 async function generateBlogPost(topic = null, character = null, category = null) {
   try {
+    console.log('🎯 Starting generateBlogPost with params:', { topic, character, category });
+    
     // Use provided topic, category-based topic, or random topic
     let selectedTopic = topic;
     if (!selectedTopic && category) {
@@ -139,6 +153,7 @@ async function generateBlogPost(topic = null, character = null, category = null)
     const characterInfo = getCharacterInfo(selectedCharacter);
 
     console.log(`🎯 Generating blog post for topic: ${selectedTopic} with character: ${characterInfo.name}`);
+    console.log('🎯 Character info:', characterInfo);
 
     // 🤖 AI is writing your content...
     console.log('🤖 AI is writing your content...');
@@ -325,31 +340,50 @@ async function generateAutomatedBlogPost() {
   const today = new Date();
   
   try {
+    console.log('🚀 Starting automated blog generation...');
+    
     // Get topic with duplicate prevention (ensures variety for hourly posting)
+    console.log('📝 Getting topic with duplicate prevention...');
     const topic = await getTopicWithDuplicatePrevention(today, blogService);
+    console.log('📝 Selected topic:', topic);
     
     // Get character by date rotation (ensures character variety)
+    console.log('👤 Getting character by date rotation...');
     const character = getCharacterByDate(today);
+    console.log('👤 Selected character:', character);
     
     console.log(`🤖 Automated generation for ${today.toDateString()} ${today.getHours()}:${String(today.getMinutes()).padStart(2, '0')}: Topic from category rotation with duplicate prevention, Character: ${character}`);
     
+    console.log('🔄 Calling generateBlogPost...');
     const result = await generateBlogPost(topic, character, null);
+    console.log('🔄 generateBlogPost result:', result);
     
     // Send notification about the result
+    console.log('📢 Sending automated generation notification...');
     await sendAutomatedGenerationNotification(result, today);
     
     return result;
   } catch (error) {
     console.error('❌ Error in automated blog generation:', error);
+    console.error('❌ Error stack:', error.stack);
     
     // Fallback to random generation if rotation fails
     console.log('🔄 Falling back to random generation...');
-    const fallbackResult = await generateBlogPost(null, null, null);
-    
-    // Send notification about fallback result
-    await sendAutomatedGenerationNotification(fallbackResult, today);
-    
-    return fallbackResult;
+    try {
+      const fallbackResult = await generateBlogPost(null, null, null);
+      console.log('🔄 Fallback result:', fallbackResult);
+      
+      // Send notification about fallback result
+      await sendAutomatedGenerationNotification(fallbackResult, today);
+      
+      return fallbackResult;
+    } catch (fallbackError) {
+      console.error('❌ Fallback generation also failed:', fallbackError);
+      return {
+        success: false,
+        error: `Both primary and fallback generation failed: ${error.message}, ${fallbackError.message}`
+      };
+    }
   }
 }
 
@@ -479,8 +513,20 @@ export async function POST(request) {
 // GET endpoint to list available topics or handle automated generation
 export async function GET(request) {
   try {
-    // Check if this is an automated request (cron job)
-    const isAutomated = request.headers.get('x-vercel-cron') === '1';
+    // Debug: Log all headers to see what's available
+    const allHeaders = Object.fromEntries(request.headers.entries());
+    console.log('🔍 All request headers:', allHeaders);
+    
+    // Check if this is an automated request (cron job) - multiple ways to detect
+    const cronHeader = request.headers.get('x-vercel-cron');
+    const userAgent = request.headers.get('user-agent');
+    const isAutomated = cronHeader === '1' || userAgent === 'vercel-cron/1.0';
+    
+    console.log('🔍 Cron detection:', {
+      cronHeader,
+      userAgent,
+      isAutomated
+    });
     
     // If it's a cron job, generate a blog post
     if (isAutomated) {
@@ -504,6 +550,8 @@ export async function GET(request) {
         }, { status: 500 });
       }
     }
+    
+    console.log('📋 Manual GET request - returning configuration');
     
     // For manual GET requests, return configuration
     return NextResponse.json({
