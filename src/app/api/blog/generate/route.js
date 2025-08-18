@@ -476,9 +476,36 @@ export async function POST(request) {
   }
 }
 
-// GET endpoint to list available topics
-export async function GET() {
+// GET endpoint to list available topics or handle automated generation
+export async function GET(request) {
   try {
+    // Check if this is an automated request (cron job)
+    const isAutomated = request.headers.get('x-vercel-cron') === '1';
+    
+    // If it's a cron job, generate a blog post
+    if (isAutomated) {
+      console.log('🤖 Cron job triggered - starting automated blog generation...');
+      
+      const result = await generateAutomatedBlogPost();
+      
+      if (result.success) {
+        console.log(`✅ Cron job completed successfully: ${result.post?.title}`);
+        return NextResponse.json({
+          success: true,
+          message: 'Automated blog generation completed',
+          post: result.post
+        });
+      } else {
+        console.error('❌ Cron job failed:', result.error);
+        return NextResponse.json({
+          success: false,
+          error: result.error,
+          message: 'Automated blog generation failed'
+        }, { status: 500 });
+      }
+    }
+    
+    // For manual GET requests, return configuration
     return NextResponse.json({
       success: true,
       topics: blogConfig.topics,
@@ -493,9 +520,9 @@ export async function GET() {
       }
     });
   } catch (error) {
-    console.error('❌ Error fetching blog config:', error);
+    console.error('❌ Error in GET endpoint:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch blog configuration' },
+      { success: false, error: 'Internal server error' },
       { status: 500 }
     );
   }
