@@ -66,15 +66,11 @@ export default function Home() {
 
         {/* Hero Content */}
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>swayDOTquest</h1>
-          <p className={styles.heroSubtitle}>Your journey to becoming a better dancer starts here</p>
-          <div className={styles.heroButtons}>
-            <a href="https://f4.sway.quest" target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-              Try the App
-            </a>
-            <a href="#features" className={styles.secondaryButton}>
-              Learn More
-            </a>
+          <h1 className={styles.heroTitle}>Duolingo for Dance</h1>
+          <p className={styles.heroSubtitle}>Personalized and Real-Time AI Dance Feedback</p>
+          <div className={styles.heroNewsletter}>
+            <h3 className={styles.newsletterHeroTitle}>Be the First to Know When We Launch</h3>
+            <SimpleNewsletterSignup />
           </div>
         </div>
       </section>
