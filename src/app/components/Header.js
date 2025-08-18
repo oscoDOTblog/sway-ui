@@ -90,14 +90,14 @@ export default function Header() {
           {!isMobile && (
             <>
               <Link href="/" className={styles.navLink}>Home</Link>
-              <a 
-                href="https://f4.sway.quest" 
+              {/* <a 
+                href="https://app.sway.quest" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className={styles.navLink}
               >
                 App
-              </a>
+              </a> */}
               <Link href="/blog" className={styles.navLink}>Blog</Link>
               <Link href="/tunes" className={styles.navLink}>Tunes</Link>
               <Link href="/contact" className={styles.navLink}>Contact</Link>
@@ -122,8 +122,8 @@ export default function Header() {
                       <span className={styles.dropdownTitle}>Home</span>
                     </div>
                   </Link>
-                  <a 
-                    href="https://f4.sway.quest" 
+                  {/* <a 
+                    href="https://app.sway.quest" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className={styles.dropdownItem}
@@ -133,7 +133,7 @@ export default function Header() {
                     <div className={styles.dropdownContent}>
                       <span className={styles.dropdownTitle}>App</span>
                     </div>
-                  </a>
+                  </a> */}
                   <Link href="/blog" className={styles.dropdownItem} onClick={closeMenu}>
                     <span className={styles.dropdownIcon}>📝</span>
                     <div className={styles.dropdownContent}>
