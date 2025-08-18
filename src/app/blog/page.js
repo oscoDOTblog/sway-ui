@@ -20,12 +20,11 @@ export async function generateStaticParams() {
   }
 }
 
-// Get all posts for the blog index
+// Get recent posts for the blog index
 async function getPosts() {
   try {
-    const posts = await blogService.getAllPosts();
-    // Sort by publishedAt descending (newest first)
-    return posts.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    // Use the efficient getRecentPosts method that limits at the database level
+    return await blogService.getRecentPosts(10);
   } catch (error) {
     console.warn('Failed to fetch blog posts:', error.message);
     return [];

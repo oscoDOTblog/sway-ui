@@ -176,6 +176,35 @@ class BlogService {
     }
   }
 
+  // Get recent published blog posts with limit (for blog index page)
+  async getRecentPosts(limit = 10) {
+    try {
+      const command = new QueryCommand({
+        TableName: this.tableName,
+        IndexName: 'status-published-index',
+        KeyConditionExpression: '#status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
+        ExpressionAttributeValues: {
+          ':status': 'published',
+        },
+        ScanIndexForward: false, // Sort by publishedAt descending (newest first)
+        Limit: limit,
+        ProjectionExpression: 'id, title, slug, excerpt, author, publishedAt, updatedAt, tags, category, featuredImage, readTime, viewCount',
+      });
+
+      const response = await dynamoDocClient.send(command);
+      return response.Items || [];
+    } catch (error) {
+      if (this.isResourceNotFoundError(error)) {
+        console.warn(`Blog posts table '${this.tableName}' does not exist.`);
+        return [];
+      }
+      throw error;
+    }
+  }
+
   // Get posts by category
   async getPostsByCategory(category) {
     try {
