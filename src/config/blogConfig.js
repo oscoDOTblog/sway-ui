@@ -497,30 +497,36 @@ export function getRandomTopicFromCategory(category) {
   return categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
 }
 
-// Helper function to get topic by category rotation (for hourly posting)
+// Helper function to get topic by category rotation (for twice-daily posting)
 export function getTopicByCategoryRotation(date = new Date()) {
   const categories = Object.keys(blogConfig.topics);
-  // Use hour of year for more frequent rotation (365 days * 24 hours)
-  const hourOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60));
-  const categoryIndex = hourOfYear % categories.length;
-  const category = categories[categoryIndex];
+  // Use day of year for twice-daily rotation (365 days * 2 times per day)
+  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const hourOfDay = date.getHours();
   
-  // Add minute-based randomization to ensure variety within the same hour
+  // Determine if it's morning (9 AM) or evening (6 PM) slot
+  const timeSlot = hourOfDay >= 12 ? 1 : 0; // 0 for morning, 1 for evening
+  
+  // Combine day and time slot for better distribution
+  const rotationIndex = (dayOfYear * 2 + timeSlot) % categories.length;
+  const category = categories[rotationIndex];
+  
+  // Add minute-based randomization to ensure variety within the same time slot
   const minuteOfHour = date.getMinutes();
   const categoryTopics = getTopicByCategory(category);
-  const topicIndex = (hourOfYear + minuteOfHour) % categoryTopics.length;
+  const topicIndex = (rotationIndex + minuteOfHour) % categoryTopics.length;
   
   return categoryTopics[topicIndex] || getRandomTopicFromCategory(category);
 }
 
-// Helper function to get topic with duplicate prevention (for hourly posting)
+// Helper function to get topic with duplicate prevention (for twice-daily posting)
 export async function getTopicWithDuplicatePrevention(date = new Date(), blogService) {
   const primaryTopic = getTopicByCategoryRotation(date);
   
   try {
-    // Check for recent posts with similar topics (last 6 hours)
-    const sixHoursAgo = new Date(date.getTime() - (6 * 60 * 60 * 1000));
-    const recentPosts = await blogService.getPostsByDateRange(sixHoursAgo, date);
+    // Check for recent posts with similar topics (last 12 hours for twice-daily)
+    const twelveHoursAgo = new Date(date.getTime() - (12 * 60 * 60 * 1000));
+    const recentPosts = await blogService.getPostsByDateRange(twelveHoursAgo, date);
     
     // If we have recent posts, try to avoid exact topic matches
     if (recentPosts && recentPosts.length > 0) {
@@ -564,14 +570,23 @@ export function getRandomCharacter() {
   return characterKeys[Math.floor(Math.random() * characterKeys.length)];
 }
 
-// Helper function to get character by date (for scheduled content)
+// Helper function to get character by date (for twice-daily posting)
 export function getCharacterByDate(date = new Date()) {
   const characterKeys = Object.keys(blogConfig.characters);
-  // Use hour of year for more frequent character rotation
-  const hourOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60));
-  // Add minute-based randomization to ensure variety within the same hour
+  // Use day of year for twice-daily character rotation
+  const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  const hourOfDay = date.getHours();
+  
+  // Determine if it's morning (9 AM) or evening (6 PM) slot
+  const timeSlot = hourOfDay >= 12 ? 1 : 0; // 0 for morning, 1 for evening
+  
+  // Combine day and time slot for better character distribution
+  const rotationIndex = (dayOfYear * 2 + timeSlot) % characterKeys.length;
+  
+  // Add minute-based randomization to ensure variety within the same time slot
   const minuteOfHour = date.getMinutes();
-  const characterIndex = (hourOfYear + minuteOfHour) % characterKeys.length;
+  const characterIndex = (rotationIndex + minuteOfHour) % characterKeys.length;
+  
   return characterKeys[characterIndex];
 }
 

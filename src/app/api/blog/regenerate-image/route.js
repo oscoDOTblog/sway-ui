@@ -29,6 +29,14 @@ export async function POST(request) {
       }, { status: 404 });
     }
 
+    // Check if image generation is enabled via environment variable
+    if (process.env.APP_BLOG_GEN_IMAGE === 'false') {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Image generation is disabled via APP_BLOG_GEN_IMAGE=false environment variable' 
+      }, { status: 403 });
+    }
+
     // Regenerate the image
     const result = await regenerateBlogImage(
       blogPost.title, 

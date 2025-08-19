@@ -227,20 +227,28 @@ Tags: [comma-separated list of 5-8 relevant tags]`
     // Extract content sections
     const sections = extractContentSections(content);
 
-    // Generate AI image for the blog post
+    // Generate AI image for the blog post (if enabled)
     let featuredImage = null;
-    try {
-      // 🎨 Generating AI image...
-      console.log('🎨 Generating AI image...');
-      featuredImage = await generateBlogImage(selectedTopic, slug);
-      
-      if (!featuredImage) {
-        console.log('⚠️ AI image generation failed, trying fallback image...');
-        featuredImage = await generateFallbackImage(seoTitle, slug);
+    
+    // Check if image generation is enabled via environment variable
+    const imageGenerationEnabled = process.env.APP_BLOG_GEN_IMAGE !== 'false';
+    
+    if (imageGenerationEnabled) {
+      try {
+        // 🎨 Generating AI image...
+        console.log('🎨 Generating AI image...');
+        featuredImage = await generateBlogImage(selectedTopic, slug);
+        
+        if (!featuredImage) {
+          console.log('⚠️ AI image generation failed, trying fallback image...');
+          featuredImage = await generateFallbackImage(seoTitle, slug);
+        }
+      } catch (imageError) {
+        console.error('❌ Error generating image:', imageError.message);
+        // Continue without image - don't fail the entire blog generation
       }
-    } catch (imageError) {
-      console.error('❌ Error generating image:', imageError.message);
-      // Continue without image - don't fail the entire blog generation
+    } else {
+      console.log('🖼️ Image generation disabled via APP_BLOG_GEN_IMAGE=false');
     }
 
     // Use AI-generated image if available, otherwise fall back to OG image
@@ -352,7 +360,8 @@ async function generateAutomatedBlogPost() {
     const character = getCharacterByDate(today);
     console.log('👤 Selected character:', character);
     
-    console.log(`🤖 Automated generation for ${today.toDateString()} ${today.getHours()}:${String(today.getMinutes()).padStart(2, '0')}: Topic from category rotation with duplicate prevention, Character: ${character}`);
+    const timeSlot = today.getHours() >= 12 ? 'Evening (6 PM)' : 'Morning (9 AM)';
+    console.log(`🤖 Automated generation for ${today.toDateString()} ${timeSlot}: Topic from category rotation with duplicate prevention, Character: ${character}`);
     
     console.log('🔄 Calling generateBlogPost...');
     const result = await generateBlogPost(topic, character, null);

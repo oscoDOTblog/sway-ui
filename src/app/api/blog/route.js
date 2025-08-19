@@ -9,8 +9,9 @@ export async function GET(request) {
     const category = searchParams.get('category');
     const tag = searchParams.get('tag');
     const search = searchParams.get('search');
-    const limit = parseInt(searchParams.get('limit')) || 50;
-    const offset = parseInt(searchParams.get('offset')) || 0;
+    const limit = parseInt(searchParams.get('limit')) || 12;
+    const page = parseInt(searchParams.get('page')) || 1;
+    const offset = (page - 1) * limit;
 
     let posts = [];
 

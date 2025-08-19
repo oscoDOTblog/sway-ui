@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import styles from './BlogManager.module.css';
 import ImageRegenerationModal from './ImageRegenerationModal';
+import ImageUploadModal from './ImageUploadModal';
 
 export default function BlogManager() {
   const [posts, setPosts] = useState([]);
@@ -16,6 +17,10 @@ export default function BlogManager() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [regenerationModal, setRegenerationModal] = useState({
+    isOpen: false,
+    blogPost: null
+  });
+  const [uploadModal, setUploadModal] = useState({
     isOpen: false,
     blogPost: null
   });
@@ -177,6 +182,30 @@ export default function BlogManager() {
         ? { ...post, featuredImage: newImageUrl }
         : post
     ));
+  };
+
+  const handleUploadImage = (post) => {
+    setUploadModal({
+      isOpen: true,
+      blogPost: post
+    });
+  };
+
+  const handleCloseUploadModal = () => {
+    setUploadModal({
+      isOpen: false,
+      blogPost: null
+    });
+  };
+
+  const handleImageUploaded = (newImageUrl) => {
+    // Update the post in the list with the new image URL
+    setPosts(posts.map(post => 
+      post.slug === uploadModal.blogPost.slug 
+        ? { ...post, featuredImage: newImageUrl }
+        : post
+    ));
+    setSuccess('Image uploaded successfully!');
   };
 
   const formatDate = (dateString) => {
@@ -382,6 +411,13 @@ export default function BlogManager() {
                           🎨
                         </button>
                         <button
+                          onClick={() => handleUploadImage(post)}
+                          className={styles.uploadButton}
+                          title="Upload Image"
+                        >
+                          📁
+                        </button>
+                        <button
                           onClick={() => handleDelete(post.slug)}
                           disabled={isDeleting}
                           className={`${styles.deleteButton} ${deletingSlug === post.slug ? styles.deleting : ''}`}
@@ -418,6 +454,14 @@ export default function BlogManager() {
         onClose={handleCloseRegenerationModal}
         blogPost={regenerationModal.blogPost}
         onRegenerate={handleImageRegenerated}
+      />
+
+      {/* Image Upload Modal */}
+      <ImageUploadModal
+        isOpen={uploadModal.isOpen}
+        onClose={handleCloseUploadModal}
+        blogPost={uploadModal.blogPost}
+        onUpload={handleImageUploaded}
       />
     </div>
   );

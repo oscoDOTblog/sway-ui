@@ -225,7 +225,7 @@
   align-items: center;
 }
 
-.editButton, .deleteButton, .saveButton, .cancelButton, .viewButton, .regenerateButton {
+.editButton, .deleteButton, .saveButton, .cancelButton, .viewButton, .regenerateButton, .uploadButton {
   background: none;
   border: none;
   font-size: 1.25rem;
@@ -247,6 +247,11 @@
 
 .regenerateButton:hover {
   background: rgba(255, 0, 128, 0.2);
+  transform: scale(1.1);
+}
+
+.uploadButton:hover {
+  background: rgba(0, 128, 255, 0.2);
   transform: scale(1.1);
 }
 
