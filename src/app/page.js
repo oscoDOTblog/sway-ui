@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { projects } from './data/projects';
 
 import SimpleNewsletterSignup from './components/SimpleNewsletterSignup';
@@ -307,7 +308,7 @@ export default function Home() {
             <h2 className={styles.newsletterTitle}>Stay in the Loop</h2>
             <p className={styles.newsletterDescription}>
               Get the latest dance content, updates, and exclusive access to new features. 
-              Sign up for our newsletter and receive a special promo code for early access!
+              Sign up for our newsletter and receive a <strong><em>special promo code</em></strong> for early access!
             </p>
             <SimpleNewsletterSignup />
           </div>
@@ -330,10 +331,12 @@ export default function Home() {
               onTouchEnd={handleTouchEnd}
             >
               <div className={styles.projectImage}>
-                <img 
+                <Image 
                   src={project.backgroundImage} 
                   alt={project.title}
                   className={styles.image}
+                  width={400}
+                  height={250}
                 />
                 <div className={styles.projectOverlay}>
                   <div className={styles.projectInfo}>
@@ -380,10 +383,12 @@ export default function Home() {
             </button>
             <div className={styles.modalContent}>
               <div className={styles.modalImage}>
-                <img 
+                <Image 
                   src={selectedProject.backgroundImage} 
                   alt={selectedProject.title}
                   className={styles.modalImg}
+                  width={600}
+                  height={400}
                 />
               </div>
               <div className={styles.modalInfo}>

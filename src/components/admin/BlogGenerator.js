@@ -5,8 +5,6 @@ import styles from './BlogGenerator.module.css';
 
 export default function BlogGenerator() {
   const [topics, setTopics] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [tags, setTags] = useState([]);
   const [characters, setCharacters] = useState({});
   const [topicCategories, setTopicCategories] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState('');
@@ -34,8 +32,6 @@ export default function BlogGenerator() {
       
       if (data.success) {
         setTopics(data.topics);
-        setCategories(data.categories);
-        setTags(data.tags);
         setCharacters(data.characters || {});
         setTopicCategories(data.topicCategories || []);
       }

@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import BlogNavigation from '../../../components/BlogNavigation';
 import RelatedPosts from '../../../components/RelatedPosts';
@@ -107,10 +108,13 @@ export default async function BlogPostPage({ params }) {
         {/* Featured Image */}
         {post.featuredImage && (
           <div className={styles.featuredImageContainer}>
-            <img
+            <Image
               src={post.featuredImage}
               alt={post.title}
               className={styles.featuredImage}
+              width={800}
+              height={400}
+              priority
             />
           </div>
         )}
@@ -145,7 +149,7 @@ export default async function BlogPostPage({ params }) {
                 </a>
               ),
               img: ({ src, alt }) => (
-                <img src={src} alt={alt} className={styles.markdownImage} loading="lazy" />
+                <Image src={src} alt={alt} className={styles.markdownImage} width={600} height={400} />
               ),
               table: ({ children }) => <table className={styles.markdownTable}>{children}</table>,
               th: ({ children }) => <th className={styles.markdownTh}>{children}</th>,

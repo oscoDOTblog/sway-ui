@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { tunesConfig } from '../../config/tunesConfig';
 import styles from './page.module.css';
 
@@ -18,7 +18,7 @@ export default function TunesPage() {
       onClick={() => handlePlaylistClick(playlist.playlistUrl)}
     >
       <div className={styles.playlistImage}>
-        <img src={playlist.imageUrl} alt={playlist.title} />
+        <Image src={playlist.imageUrl} alt={playlist.title} width={300} height={300} />
         <div className={styles.playButton}>
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 5v14l11-7z"/>

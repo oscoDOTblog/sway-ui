@@ -1,6 +1,7 @@
 import { blogService } from '../../lib/blogService';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import Image from 'next/image';
 import BlogCTA from '../components/BlogCTA';
 import styles from './page.module.css';
 
@@ -58,11 +59,12 @@ export default async function BlogPage() {
               <Link href={`/blog/${post.slug}`} className={styles.postLink}>
                 {post.featuredImage && (
                   <div className={styles.imageContainer}>
-                    <img
+                    <Image
                       src={post.featuredImage}
                       alt={post.title}
                       className={styles.featuredImage}
-                      loading="lazy"
+                      width={400}
+                      height={250}
                     />
                   </div>
                 )}

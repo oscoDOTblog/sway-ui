@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import OpenAI from 'openai';
 
 import { blogService } from '../../../../lib/blogService';
-import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getTopicByCategoryRotation, getCharacterByDate, getTopicWithDuplicatePrevention } from '../../../../config/blogConfig';
+import { blogConfig, getRandomTopic, getRandomTopicFromCategory, getCategoryNames, getRandomCharacter, getCharacterInfo, generateUniqueSlug, generateUniqueId, calculateReadTime, getCharacterByDate, getTopicWithDuplicatePrevention } from '../../../../config/blogConfig';
 import { validateAdminAuth, createUnauthorizedResponse } from '../../../../lib/adminAuth';
 import { telegramService } from '../../../../lib/telegramService';
 import { generateBlogImage, generateFallbackImage } from '../../../../lib/imageService';
