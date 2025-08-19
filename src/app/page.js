@@ -256,8 +256,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-            {/* Current App Section */}
-      <section className={styles.currentAppSection}>
+      {/* Current App Section */}
+      {/* <section className={styles.currentAppSection}>
         <div className={styles.sectionContainer}>
           <div className={styles.appContent}>
             <div className={styles.appInfo}>
@@ -284,7 +284,7 @@ export default function Home() {
                   Mobile-responsive design
                 </div>
               </div>
-              <a href="https://f4.sway.quest" target="_blank" rel="noopener noreferrer" className={styles.appButton}>
+              <a href="https://app.sway.quest" target="_blank" rel="noopener noreferrer" className={styles.appButton}>
                 Launch App
               </a>
             </div>
@@ -292,13 +292,13 @@ export default function Home() {
               <div className={styles.appMockup}>
                 <div className={styles.mockupContent}>
                   <span className={styles.mockupIcon}>📱</span>
-                  <p>F4.sway.quest</p>
+                  <p>app.sway.quest</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Newsletter Section */}
       <section className={styles.newsletterSection}>

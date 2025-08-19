@@ -33,6 +33,17 @@ export const projects = [
     gradient: "linear-gradient(135deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)"
   },
   {
+    id: 4,
+    title: "Tunes",
+    description: "Curated playlists for all kinds of dance styles",
+    icon: "🎵",
+    backgroundImage: "/projects/tunes-v1.png",
+    category: "Internet Live Radio",
+    comingSoon: true,
+    url: "https://tunes.sway.quest",
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+  },
+  {
     id: 3,
     title: "Seshes",
     description: "Checkout events, workshops, and studios in your area",
@@ -42,17 +53,6 @@ export const projects = [
     comingSoon: true,
     url: null,
     gradient: "linear-gradient(135deg, #000000 0%, #808080 100%)"
-  },
-  {
-    id: 4,
-    title: "Tunes",
-    description: "Curated playlists for all kinds of dance styles",
-    icon: "🎵",
-    backgroundImage: "/projects/tunes-v1.png",
-    category: "Internet Live Radio",
-    comingSoon: true,
-    url: null,
-    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
   },
   {
     id: 5,
